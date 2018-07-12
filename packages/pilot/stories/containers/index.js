@@ -14,10 +14,12 @@ import CardConfirmation from './Refund/CardConfirmation'
 import CardForm from './Refund/CardForm'
 import CardResult from './Refund/CardResult'
 import RecipientListState from './RecipientList'
+
 import {
   ManualReviewApproveForm,
   ManualReviewRefuseForm,
 } from './ManualReview/Form'
+
 import {
   ManualReviewApproveResult,
   ManualReviewRefuseResult,
@@ -34,6 +36,7 @@ import {
   BoletoRefund,
   CreditCardRefund,
 } from './Refund'
+import IdentificationStep from './AddRecipient/IdentificationStep'
 import Reprocess from './Reprocess'
 import ReprocessForm from './Reprocess/Form'
 import ReprocessResult from './Reprocess/Result'
@@ -95,6 +98,9 @@ storiesOf('Containers|Page containers', module)
   ))
   .add('Recipient list', () => (
     <RecipientListState />
+  ))
+  .add('Recipient identification step', () => (
+    <IdentificationStep />
   ))
   .add('Manual review approve form', () => (
     <ManualReviewApproveForm />
