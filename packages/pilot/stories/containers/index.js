@@ -53,6 +53,7 @@ import {
   SelfRegisterWaitingRiskAnalysis,
   SelfRegisterRefusedAccount,
 } from './SelfRegister'
+import SelectAccount from './AddRecipient/BankAccountStep/SelectAccount'
 import Withdraw from './Withdraw'
 import WithdrawConfirmation from './Withdraw/Confirmation'
 import WithdrawForm from './Withdraw/Form'
@@ -193,10 +194,10 @@ storiesOf('Containers|Page containers', module)
   .add('Self Register Company Data', () => (
     <SelfRegisterCompanyData />
   ))
-  .add('Self Register Partnet Data', () => (
+  .add('Self Register Partner Data', () => (
     <SelfRegisterPartnerData />
   ))
-  .add('Self Register Partnet Address', () => (
+  .add('Self Register Partner Address', () => (
     <SelfRegisterPartnerAddress />
   ))
   .add('Self Register Already Sell', () => (
@@ -222,6 +223,8 @@ storiesOf('Containers|Page containers', module)
   ))
   .add('Self Register Refused Account', () => (
     <SelfRegisterRefusedAccount />
+  .add('Select Account', () => (
+    <SelectAccount />
   ))
   .add('Withdraw', () => (
     <Withdraw />
