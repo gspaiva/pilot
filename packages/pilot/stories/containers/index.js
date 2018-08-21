@@ -88,6 +88,7 @@ import BankAccount from './Settings/BankAccount'
 import ConclusionStepSuccess from './AddRecipient/ConclusionStep/Success'
 import ConclusionStepFail from './AddRecipient/ConclusionStep/Fail'
 import ConfigurationStep from './AddRecipient/ConfigurationsStep'
+import RecipientDetailInfo from './RecipientDetailInfo'
 
 storiesOf('Containers|Bank/Account', module)
   .add('selector', () => <BankAccountSelector />)
@@ -97,6 +98,9 @@ storiesOf('Containers|Page containers', module)
   .addDecorator(checkA11y)
   .add('Boleto Configuration Form', () => (
     <BoletoConfigurationForm />
+  ))
+  .add('Recipient Detail Info', () => (
+    <RecipientDetailInfo />
   ))
   .add('Recipient Conclusion Success', () => (
     <ConclusionStepSuccess />
