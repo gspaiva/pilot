@@ -45,6 +45,7 @@ import IdentificationStep from './AddRecipient/IdentificationStep'
 import Reprocess from './Reprocess'
 import ReprocessForm from './Reprocess/Form'
 import ReprocessResult from './Reprocess/Result'
+
 import {
   SelfRegisterCreateAccount,
   SelfRegisterCheckCNPJ,
@@ -62,6 +63,7 @@ import {
   SelfRegisterWaitingRiskAnalysis,
   SelfRegisterRefusedAccount,
 } from './SelfRegister'
+
 import SelectAccount from './AddRecipient/BankAccountStep/SelectAccount'
 import Withdraw from './Withdraw'
 import WithdrawConfirmation from './Withdraw/Confirmation'
@@ -91,6 +93,13 @@ import ConfigurationStep from './AddRecipient/ConfigurationsStep'
 import RecipientDetailInfo from './RecipientDetailInfo'
 import RecipientBalance from './RecipientDetails/RecipientBalance'
 
+import {
+  AddRecipientFetchError,
+  AddRecipientSubmitError,
+  AddRecipientSuccess,
+  AddRecipientSuccessNoAccounts,
+} from './AddRecipient'
+
 storiesOf('Containers|Bank/Account', module)
   .add('selector', () => <BankAccountSelector />)
   .add('settings', () => <BankAccount />)
@@ -102,6 +111,18 @@ storiesOf('Containers|Page containers', module)
   ))
   .add('Recipient Detail Info', () => (
     <RecipientDetailInfo />
+  ))
+  .add('Add Recipient', () => (
+    <AddRecipientSuccess />
+  ))
+  .add('Add Recipient no previous accounts', () => (
+    <AddRecipientSuccessNoAccounts />
+  ))
+  .add('Add Recipient fetch accounts error', () => (
+    <AddRecipientFetchError />
+  ))
+  .add('Add Recipient submit error', () => (
+    <AddRecipientSubmitError />
   ))
   .add('Recipient Conclusion Success', () => (
     <ConclusionStep />
@@ -267,6 +288,7 @@ storiesOf('Containers|Page containers', module)
   ))
   .add('Self Register Refused Account', () => (
     <SelfRegisterRefusedAccount />
+  ))
   .add('Select Account', () => (
     <SelectAccount />
   ))
