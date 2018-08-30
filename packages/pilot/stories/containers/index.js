@@ -85,8 +85,8 @@ import {
 import Anticipation from './Anticipation'
 import BoletoConfigurationForm from './Settings/Boleto/Form'
 import BankAccount from './Settings/BankAccount'
-import ConclusionStepSuccess from './AddRecipient/ConclusionStep/Success'
-import ConclusionStepFail from './AddRecipient/ConclusionStep/Fail'
+import ConclusionStep from './AddRecipient/ConclusionStep'
+import ErrorStep from './AddRecipient/ErrorStep'
 import ConfigurationStep from './AddRecipient/ConfigurationsStep'
 import RecipientDetailInfo from './RecipientDetailInfo'
 import RecipientBalance from './RecipientDetails/RecipientBalance'
@@ -104,10 +104,10 @@ storiesOf('Containers|Page containers', module)
     <RecipientDetailInfo />
   ))
   .add('Recipient Conclusion Success', () => (
-    <ConclusionStepSuccess />
+    <ConclusionStep />
   ))
   .add('Recipient Conclusion Fail', () => (
-    <ConclusionStepFail />
+    <ErrorStep />
   ))
   .add('Recipient Configuration Step', () => (
     <ConfigurationStep />
