@@ -17,9 +17,14 @@ import AddAccountContent from '../../../AddRecipient/BankAccountStep/AddAccount/
 import SelectAccountContent from '../../../AddRecipient/BankAccountStep/SelectAccount/SelectAccountContent'
 import createNumberValidation from '../../../../validation/number'
 import createRequiredValidation from '../../../../validation/required'
+import createMaxLengthValidation from '../../../../validation/maxLength'
 import accountTypes from '../../../../models/accountTypes'
 import styles from '../style.css'
-import { BANK_ACCOUNT } from '../contentIds'
+import {
+  BANK_ACCOUNT,
+  ADD_ACCOUNT,
+  SELECT_ACCOUNT,
+} from '../contentIds'
 
 
 const hasItems = complement(either(isEmpty, isNil))
@@ -28,9 +33,6 @@ const toDropdownOptions = account => ({
   name: `${account.name} - ${account.bank} - ${account.agency} - ${account.number}`,
   value: account.id,
 })
-
-const ADD_ACCOUNT = 'addAccount'
-const SELECT_ACCOUNT = 'selectAccount'
 
 class BankAccountContent extends Component {
   constructor (props) {
@@ -41,6 +43,25 @@ class BankAccountContent extends Component {
     }
 
     this.handleFormSelectionChange = this.handleFormSelectionChange.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+  handleSubmit (data, errors) {
+    if (!errors) {
+      const { selectedForm } = this.state
+      let dataTransformed
+      if (selectedForm === ADD_ACCOUNT) {
+        dataTransformed = {
+          ...data,
+          id: undefined,
+        }
+      } else {
+        dataTransformed = {
+          id: data.id,
+        }
+      }
+      this.props.onSave(dataTransformed)
+    }
   }
 
   handleFormSelectionChange (selectedForm) {
@@ -83,14 +104,25 @@ class BankAccountContent extends Component {
       accounts,
       onCancel,
       onChange,
-      onSave,
       t,
     } = this.props
 
     const displaySelectAccount = hasItems(accounts)
 
-    const required = createRequiredValidation(t('requiredMessage'))
-    const number = createNumberValidation(t('numberMessage'))
+    const max30Message = t('pages.add_recipient.field_max', { number: 30 })
+    const max13Message = t('pages.add_recipient.field_max', { number: 13 })
+    const max5Message = t('pages.add_recipient.field_max', { number: 5 })
+    const max2Message = t('pages.add_recipient.field_max', { number: 2 })
+    const max1Message = t('pages.add_recipient.field_max', { number: 1 })
+
+
+    const required = createRequiredValidation(t('pages.recipient_detail.required'))
+    const number = createNumberValidation(t('pages.recipient_detail.number'))
+    const max30Characters = createMaxLengthValidation(30, max30Message)
+    const max13Characters = createMaxLengthValidation(13, max13Message)
+    const max5Characters = createMaxLengthValidation(5, max5Message)
+    const max2Characters = createMaxLengthValidation(2, max2Message)
+    const max1Characters = createMaxLengthValidation(1, max1Message)
 
     if (displaySelectAccount) {
       return (
@@ -121,15 +153,15 @@ class BankAccountContent extends Component {
             }}
             validateOn="blur"
             validation={{
-              name: [required],
-              number: [required, number],
+              name: [required, max30Characters],
+              number: [required, number, max13Characters],
+              number_digit: [required, number, max2Characters],
               type: [required],
-              agency: [required, number],
+              agency: [required, number, max5Characters],
+              agency_digit: [number, max1Characters],
               bank: [required],
             }}
-            onSubmit={(data, errors) => {
-              if (!errors) onSave(data)
-            }}
+            onSubmit={this.handleSubmit}
             onChange={onChange}
           >
             { this.renderSelectedForm() }
