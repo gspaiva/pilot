@@ -11,6 +11,7 @@ import { omit } from 'ramda'
 import Information from './Info'
 import Configuration from './Config'
 import Balance from './Balance'
+import dateFormatter from '../../../src/formatters/longDate'
 
 import styles from './styles.css'
 
