@@ -29,6 +29,7 @@
     "react-redux": "5.0.7",
     "react-router-dom": "4.2.2",
     "react-scripts-former-kit-dashboard": "0.1.2",
+    "react-select": "2.1.0",
     "react-textfit": "1.1.0",
     "react-vanilla-form": "0.6.1",
     "recharts": "1.0.0-beta.10",
