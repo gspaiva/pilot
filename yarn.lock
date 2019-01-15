@@ -4238,10 +4238,10 @@ emblematic-icons@0.1.1:
   resolved "https://registry.yarnpkg.com/emblematic-icons/-/emblematic-icons-0.1.1.tgz#697010326b33da9e499286f570c7fabe2aa54fcb"
   integrity sha512-/saObp3WnfzPS2k9f20L9jC0Rp5dxcoA780/zxcgbV3Ls56tv0MUiyN3vqU+NeBtK4yspg7gjOnjTLoPMzvSIg==
 
-emblematic-icons@0.5.1:
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/emblematic-icons/-/emblematic-icons-0.5.1.tgz#022e4436abf9e001b12ec365237b9a78acd37536"
-  integrity sha512-xEbLYo0t8RJimH7blqgysaQtMii2bSfEetOjHxURe5udLdtW1xSjBIM0VOYFDNCqFpVN4qUX90qUVqqAcv1sTQ==
+emblematic-icons@0.6.1:
+  version "0.6.1"
+  resolved "https://registry.yarnpkg.com/emblematic-icons/-/emblematic-icons-0.6.1.tgz#c9eba3cc90d818cf451cebf35b360e5e3dcf0b06"
+  integrity sha512-y9SC6R9wT5B82V0xNNmKswkf6ulB8Fbgs7oenxDsGEqUsMKBFajcwE27BlCwB7WC3bzaRZqSuQjERAI5xINoAw==
 
 emoji-regex@^6.1.0:
   version "6.5.1"
