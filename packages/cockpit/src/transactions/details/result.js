@@ -132,10 +132,10 @@ const getAntifraudAnalysis = ifElse(
 )
 
 const buildCreditCardOperations = ({
-  transaction,
-  gatewayOperations,
-  chargebackOperations,
   antifraudAnalyses,
+  chargebackOperations,
+  gatewayOperations,
+  transaction,
 }) => {
   const sortedGatewayOps = sortGatewayOperations(gatewayOperations)
   const filteredGatewayOps = rejectInvalidOperations(sortedGatewayOps)
@@ -344,7 +344,7 @@ const buildRecipients = applySpec({
 const hasSplitRules = propSatisfies(complement(isEmpty), 'split_rules')
 
 /* eslint-disable-next-line camelcase */
-const groupInstallments = ({ split_rules, payables }) =>
+const groupInstallments = ({ payables, split_rules }) =>
   split_rules.map(rule => ({
     ...rule,
     installments: payables.filter(propEq('split_rule_id', rule.id)),
@@ -382,7 +382,7 @@ const buildReprocessIds = applySpec({
   previousId: getOriginalId,
 })
 
-const buildCapabilities = ({ transaction, reprocessed }) => ({
+const buildCapabilities = ({ reprocessed, transaction }) => ({
   capabilities: {
     refundable: isRefundable(transaction),
     reprocessable: isReprocessable(transaction, reprocessed),

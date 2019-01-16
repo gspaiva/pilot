@@ -11,7 +11,7 @@ module.exports = (resolve, rootDir) => {
       '^.+\\.(js)$': require.resolve('babel-jest'),
       '^(?!.*\\.(js|mjs|json)$)': resolve('config/jest/fileTransform.js'),
     },
-    setupTestFrameworkScriptFile: resolve('config/jest/setupTests.js'),
+    setupFilesAfterEnv: [resolve('config/jest/setupTests.js')],
     transformIgnorePatterns: ['[/\\\\]node_modules[/\\\\].+\\.(js|mjs)$'],
     moduleFileExtensions: [
       'web.js',

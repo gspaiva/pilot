@@ -20,7 +20,7 @@ import {
   set,
 } from 'ramda'
 
-const buildNewMetadata = ({ metadata, id }) => merge(
+const buildNewMetadata = ({ id, metadata }) => merge(
   { pagarme_original_transaction_id: id },
   metadata
 )
