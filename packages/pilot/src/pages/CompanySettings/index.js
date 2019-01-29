@@ -25,8 +25,8 @@ import CompanySettings from '../../containers/Settings/Company'
 import environment from '../../environment'
 
 const mapStateToProps = ({
-  account: { client, user, company },
-}) => ({ client, user, company })
+  account: { client, company, user },
+}) => ({ client, company, user })
 
 const mapDispatchToProp = ({
   requestLogout,
@@ -69,18 +69,16 @@ const getCurrentCompany = client => client.company.current()
 
 const getSelectedAccount = curry((client, id) =>
   client.recipients.find({ id })
-    .then(path(['bank_account']))
-)
+    .then(path(['bank_account'])))
 
 const getBankAccounts = curry((client, bankAccount) =>
   client.bankAccounts.find({
     count: 100,
     document_number: bankAccount.document_number,
   }).then(accounts => ({
-    selectedAccount: bankAccount,
     accounts,
-  }))
-)
+    selectedAccount: bankAccount,
+  })))
 
 const buildBankAccount = account => ({
   agencia: account.agency || account.agencia,
@@ -93,10 +91,10 @@ const buildBankAccount = account => ({
   type: account.type,
 })
 
-const updateBankAccount = ({ client, account, recipiendId }) =>
+const updateBankAccount = ({ account, client, recipiendId }) =>
   client.recipients.update({
-    id: recipiendId,
     bank_account: buildBankAccount(account),
+    id: recipiendId,
   })
 
 const boletoOptions = t => ([
@@ -137,7 +135,6 @@ class CompanySettingsPage extends React.Component {
     super(props)
 
     this.state = {
-      defaultRecipientId: null,
       bankAccount: {
         accounts: [],
         actionsDisabled: true,
@@ -166,9 +163,10 @@ class CompanySettingsPage extends React.Component {
       },
       createUserStatus: {
         error: null,
-        success: false,
         loading: false,
+        success: false,
       },
+      defaultRecipientId: null,
       deleteUserStatus: {
         error: null,
         success: false,
@@ -230,16 +228,16 @@ class CompanySettingsPage extends React.Component {
       })
       .then(getSelectedAccount(client))
       .then(getBankAccounts(client))
-      .then(({ selectedAccount, accounts }) => this.setState({
+      .then(({ accounts, selectedAccount }) => this.setState({
         bankAccount: {
           ...bankAccount,
           accounts,
-          selectedAccount,
           data: {
             ...defaultBankAccountState,
             documentNumber: selectedAccount.document_number,
             legalName: selectedAccount.legal_name,
           },
+          selectedAccount,
         },
       }))
       .catch(redirectoToLogout)
@@ -306,7 +304,7 @@ class CompanySettingsPage extends React.Component {
       })
         .then(prop('bank_account'))
         .then(getBankAccounts(client))
-        .then(({ selectedAccount, accounts }) => this.setState({
+        .then(({ accounts, selectedAccount }) => this.setState({
           bankAccount: {
             ...bankAccount,
             accounts,
@@ -321,8 +319,7 @@ class CompanySettingsPage extends React.Component {
             selectedView: 'selection',
           },
         }))
-        .catch(redirectoToLogout)
-      )
+        .catch(redirectoToLogout))
     } else {
       this.setState({
         bankAccount: {
@@ -355,8 +352,7 @@ class CompanySettingsPage extends React.Component {
           selectedAccount,
         },
       }))
-      .catch(redirectoToLogout)
-    )
+      .catch(redirectoToLogout))
   }
 
   handleBoletoCancel () {
@@ -368,7 +364,8 @@ class CompanySettingsPage extends React.Component {
         ...boleto,
         actionsDisabled: true,
         expiration: getPropFromBoleto(
-          'days_to_add_in_expiration_date', company
+          'days_to_add_in_expiration_date',
+          company
         ),
         instructions: getValueFromInstructions(
           company.boletos.instrucoes,
@@ -399,11 +396,12 @@ class CompanySettingsPage extends React.Component {
         boleto: {
           ...boleto,
           actionsDisabled: true,
-          loading: false,
           expiration: boletos.days_to_add_in_expiration_date,
           instructions: getValueFromInstructions(
-            boletos.instrucoes, boletoOptions(t)
+            boletos.instrucoes,
+            boletoOptions(t)
           ),
+          loading: false,
         },
       })
     }
@@ -411,8 +409,8 @@ class CompanySettingsPage extends React.Component {
     const handleError = response => this.setState({
       boleto: {
         ...boleto,
-        error: formatErrors(response),
         actionsDisabled: true,
+        error: formatErrors(response),
         loading: false,
       },
     })
@@ -421,8 +419,8 @@ class CompanySettingsPage extends React.Component {
       this.setState({
         boleto: {
           ...boleto,
-          loading: true,
           actionsDisabled: true,
+          loading: true,
         },
       }, () => {
         company.update({
@@ -445,8 +443,8 @@ class CompanySettingsPage extends React.Component {
     const handleSuccess = () => this.setState({
       createUserStatus: {
         error: null,
-        success: true,
         loading: false,
+        success: true,
       },
     })
 
@@ -454,8 +452,8 @@ class CompanySettingsPage extends React.Component {
       this.setState({
         createUserStatus: {
           error: formatErrors(response),
-          success: false,
           loading: false,
+          success: false,
         },
       })
     }
@@ -463,22 +461,21 @@ class CompanySettingsPage extends React.Component {
     this.setState({
       createUserStatus: {
         error: null,
-        success: false,
         loading: true,
+        success: false,
       },
     }, () => this.props.client.invites
       .create(user)
       .then(handleSuccess)
-      .catch(handleFailure)
-    )
+      .catch(handleFailure))
   }
 
   resetCreateUserState () {
     this.setState({
       createUserStatus: {
         error: null,
-        success: false,
         loading: false,
+        success: false,
       },
     })
   }
@@ -576,7 +573,6 @@ CompanySettingsPage.propTypes = {
       destroy: PropTypes.func.isRequired,
     }),
   }).isRequired,
-  user: PropTypes.shape({}),
   company: PropTypes.shape({
     boletos: PropTypes.shape({
       days_to_add_in_expiration_date: PropTypes.number.isRequired,
@@ -585,6 +581,7 @@ CompanySettingsPage.propTypes = {
   }),
   requestLogout: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
+  user: PropTypes.shape({}),
 }
 
 CompanySettingsPage.defaultProps = {

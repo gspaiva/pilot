@@ -69,7 +69,7 @@ class Root extends Component {
     }
 
     if (!client && sessionId) {
-      this.props.requestLogin({ session_id: sessionId, environment })
+      this.props.requestLogin({ environment, session_id: sessionId })
     }
   }
 
@@ -81,11 +81,11 @@ class Root extends Component {
     const {
       client,
       company,
+      history,
       location: {
         pathname: path,
         search: queryString,
       },
-      history,
       sessionId,
       user,
     } = this.props
@@ -124,13 +124,13 @@ class Root extends Component {
 Root.propTypes = {
   client: PropTypes.object, // eslint-disable-line
   company: PropTypes.object, // eslint-disable-line
-  location: PropTypes.shape({
-    pathname: PropTypes.string,
-    search: PropTypes.string,
-  }).isRequired,
   history: PropTypes.shape({
     listen: PropTypes.func,
     replace: PropTypes.func,
+  }).isRequired,
+  location: PropTypes.shape({
+    pathname: PropTypes.string,
+    search: PropTypes.string,
   }).isRequired,
   requestLogin: PropTypes.func.isRequired,
   sessionId: PropTypes.string,

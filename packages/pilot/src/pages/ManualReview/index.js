@@ -12,9 +12,7 @@ const mapStateToProps = ({
 
 const enhanced = compose(
   translate(),
-  connect(
-    mapStateToProps
-  ),
+  connect(mapStateToProps),
   withRouter
 )
 
@@ -26,7 +24,8 @@ class InvalidPasswordError extends Error {
   }
 }
 
-const normalizeErrorMessage = (errorMessage) => {
+const normalizeErrorMessage = (error) => {
+  const errorMessage = path(['response', 'errors', 0, 'message'], error)
   if (errorMessage === 'Cannot create antifraud analysis for transaction that is not pending review.') {
     return 'pages.manual_review.result_error_is_not_pending_review'
   }
@@ -92,8 +91,8 @@ class ManualReview extends Component {
 
     client.session
       .verify({
-        password,
         id: client.authentication.session_id,
+        password,
       })
       .then(({ valid }) => {
         if (!valid) {
@@ -101,8 +100,10 @@ class ManualReview extends Component {
         }
 
         return client.antifraudAnalyses.create({
+          status: action === 'approve'
+            ? 'approved'
+            : 'refused',
           transactionId,
-          status: action === 'approve' ? 'approved' : 'refused',
         })
       })
       .then(() => {
@@ -124,9 +125,7 @@ class ManualReview extends Component {
             },
           })
         } else {
-          const errorMessage = normalizeErrorMessage(
-            path(['response', 'errors', 0, 'message'], error)
-          )
+          const errorMessage = normalizeErrorMessage(error)
 
           this.setState({
             errorMessage,

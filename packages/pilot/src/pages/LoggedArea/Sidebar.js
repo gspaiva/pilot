@@ -65,13 +65,13 @@ Sidebar.propTypes = {
     waitingFunds: PropTypes.number,
   }).isRequired,
   companyName: PropTypes.string,
-  recipientId: PropTypes.string,
-  location: PropTypes.shape({
-    pathname: PropTypes.string,
-  }).isRequired,
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,
+  location: PropTypes.shape({
+    pathname: PropTypes.string,
+  }).isRequired,
+  recipientId: PropTypes.string,
   t: PropTypes.func.isRequired,
 }
 

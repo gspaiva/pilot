@@ -46,10 +46,10 @@ class PasswordRecoveryPage extends PureComponent {
         const parsedErrors = buildResetParamErrors(apiErrors)
 
         this.setState({
-          loading: false,
           errors: {
             email: parsedErrors.email,
           },
+          loading: false,
         })
       })
     }

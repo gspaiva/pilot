@@ -74,7 +74,6 @@ const getRecipientById = (id, client) => (
     ))
 )
 
-
 const getAvailableAmount = pathOr(null, ['balance', 'available', 'amount'])
 
 const stepsId = {
@@ -93,30 +92,29 @@ const defaultStepsState = {
   },
 }
 
-
 const getStepsStatus = (nextStep, nextStepStatus) => {
   const buildStepsStatus = cond([
     [
       equals(stepsId.data),
       always({
-        data: nextStepStatus,
         confirmation: 'pending',
+        data: nextStepStatus,
         result: 'pending',
       }),
     ],
     [
       equals(stepsId.confirmation),
       always({
-        data: 'success',
         confirmation: nextStepStatus,
+        data: 'success',
         result: 'pending',
       }),
     ],
     [
       equals(stepsId.result),
       always({
-        data: 'success',
         confirmation: 'success',
+        data: 'success',
         result: nextStepStatus,
       }),
     ],
@@ -192,7 +190,7 @@ class Withdraw extends Component {
 
     if (recipient && bankCode) {
       // eslint-disable-next-line camelcase
-      const { pricing: { transfers: { ted, credito_em_conta } } } = this.props
+      const { pricing: { transfers: { credito_em_conta, ted } } } = this.props
 
       if (contains(partnersBankCodes, bankCode)) {
         return credito_em_conta // eslint-disable-line camelcase
@@ -207,8 +205,8 @@ class Withdraw extends Component {
   createTransfer () {
     const {
       client,
-      t,
       onWithdrawReceive,
+      t,
     } = this.props
 
     const {
@@ -367,13 +365,13 @@ Withdraw.propTypes = {
       id: PropTypes.string,
     }).isRequired,
   }).isRequired,
+  onWithdrawReceive: PropTypes.func.isRequired,
   pricing: PropTypes.shape({
     transfers: PropTypes.shape({
       credito_em_conta: PropTypes.number,
       ted: PropTypes.number,
     }),
   }),
-  onWithdrawReceive: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
 }
 

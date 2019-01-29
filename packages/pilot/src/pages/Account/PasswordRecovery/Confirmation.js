@@ -31,11 +31,11 @@ class PasswordRecoveryConfirmationPage extends PureComponent {
 }
 
 PasswordRecoveryConfirmationPage.propTypes = {
-  t: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func,
     replace: PropTypes.func,
   }).isRequired,
+  t: PropTypes.func.isRequired,
 }
 
 export default enhanced(PasswordRecoveryConfirmationPage)

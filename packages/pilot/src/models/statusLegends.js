@@ -49,6 +49,11 @@ const status = {
     text: 'Chargeback',
     acronym: 'CB',
   },
+  unavailable: {
+    acronym: 'IN',
+    color: '#a0a0a0',
+    text: 'Indisponível',
+  },
   waiting_funds: {
     color: '#0b6e69',
     text: 'Aguardando pagamento',
@@ -68,11 +73,6 @@ const status = {
     color: '#da272c',
     text: 'Cancelada',
     acronym: 'CA',
-  },
-  unavailable: {
-    color: '#a0a0a0',
-    text: 'Indisponível',
-    acronym: 'IN',
   },
 }
 

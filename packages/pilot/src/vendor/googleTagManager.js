@@ -21,13 +21,13 @@ export const identify = (
 ) => {
   if (hasProperty(window.dataLayer)) {
     window.dataLayer.push({
-      fullstoryUserId: id,
       email,
-      userName,
-      userDateCreated,
-      userPermission,
       environment,
       event: 'loginReceive',
+      fullstoryUserId: id,
+      userDateCreated,
+      userName,
+      userPermission,
     })
   }
 }
@@ -40,12 +40,17 @@ export const identify = (
  * @param {string} companyDateCreated company created date
  * @param {string} companyStatus company status
  */
-export const setCompany = (companyId, companyName, companyDateCreated, companyStatus) => {
+export const setCompany = (
+  companyId,
+  companyName,
+  companyDateCreated,
+  companyStatus
+) => {
   if (hasProperty(window.dataLayer)) {
     window.dataLayer.push({
+      companyDateCreated,
       companyId,
       companyName,
-      companyDateCreated,
       companyStatus,
       event: 'accountReceive',
     })

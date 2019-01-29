@@ -66,10 +66,10 @@ const accountEpic = action$ =>
       }
 
       const {
-        id,
-        email,
-        name,
         date_created: dateCreated,
+        email,
+        id,
+        name,
         permission,
       } = payload
 

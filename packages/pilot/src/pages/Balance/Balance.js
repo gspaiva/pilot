@@ -78,11 +78,11 @@ const mapStateToProps = ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  onRequestBalance: (query) => {
-    dispatch(requestBalance(query))
-  },
   onReceiveBalance: ({ query }) => {
     dispatch(receiveBalance({ query }))
+  },
+  onRequestBalance: (query) => {
+    dispatch(requestBalance(query))
   },
   onRequestBalanceFail: (error) => {
     dispatch(receiveBalance(error))
@@ -112,15 +112,15 @@ const stringToMoment = unless(
 
 const queryDatesToISOString = applySpec({
   dates: {
-    start: pipe(path(['dates', 'start']), momentToISOString),
     end: pipe(path(['dates', 'end']), momentToISOString),
+    start: pipe(path(['dates', 'start']), momentToISOString),
   },
 })
 
 const queryDatesToMoment = applySpec({
   dates: {
-    start: pipe(path(['dates', 'start']), stringToMoment),
     end: pipe(path(['dates', 'end']), stringToMoment),
+    start: pipe(path(['dates', 'start']), stringToMoment),
   },
 })
 
@@ -159,14 +159,12 @@ const isRecipientId = test(/^re_/)
 const isNotRecipientId = complement(isRecipientId)
 
 const getValidId = uncurryN(2, defaultId => unless(
-  complement(
-    anyPass([
-      isNil,
-      Number.isNaN,
-      isEmpty,
-      isNotRecipientId,
-    ])
-  ),
+  complement(anyPass([
+    isNil,
+    Number.isNaN,
+    isEmpty,
+    isNotRecipientId,
+  ])),
   always(defaultId)
 ))
 
@@ -175,13 +173,14 @@ const getAnticipationAmount = path(['maximum', 'amount'])
 
 const cancelBulkAnticipation = ({ bulkId, recipientId }, client) =>
   client.bulkAnticipations.cancel({
-    recipientId,
     id: bulkId,
+    recipientId,
   })
 
 const userIsReadOnly = propEq('permission', 'read_only')
 
 const handleExportDataSuccess = (res, format) => {
+  /* eslint-disable no-undef */
   let contentType
   if (format === 'xlsx') {
     contentType = 'application/ms-excel'
@@ -202,6 +201,7 @@ const handleExportDataSuccess = (res, format) => {
   downloadLink.click()
   document.body.removeChild(downloadLink)
   URL.revokeObjectURL(downloadUrl)
+  /* eslint-enable no-undef */
 }
 
 class Balance extends Component {
@@ -214,6 +214,8 @@ class Balance extends Component {
         error: false,
         loading: false,
       },
+      anticipationCancel: null,
+      modalOpened: false,
       query: {
         count: 10,
         dates: {
@@ -224,20 +226,17 @@ class Balance extends Component {
       },
       result: {},
       total: {},
-      modalOpened: false,
-      anticipationCancel: null,
     }
 
     this.handleAnticipation = this.handleAnticipation.bind(this)
     this.handleCancelRequest = this.handleCancelRequest.bind(this)
-    this.handleExportData = this.handleExportData.bind(this)
+    this.handleCloseConfirmCancel = this.handleCloseConfirmCancel.bind(this)
     this.handleDateChange = this.handleDateChange.bind(this)
+    this.handleExportData = this.handleExportData.bind(this)
     this.handleFilterClick = this.handleFilterClick.bind(this)
+    this.handleOpenConfirmCancel = this.handleOpenConfirmCancel.bind(this)
     this.handlePageChange = this.handlePageChange.bind(this)
     this.handleWithdraw = this.handleWithdraw.bind(this)
-    this.handleOpenConfirmCancel = this.handleOpenConfirmCancel.bind(this)
-    this.handleCloseConfirmCancel = this.handleCloseConfirmCancel.bind(this)
-
     this.requestAnticipationLimits = this.requestAnticipationLimits.bind(this)
     this.requestData = this.requestData.bind(this)
     this.requestTotal = this.requestTotal.bind(this)
@@ -313,7 +312,9 @@ class Balance extends Component {
       qs.stringify
     )
 
-    const queryObject = isNilOrEmpty(query) ? this.state.stateQuery : query
+    const queryObject = isNilOrEmpty(query)
+      ? this.state.stateQuery
+      : query
     const pathId = getValidId(getRecipientId(this.props.company), id)
 
     const {
@@ -337,8 +338,8 @@ class Balance extends Component {
     const { client } = this.props
     this.setState({
       anticipation: {
-        loading: true,
         error: false,
+        loading: true,
       },
     })
     return getBulkAnticipationsLimits(client, id)
@@ -392,8 +393,8 @@ class Balance extends Component {
 
   handleAnticipation () {
     const {
-      history,
       company,
+      history,
     } = this.props
 
     history.push(`/anticipation/${getRecipientId(company)}`)
@@ -405,8 +406,8 @@ class Balance extends Component {
     const { id: bulkId } = this.state.anticipationCancel
 
     cancelBulkAnticipation({
-      recipientId,
       bulkId,
+      recipientId,
     }, client)
       .then(() => client.bulkAnticipations.findPendingRequests(recipientId))
       .then(response => this.setState({
@@ -428,10 +429,10 @@ class Balance extends Component {
     const recipientId = getRecipientId(company)
     return client.balanceOperations
       .find({
-        recipientId,
-        format,
-        startDate,
         endDate,
+        format,
+        recipientId,
+        startDate,
       })
       .then(res => handleExportDataSuccess(res, format))
   }
@@ -470,8 +471,8 @@ class Balance extends Component {
 
   handleWithdraw () {
     const {
-      history,
       company,
+      history,
     } = this.props
 
     history.push(`/withdraw/${getRecipientId(company)}`)
@@ -480,16 +481,16 @@ class Balance extends Component {
   handleOpenConfirmCancel (anticipation) {
     this.setState({
       ...this.state,
-      modalOpened: true,
       anticipationCancel: anticipation,
+      modalOpened: true,
     })
   }
 
   handleCloseConfirmCancel () {
     this.setState({
       ...this.state,
-      modalOpened: false,
       anticipationCancel: null,
+      modalOpened: false,
     })
   }
 
@@ -563,7 +564,10 @@ class Balance extends Component {
           disabled={loading}
           modalConfirmOpened={modalOpened}
           onAnticipationClick={this.handleAnticipation}
-          onCancelRequestClick={userIsReadOnly(user) ? null : this.handleOpenConfirmCancel}
+          onCancelRequestClick={userIsReadOnly(user)
+            ? null
+            : this.handleOpenConfirmCancel
+          }
           onCancelRequestClose={this.handleCloseConfirmCancel}
           onConfirmCancelPendingRequest={this.handleCancelRequest}
           onExport={this.handleExportData}
@@ -622,14 +626,14 @@ Balance.propTypes = {
   onRequestBalanceFail: PropTypes.func.isRequired,
   query: PropTypes.shape({
     dates: {
-      start: PropTypes.string,
       end: PropTypes.string,
+      start: PropTypes.string,
     },
   }),
   t: PropTypes.func.isRequired,
   user: PropTypes.shape({
     permission: PropTypes.oneOf([
-      'admin', 'write', 'read_only',
+      'admin', 'read_only', 'write',
     ]).isRequired,
   }),
 }

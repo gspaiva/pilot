@@ -48,7 +48,7 @@ const enhance = compose(
   translate()
 )
 
-const AccountArea = ({ t, history: { location } }) => {
+const AccountArea = ({ history: { location }, t }) => {
   const base = getBaseByPath(location.pathname)
   return (
     <Account
@@ -98,12 +98,12 @@ const AccountArea = ({ t, history: { location } }) => {
 }
 
 AccountArea.propTypes = {
-  t: PropTypes.func.isRequired,
   history: PropTypes.shape({
     location: PropTypes.shape({
       pathname: PropTypes.string,
     }),
   }).isRequired,
+  t: PropTypes.func.isRequired,
 }
 
 export default enhance(AccountArea)

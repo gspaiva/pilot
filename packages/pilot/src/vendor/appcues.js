@@ -22,11 +22,11 @@ export const identify = (
     window.Appcues.identify(
       userId,
       {
+        environment,
+        userDateCreated,
         userEmail,
         userName,
-        userDateCreated,
         userPermission,
-        environment,
       }
     )
   }
@@ -42,14 +42,20 @@ export const identify = (
  * @param {number} userId user id
  *
  */
-export const setCompany = (companyId, companyName, companyDateCreated, companyStatus, userId) => {
+export const setCompany = (
+  companyId,
+  companyName,
+  companyDateCreated,
+  companyStatus,
+  userId
+) => {
   if (hasProperty(window.Appcues)) {
     window.Appcues.identify(
       userId,
       {
+        companyDateCreated,
         companyId,
         companyName,
-        companyDateCreated,
         companyStatus,
       }
     )

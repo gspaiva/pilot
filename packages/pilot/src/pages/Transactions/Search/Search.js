@@ -47,12 +47,11 @@ const mapStateToProps = ({
 }) => ({ client, loading, query })
 
 const mapDispatchToProps = dispatch => ({
-  onRequestSearch: (query) => {
-    dispatch(requestSearch(query))
-  },
-
   onReceiveSearch: ({ query }) => {
     dispatch(receiveSearch({ query }))
+  },
+  onRequestSearch: (query) => {
+    dispatch(requestSearch(query))
   },
   onRequestSearchFail: (error) => {
     dispatch(requestLogout(error))
@@ -110,19 +109,19 @@ const normalizeTo = (defaultValue, propPath) => pipe(
 )
 
 const normalizeQueryStructure = applySpec({
-  search: normalizeTo('', ['search']),
+  count: pipe(
+    normalizeTo(15, ['count']),
+    Number
+  ),
   filters: normalizeTo({}, ['filters']),
   offset: pipe(
     normalizeTo(1, ['offset']),
     Number
   ),
-  count: pipe(
-    normalizeTo(15, ['count']),
-    Number
-  ),
+  search: normalizeTo('', ['search']),
   sort: {
-    order: normalizeTo('descending', ['sort', 'order']),
     field: normalizeTo(['created_at'], ['sort', 'field']),
+    order: normalizeTo('descending', ['sort', 'order']),
   },
 })
 
@@ -138,6 +137,7 @@ const parseQueryUrl = pipe(
 )
 
 const handleCSVExportDownloadingClick = (data, filename) => {
+  /* eslint-disable no-undef */
   const downloadLink = document.createElement('a')
   downloadLink.target = '_blank'
   downloadLink.download = filename.concat('csv')
@@ -155,6 +155,7 @@ const handleCSVExportDownloadingClick = (data, filename) => {
 
   document.body.removeChild(downloadLink)
   URL.revokeObjectURL(downloadUrl)
+  /* eslint-enable no-undef */
 }
 
 const handleXLSExportDownloadingClick = (data, filename) => {
@@ -172,17 +173,17 @@ class TransactionsSearch extends React.Component {
 
     this.state = {
       collapsed: true,
+      expandedRows: [],
+      pendingReviewsCount: 0,
       result: {
-        total: {},
-        list: {
-          rows: [],
-        },
         chart: {
           dataset: [],
         },
+        list: {
+          rows: [],
+        },
+        total: {},
       },
-      expandedRows: [],
-      pendingReviewsCount: 0,
       selectedRows: [],
       viewMode: 'table',
     }
@@ -241,10 +242,10 @@ class TransactionsSearch extends React.Component {
   handlePendingReviewsFilter () {
     this.handleFilterChange({
       dates: {},
-      search: '',
       filters: {
         status: ['pending_review'],
       },
+      search: '',
       sort: {
         field: ['created_at'],
         order: 'ascending',
@@ -255,8 +256,8 @@ class TransactionsSearch extends React.Component {
   updateQuery (query) {
     const {
       history: {
-        push,
         location,
+        push,
       },
     } = this.props
 
@@ -300,8 +301,8 @@ class TransactionsSearch extends React.Component {
   handlePageCountChange (count) {
     const query = {
       ...this.props.query,
-      offset: 1,
       count,
+      offset: 1,
     }
 
     this.updateQuery(query)
@@ -310,11 +311,11 @@ class TransactionsSearch extends React.Component {
   handleOrderChange (field, order) {
     const query = {
       ...this.props.query,
+      offset: 1,
       sort: {
         field,
         order,
       },
-      offset: 1,
     }
 
     this.updateQuery(query)
@@ -334,11 +335,11 @@ class TransactionsSearch extends React.Component {
   }) {
     const query = {
       ...this.props.query,
-      search,
       dates,
-      sort: sort || this.props.query.sort,
       filters,
       offset: 1,
+      search,
+      sort: sort || this.props.query.sort,
     }
 
     this.updateQuery(query)
@@ -390,7 +391,10 @@ class TransactionsSearch extends React.Component {
   }
 
   handleExport (exportType) {
-    const newQuery = { ...this.state.query, count: this.state.result.total.count }
+    const newQuery = {
+      ...this.state.query,
+      count: this.state.result.total.count,
+    }
     return this.props.client
       .transactions
       .exportData(newQuery, exportType)
@@ -417,9 +421,9 @@ class TransactionsSearch extends React.Component {
       expandedRows,
       pendingReviewsCount,
       result: {
-        total,
-        list,
         chart,
+        list,
+        total,
       },
       selectedRows,
       viewMode,
@@ -438,14 +442,15 @@ class TransactionsSearch extends React.Component {
 
     const pagination = {
       offset,
-      total: Math.ceil(
-        total.count / count
-      ),
+      total: Math.ceil(total.count / count),
     }
 
     return (
       <TransactionsList
-        amount={total.payment ? total.payment.paid_amount : 0}
+        amount={total.payment
+          ? total.payment.paid_amount
+          : 0
+        }
         collapsed={collapsed}
         columns={columns}
         count={total.count}
@@ -453,7 +458,6 @@ class TransactionsSearch extends React.Component {
         dateSelectorPresets={dateSelectorPresets}
         expandedRows={expandedRows}
         filterOptions={filterOptions}
-        onPendingReviewsFilter={this.handlePendingReviewsFilter}
         loading={loading}
         onChangeViewMode={this.handleViewModeChange}
         onChartsCollapse={this.handleChartsCollapse}
@@ -465,18 +469,19 @@ class TransactionsSearch extends React.Component {
         onOrderChange={this.handleOrderChange}
         onPageChange={this.handlePageChange}
         onPageCountChange={this.handlePageCountChange}
+        onPendingReviewsFilter={this.handlePendingReviewsFilter}
         onRowClick={this.handleRowClick}
         onSelectRow={this.handleSelectRow}
         order={sort.order}
         orderField={sort.field}
         pagination={pagination}
         pendingReviewsCount={pendingReviewsCount}
+        query={query}
         rows={list.rows}
         selectedPage={count}
         selectedRows={selectedRows}
-        query={query}
-        viewMode={viewMode}
         t={t}
+        viewMode={viewMode}
       />
     )
   }
@@ -491,24 +496,24 @@ TransactionsSearch.propTypes = {
     }).isRequired,
   }).isRequired,
   history: PropTypes.shape({
-    push: PropTypes.func.isRequired,
     location: PropTypes.shape({
       search: PropTypes.string,
     }).isRequired,
+    push: PropTypes.func.isRequired,
   }).isRequired,
   loading: PropTypes.bool.isRequired,
   onReceiveSearch: PropTypes.func.isRequired,
   onRequestSearch: PropTypes.func.isRequired,
   onRequestSearchFail: PropTypes.func.isRequired,
   query: PropTypes.shape({
-    search: PropTypes.string,
+    count: PropTypes.number.isRequired,
     dates: PropTypes.shape({
-      start: PropTypes.instanceOf(moment),
       end: PropTypes.instanceOf(moment),
+      start: PropTypes.instanceOf(moment),
     }),
     filters: PropTypes.shape({}),
     offset: PropTypes.number.isRequired,
-    count: PropTypes.number.isRequired,
+    search: PropTypes.string,
     sort: PropTypes.shape({
       field: PropTypes.arrayOf(PropTypes.string),
       order: PropTypes.string,

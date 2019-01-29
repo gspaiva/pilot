@@ -40,21 +40,22 @@ class Capture extends Component {
       transaction,
     } = props
 
-    const captureAmount = isFromCheckout ?
-      transaction.payment.authorized_amount.toString() : '0'
+    const captureAmount = isFromCheckout
+      ? transaction.payment.authorized_amount.toString()
+      : '0'
 
     this.state = {
       captureAmount,
       error: null,
       loading: false,
       stepStatus: {
-        identification: 'current',
         confirmation: 'pending',
+        identification: 'current',
       },
     }
 
-    this.handleConfirm = this.handleConfirm.bind(this)
     this.handleClose = this.handleClose.bind(this)
+    this.handleConfirm = this.handleConfirm.bind(this)
     this.handleRetry = this.handleRetry.bind(this)
   }
 
@@ -82,8 +83,8 @@ class Capture extends Component {
         this.setState({
           captureAmount,
           stepStatus: {
-            identification: 'success',
             confirmation: 'success',
+            identification: 'success',
           },
         })
 
@@ -91,15 +92,13 @@ class Capture extends Component {
       }).catch(({ response }) => {
         const { errors } = response
 
-        const errorMessage = head(
-          pluck('message', errors)
-        )
+        const errorMessage = head(pluck('message', errors))
 
         this.setState({
           error: errorMessage,
           stepStatus: {
-            identification: 'success',
             confirmation: 'error',
+            identification: 'success',
           },
         })
 
@@ -128,8 +127,8 @@ class Capture extends Component {
     this.setState({
       loading: false,
       stepStatus: {
-        identification: 'current',
         confirmation: 'pending',
+        identification: 'current',
       },
     })
   }
@@ -174,9 +173,9 @@ Capture.propTypes = {
   isFromCheckout: PropTypes.bool.isRequired,
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  onSuccess: PropTypes.func.isRequired,
   onReceiveCapture: PropTypes.func.isRequired,
   onRequestCapture: PropTypes.func.isRequired,
+  onSuccess: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
   transaction: PropTypes.shape({}).isRequired,
 }

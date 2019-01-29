@@ -124,8 +124,8 @@ class Reprocess extends Component {
       .then((transaction) => {
         this.setState({
           loading: false,
-          stepStatus: reprocessStepStatuses.result,
           newTransactionId: transaction.id,
+          stepStatus: reprocessStepStatuses.result,
         })
       })
       .catch((error) => {
@@ -210,12 +210,12 @@ Reprocess.propTypes = {
   history: PropTypes.shape({
     replace: PropTypes.func,
   }).isRequired,
-  onClose: PropTypes.func.isRequired,
   isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
   transactionId: PropTypes.oneOfType([
-    PropTypes.string,
     PropTypes.number,
+    PropTypes.string,
   ]).isRequired,
 }
 

@@ -17,7 +17,6 @@ const mapStateToProps = ({
   account: { client, user },
 }) => ({ client, user })
 
-
 const enhanced = compose(
   withRouter,
   connect(mapStateToProps),
@@ -42,13 +41,13 @@ class UserSettingsPage extends React.Component {
     this.props.client
       .user.updatePassword({
         current_password,
-        new_password,
         id,
+        new_password,
       })
       .then(() => this.setState({
         passwordFormStatus: {
-          success: true,
           error: null,
+          success: true,
         },
       }))
       .catch((response) => {
@@ -60,8 +59,8 @@ class UserSettingsPage extends React.Component {
 
         this.setState({
           passwordFormStatus: {
-            success: false,
             error: formatErrors(response),
+            success: false,
           },
         })
       })

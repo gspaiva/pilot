@@ -67,12 +67,11 @@ const defaultState = {
   loading: false,
   statusMessage: '',
   stepsStatus: {
-    [identification]: 'current',
     [confirmation]: 'pending',
+    [identification]: 'current',
     [result]: 'pending',
   },
 }
-
 
 class Refund extends Component {
   constructor (props) {
@@ -136,8 +135,8 @@ class Refund extends Component {
           stepsStatus: merge(
             stepsStatus,
             {
-              [identification]: 'success',
               [confirmation]: 'current',
+              [identification]: 'success',
             }
           ),
         })
@@ -183,8 +182,8 @@ class Refund extends Component {
   handleConfirmationStep (data) {
     const {
       client,
-      onRequestRefund,
       onReceiveRefund,
+      onRequestRefund,
       t,
       transaction: {
         id,
@@ -210,9 +209,9 @@ class Refund extends Component {
       .refund(body)
       .then(() => {
         this.setState({
-          statusMessage: t('pages.refund.success_message'),
           currentStep: result,
           loading: false,
+          statusMessage: t('pages.refund.success_message'),
           stepsStatus: merge(
             stepsStatus,
             {
@@ -225,9 +224,9 @@ class Refund extends Component {
       })
       .catch((error) => {
         this.setState({
-          statusMessage: getErrorMessage(error.response),
-          loading: false,
           currentStep: result,
+          loading: false,
+          statusMessage: getErrorMessage(error.response),
           stepsStatus: merge(
             stepsStatus,
             {

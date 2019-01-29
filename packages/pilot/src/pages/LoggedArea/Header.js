@@ -49,16 +49,16 @@ const Header = ({
 )
 
 Header.propTypes = {
-  t: PropTypes.func.isRequired,
   history: PropTypes.shape({
     goBack: PropTypes.func,
     push: PropTypes.func,
   }).isRequired,
-  user: PropTypes.shape({
-    name: PropTypes.string,
-    email: PropTypes.string,
-  }).isRequired,
   onLogout: PropTypes.func.isRequired,
+  t: PropTypes.func.isRequired,
+  user: PropTypes.shape({
+    email: PropTypes.string,
+    name: PropTypes.string,
+  }).isRequired,
 }
 
 export default enhance(Header)

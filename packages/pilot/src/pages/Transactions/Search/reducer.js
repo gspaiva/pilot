@@ -8,14 +8,14 @@ import {
 const initialState = {
   loading: true,
   query: {
-    search: '',
+    count: 15,
     dates: {
-      start: moment(new Date()).subtract(30, 'days'),
       end: moment(new Date()),
+      start: moment(new Date()).subtract(30, 'days'),
     },
     filters: {},
     offset: 1,
-    count: 15,
+    search: '',
     sort: {},
   },
 }

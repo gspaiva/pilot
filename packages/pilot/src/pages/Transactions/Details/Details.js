@@ -50,8 +50,8 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = ({
   onReceiveDetails: receiveDetails,
-  onRequestDetailsFail: requestLogout,
   onRequestDetails: requestDetails,
+  onRequestDetailsFail: requestLogout,
 })
 
 const enhanced = compose(
@@ -64,19 +64,19 @@ const enhanced = compose(
 )
 
 const copyToClipBoard = (text) => {
+  /* eslint-disable no-undef */
   const textarea = document.createElement('textarea')
   textarea.textContent = text
-
   textarea.style.opacity = 0
   textarea.style.position = 'absolute'
-
   document.body.appendChild(textarea)
   textarea.select()
-
   document.execCommand('copy')
   document.body.removeChild(textarea)
+  /* eslint-enable no-undef */
 }
 
+// eslint-disable-next-line no-undef
 const handleExportClick = () => window.print()
 
 const getTransactionDetailsLabels = t => ({
@@ -101,7 +101,6 @@ const countCustomerPhones = pipe(
   )
 )
 
-
 const getCustomerLabels = (customer, t) => ({
   birthday: t('models.customer.birthday'),
   city: t('models.customer.city'),
@@ -112,8 +111,8 @@ const getCustomerLabels = (customer, t) => ({
   neighborhood: t('models.customer.neighborhood'),
   phone: t('models.customer.phone', { count: countCustomerPhones(customer) }),
   state: t('models.customer.state'),
-  street_number: t('models.customer.number'),
   street: t('models.customer.street'),
+  street_number: t('models.customer.number'),
   title: t('pages.transaction.customer_card_title'),
   zipcode: t('models.customer.zip_code'),
 })
@@ -135,11 +134,11 @@ const getPaymentCardLabels = t => ({
 })
 
 const getRiskLevelsLabels = t => ({
-  very_low: t('pages.transaction.risk_level.very_low'),
+  high: t('pages.transaction.risk_level.high'),
   low: t('pages.transaction.risk_level.low'),
   moderated: t('pages.transaction.risk_level.moderated'),
-  high: t('pages.transaction.risk_level.high'),
   very_high: t('pages.transaction.risk_level.very_high'),
+  very_low: t('pages.transaction.risk_level.very_low'),
 })
 
 // TODO: Remove this function and it usage when the this issue is solved
@@ -200,8 +199,12 @@ class TransactionDetails extends Component {
     this.handleCopyBoletoUrlClick = this.handleCopyBoletoUrlClick.bind(this)
     this.handleManualReviewApprove = this.handleManualReviewApprove.bind(this)
     this.handleManualReviewRefuse = this.handleManualReviewRefuse.bind(this)
-    this.handleNextTransactionRedirect = this.handleNextTransactionRedirect.bind(this)
-    this.handlePreviousTransactionRedirect = this.handlePreviousTransactionRedirect.bind(this)
+    this.handleNextTransactionRedirect = this
+      .handleNextTransactionRedirect
+      .bind(this)
+    this.handlePreviousTransactionRedirect = this
+      .handlePreviousTransactionRedirect
+      .bind(this)
     this.handleRefund = this.handleRefund.bind(this)
     this.handleReprocessClose = this.handleReprocessClose.bind(this)
     this.handleReprocessOpen = this.handleReprocessOpen.bind(this)
@@ -220,7 +223,7 @@ class TransactionDetails extends Component {
   }
 
   handleUpdate (id, forceUpdate) {
-    const { match: { params }, history } = this.props
+    const { history, match: { params } } = this.props
     if (isNil(id)) {
       history.replace('/transactions')
     } else if (id !== params.id || forceUpdate) {
@@ -267,15 +270,15 @@ class TransactionDetails extends Component {
 
   handleManualReviewApprove () {
     this.setState({
-      showManualReview: true,
       manualReviewAction: 'approve',
+      showManualReview: true,
     })
   }
 
   handleManualReviewRefuse () {
     this.setState({
-      showManualReview: true,
       manualReviewAction: 'refuse',
+      showManualReview: true,
     })
   }
 
@@ -293,10 +296,10 @@ class TransactionDetails extends Component {
 
   handleNextTransactionRedirect () {
     const {
+      nextId,
       result: {
         transaction,
       },
-      nextId,
     } = this.state
     const nextTransactionId = transaction.nextId || nextId
     const { history } = this.props
@@ -347,17 +350,17 @@ class TransactionDetails extends Component {
     const {
       eventsLabels,
       installmentColumns,
+      manualReviewAction,
       nextId,
       paymentBoletoLabels,
       paymentCardLabels,
+      result,
       riskLevelsLabels,
       showCapture,
-      showReprocess,
-      result,
-      transactionDetailsLabels,
       showManualReview,
-      manualReviewAction,
       showRefund,
+      showReprocess,
+      transactionDetailsLabels,
     } = this.state
 
     const transaction = removeCustomerUnusedPhones(result.transaction)
@@ -371,8 +374,8 @@ class TransactionDetails extends Component {
     } = transaction
 
     const alertLabels = {
-      chargeback_reason_label: t('pages.transaction.alert.chargeback_reason'),
       chargeback_reason: t(`pages.transaction.chargeback.code.${reason_code || 'unknown'}`),
+      chargeback_reason_label: t('pages.transaction.alert.chargeback_reason'),
       reason_code: t('pages.transaction.alert.reason_code', { code: reason_code || '-' }),
       resubmit: t('pages.transaction.alert.resubmit'),
     }
@@ -380,16 +383,16 @@ class TransactionDetails extends Component {
     const customerLabels = getCustomerLabels(customer, t)
 
     const headerLabels = {
+      approveLabel: t('pages.transaction.header.approve'),
       boletoAmountLabel: t('pages.transaction.header.boleto_amount'),
       cardAmountLabel: t('pages.transaction.header.card_amount'),
-      installmentsLabel: t('pages.transaction.header.installment_title'),
       installments: t('pages.transaction.header.installment', {
         count: payment.installments,
       }),
-      title: t('pages.transaction.header.title'),
-      statusLabel: t('pages.transaction.header.status'),
-      approveLabel: t('pages.transaction.header.approve'),
+      installmentsLabel: t('pages.transaction.header.installment_title'),
       refuseLabel: t('pages.transaction.header.refuse'),
+      statusLabel: t('pages.transaction.header.status'),
+      title: t('pages.transaction.header.title'),
     }
 
     const recipientsLabels = {
@@ -408,32 +411,31 @@ class TransactionDetails extends Component {
         count: recipients.length,
       }),
       totalTitle: t('pages.transaction.recipients.total_amount'),
-
     }
+
     const reprocessLabels = {
-      previousAlert: t('pages.transaction.reprocess.previous'),
       nextAlert: t('pages.transaction.reprocess.next'),
-      showPrevious: t('pages.transaction.reprocess.showPrevious'),
+      previousAlert: t('pages.transaction.reprocess.previous'),
       showNext: t('pages.transaction.reprocess.showNext'),
+      showPrevious: t('pages.transaction.reprocess.showPrevious'),
     }
 
     const totalDisplayLabels = {
       captured_at: captured_at
         ? t('captured_at', { date: moment(captured_at).format('L') })
         : t('pages.transaction.not_captured'),
-      mdr: t('models.payment.mdr',
-        { value: currencyFormatter(payment.mdr_amount || 0) }
-      ),
-      cost: t('models.payment.cost',
-        { value: currencyFormatter(payment.cost_amount || 0) }
-      ),
+      cost: t('models.payment.cost', {
+        value: currencyFormatter(payment.cost_amount || 0),
+      }),
+      mdr: t('models.payment.mdr', {
+        value: currencyFormatter(payment.mdr_amount || 0),
+      }),
       net_amount: t('pages.transaction.net_amount'),
       out_amount: t('pages.transaction.out_amount'),
       paid_amount: t('pages.transaction.paid_amount'),
-      // receive_date: t('received_at', { date: '01/01/1970' }),
-      refund: t('models.payment.refund',
-        { value: currencyFormatter(payment.refund_amount || 0) }
-      ),
+      refund: t('models.payment.refund', {
+        value: currencyFormatter(payment.refund_amount || 0),
+      }),
     }
 
     const nextTransactionId = transaction.nextId || nextId

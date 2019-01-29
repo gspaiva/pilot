@@ -59,9 +59,7 @@ const getAnticipationLimits = (client, {
     })
 )
 
-const getLimitsProp = propName => pipe(
-  path([propName, 'amount'])
-)
+const getLimitsProp = propName => path([propName, 'amount'])
 
 const calculateMaxLimit = getLimitsProp('maximum')
 const calculateMinLimit = pipe(
@@ -201,11 +199,7 @@ const isFuture = date =>
   date.isAfter(moment())
 
 const isBefore11AM = () =>
-  moment()
-    .isBefore(
-      moment()
-        .hours(11).minutes(0).seconds(0)
-    )
+  moment().isBefore(moment().hours(11).minutes(0).seconds(0))
 
 const isValidDay = (calendar, client) => allPass([
   either(
@@ -259,24 +253,24 @@ const getStepsStatus = (nextStep, nextStepStatus) => {
     [
       equals(stepsId.data),
       always({
-        data: nextStepStatus,
         confirmation: 'pending',
+        data: nextStepStatus,
         result: 'pending',
       }),
     ],
     [
       equals(stepsId.confirmation),
       always({
-        data: 'success',
         confirmation: nextStepStatus,
+        data: 'success',
         result: 'pending',
       }),
     ],
     [
       equals(stepsId.result),
       always({
-        data: 'success',
         confirmation: 'success',
+        data: 'success',
         result: nextStepStatus,
       }),
     ],
@@ -355,8 +349,8 @@ class Anticipation extends Component {
           )
 
         this.setState({
-          paymentDate: nextAnticipableDay,
           calendar,
+          paymentDate: nextAnticipableDay,
         })
 
         return calendar
@@ -375,11 +369,9 @@ class Anticipation extends Component {
 
           getBuildingBulkAnticipations(client, recipient.id)
             .then(buildDeleteBuildingBulkAnticipation(client))
-            .then(deletePromises =>
-              Promise.all(deletePromises)
-                .then(this.calculateLimits)
-                .then(this.createAnticipation)
-            )
+            .then(deletePromises => Promise.all(deletePromises)
+              .then(this.calculateLimits)
+              .then(this.createAnticipation))
         })
 
         if (!id) {
@@ -421,8 +413,8 @@ class Anticipation extends Component {
       const {
         pricing: {
           transfers: {
-            ted,
             credito_em_conta: creditoEmConta,
+            ted,
           },
         },
       } = this.props
@@ -439,19 +431,19 @@ class Anticipation extends Component {
 
   calculateLimits () {
     const {
+      paymentDate,
       recipient: {
         id: recipientId,
       },
-      paymentDate,
       timeframe,
     } = this.state
 
     const { client } = this.props
 
     return getAnticipationLimits(client, {
+      payment_date: paymentDate,
       recipientId,
       timeframe,
-      payment_date: paymentDate,
     })
       .then((response) => {
         const maxValue = calculateMaxLimit(response)
@@ -459,10 +451,12 @@ class Anticipation extends Component {
           error: null,
           limits: {
             maxValue,
-            minValue: maxValue > 100 ? calculateMinLimit(response) : 0,
+            minValue: maxValue > 100
+              ? calculateMinLimit(response)
+              : 0,
           },
-          requestedAmount: maxValue,
           loading: false,
+          requestedAmount: maxValue,
         })
       })
       .catch(pipe(getErrorMessage, error => this.setState({
@@ -482,11 +476,7 @@ class Anticipation extends Component {
   }
 
   handleTimeframeChange (timeframe) {
-    this.setState(
-      {
-        timeframe,
-      }
-    )
+    this.setState({ timeframe })
   }
 
   handleDateChange ({ start }) {
@@ -517,28 +507,32 @@ class Anticipation extends Component {
           },
         } = this.state
 
-        const requestedAmount = getRequestedAmount(minValue, maxValue, requested)
+        const requestedAmount = getRequestedAmount(
+          minValue,
+          maxValue,
+          requested
+        )
 
         this.setState({
           error: null,
           isAutomaticTransfer,
-          transferCost: isAutomaticTransfer ? this.getTransferCost() : 0,
           paymentDate: date,
           requestedAmount,
           timeframe,
+          transferCost: isAutomaticTransfer
+            ? this.getTransferCost()
+            : 0,
         })
 
         this.updateAnticipation(requestedAmount)
       })
-      .catch(
-        pipe(
-          getInsuficientPayablesError(t),
-          message => this.setState({
-            error: message,
-            loading: false,
-          })
-        )
-      )
+      .catch(pipe(
+        getInsuficientPayablesError(t),
+        message => this.setState({
+          error: message,
+          loading: false,
+        })
+      ))
   }
 
   createOrUpdateAnticipation (minValue) {
@@ -596,8 +590,8 @@ class Anticipation extends Component {
           this.confirmAnticipation()
         } else {
           this.setState({
-            loading: false,
             error: t('pages.anticipation.wrong_pass'),
+            loading: false,
           })
         }
       })
@@ -605,7 +599,9 @@ class Anticipation extends Component {
 
   handleFormChange (data, { requested }) {
     this.setState({
-      error: requested !== this.state.error ? requested : null,
+      error: requested !== this.state.error
+        ? requested
+        : null,
     })
   }
 
@@ -677,8 +673,8 @@ class Anticipation extends Component {
       }) => {
         const {
           limits: {
-            minValue,
             maxValue,
+            minValue,
           },
         } = this.state
 
@@ -691,7 +687,11 @@ class Anticipation extends Component {
             otherFee: fee,
           },
           loading: false,
-          requestedAmount: getRequestedAmount(minValue, maxValue, requestedAmount),
+          requestedAmount: getRequestedAmount(
+            minValue,
+            maxValue,
+            requestedAmount
+          ),
         })
       })
       .catch(pipe(getErrorMessage, error => this.setState({
@@ -720,8 +720,8 @@ class Anticipation extends Component {
       .then(({ status }) => {
         this.setState({
           bulkAnticipationStatus: status,
-          loading: false,
           currentStep: 'result',
+          loading: false,
           statusMessage: t('pages.anticipation.anticipation_success'),
           stepsStatus: getStepsStatus('result', 'success'),
         })
@@ -785,7 +785,11 @@ class Anticipation extends Component {
             otherFee: fee,
           },
           loading: false,
-          requestedAmount: getRequestedAmount(minValue, maxValue, requestedAmount),
+          requestedAmount: getRequestedAmount(
+            minValue,
+            maxValue,
+            requestedAmount
+          ),
         })
       })
       .catch(pipe(getErrorMessage, error => this.setState({
@@ -875,7 +879,10 @@ class Anticipation extends Component {
             t={t}
             timeframe={timeframe}
             totalCost={totalCost}
-            transferCost={isAutomaticTransfer && transferCost ? transferCost : 0}
+            transferCost={isAutomaticTransfer && transferCost
+              ? transferCost
+              : 0
+            }
             validateDay={isValidDay(calendar, client)}
           />
         }

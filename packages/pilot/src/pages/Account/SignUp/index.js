@@ -31,8 +31,8 @@ class SignUpPage extends PureComponent {
 
     if (!validationErrors) {
       this.setState({
-        loading: true,
         error: null,
+        loading: true,
       })
 
       pagarme.client.company.create({}, data)
