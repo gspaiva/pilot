@@ -7,9 +7,9 @@ import Section from '../../Section'
 import ExportData from '../../../src/components/ExportData'
 
 const exportOptions = [
-  { title: 'CSV', action: action('CSV') },
-  { title: 'Excel', action: action('Excel') },
-  { title: 'PDF', action: action('PDF') },
+  { action: action('CSV'), title: 'CSV' },
+  { action: action('Excel'), title: 'Excel' },
+  { action: action('PDF'), title: 'PDF' },
 ]
 
 const ExportDataExample = () => (

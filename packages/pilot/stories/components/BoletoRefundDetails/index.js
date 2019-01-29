@@ -16,8 +16,8 @@ const labels = {
 
 const contents = {
   account: '12345678901',
-  accountVd: '000',
   accountType: 'Conta corrente',
+  accountVd: '000',
   agency: '1234567',
   agencyVd: '00',
   amount: 20000000,

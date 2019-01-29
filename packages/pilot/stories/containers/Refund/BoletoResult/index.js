@@ -12,11 +12,11 @@ const BoletoResultExample = () => (
     <BoletoResult
       amount={125000000}
       bankAccount={{
-        agencia_dv: '5',
         agencia: '1234',
+        agencia_dv: '5',
         bank_code: '000',
-        conta_dv: '0',
         conta: '17000',
+        conta_dv: '0',
         document_number: '53431319050',
         legal_name: 'João da silva',
         type: 'conta_corrente',

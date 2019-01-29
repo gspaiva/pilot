@@ -46,5 +46,4 @@ class WithdrawFormState extends Component {
   }
 }
 
-
 export default WithdrawFormState

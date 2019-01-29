@@ -13,8 +13,8 @@ const labels = {
   neighborhood: 'Bairro',
   phone: 'Telefone',
   state: 'Estado',
-  street_number: 'N',
   street: 'Rua',
+  street_number: 'N',
   zipcode: 'CEP',
 }
 
@@ -28,8 +28,8 @@ const contents = {
   neighborhood: 'Rivendell',
   phone: '(11) 90101-0101',
   state: 'SP',
-  street_number: '1609',
   street: 'Rua Gomes de Carvalho',
+  street_number: '1609',
   zipcode: '12.345-67',
 }
 

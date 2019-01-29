@@ -54,7 +54,9 @@ class AnticipationFormState extends Component {
       min,
       transferCost,
     } = this.state
-    let approximateRequested = requested === max ? requested : requested - 100
+    let approximateRequested = requested === max
+      ? requested
+      : requested - 100
     approximateRequested = approximateRequested < min
       ? requested
       : approximateRequested
@@ -90,21 +92,17 @@ class AnticipationFormState extends Component {
   }
 
   handleDateChange ({ start }) {
-    this.setState(
-      {
-        recalculationNeeded: true,
-      }
-    )
+    this.setState({
+      recalculationNeeded: true,
+    })
     action('changed date')(start)
   }
 
   handleTimeframeChange (timeframe) {
-    this.setState(
-      {
-        timeframe,
-        recalculationNeeded: true,
-      }
-    )
+    this.setState({
+      recalculationNeeded: true,
+      timeframe,
+    })
     action('changed timeframe')(timeframe)
   }
 

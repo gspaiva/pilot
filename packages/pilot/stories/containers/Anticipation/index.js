@@ -23,8 +23,8 @@ const recipient = {
     agencia_dv: '5',
     bank_code: '341',
     charge_transfer_fees: true,
-    conta_dv: '1',
     conta: '58054',
+    conta_dv: '1',
     date_created: '2017-01-06T18:52:22.215Z',
     document_number: '26268738888',
     document_type: 'cpf',
@@ -119,7 +119,9 @@ class AnticipationExample extends Component {
       min,
       transferCost,
     } = this.state
-    let approximateRequested = requested === max ? requested : requested - 100
+    let approximateRequested = requested === max
+      ? requested
+      : requested - 100
     approximateRequested = approximateRequested < min
       ? requested
       : approximateRequested
@@ -127,8 +129,8 @@ class AnticipationExample extends Component {
     this.setState({
       amount: (approximateRequested - (cost + transferCost)),
       approximateRequested,
-      date,
       automaticTransfer: isAutomaticTransfer,
+      date,
       requested,
       timeframe,
     })
@@ -149,21 +151,17 @@ class AnticipationExample extends Component {
   }
 
   handleDateChange ({ start }) {
-    this.setState(
-      {
-        recalculationNeeded: true,
-      }
-    )
+    this.setState({
+      recalculationNeeded: true,
+    })
     action('changed date')(start)
   }
 
   handleTimeframeChange (timeframe) {
-    this.setState(
-      {
-        timeframe,
-        recalculationNeeded: true,
-      }
-    )
+    this.setState({
+      recalculationNeeded: true,
+      timeframe,
+    })
     action('changed timeframe')(timeframe)
   }
 

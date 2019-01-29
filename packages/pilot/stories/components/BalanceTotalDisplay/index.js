@@ -11,25 +11,29 @@ const BalanceTotalDisplayExample = () => (
       <Row>
         <Col palm={12} tablet={6} desk={4} tv={4}>
           <BalanceTotalDisplay
-            title="Saldo Atual"
             amount="R$ 15.000,00"
-            detail={<span>Liberado para saque: <strong>R$5.000,00</strong></span>}
             action={{
-              title: 'Sacar',
               onClick: action('clicked'),
+              title: 'Sacar',
             }}
+            detail={
+              <span>Liberado para saque: <strong>R$5.000,00</strong></span>
+            }
+            title="Saldo Atual"
           />
         </Col>
 
         <Col palm={12} tablet={6} desk={4} tv={4}>
           <BalanceTotalDisplay
-            title="A Receber"
             amount="R$ 7.000,00"
-            detail={<span>Liberado para saque: <strong>R$5.000,00</strong></span>}
             action={{
-              title: 'Antecipar',
               onClick: action('clicked'),
+              title: 'Antecipar',
             }}
+            detail={
+              <span>Liberado para saque: <strong>R$5.000,00</strong></span>
+            }
+            title="A Receber"
           />
         </Col>
       </Row>

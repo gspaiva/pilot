@@ -48,7 +48,9 @@ class SidebarSummaryExample extends React.Component {
           {!collapsed &&
             <SidebarSummary
               collapsed={summaryCollapsed}
-              onClick={() => this.setState({ summaryCollapsed: !summaryCollapsed })}
+              onClick={() => this.setState({
+                summaryCollapsed: !summaryCollapsed,
+              })}
               subtitle={
                 summaryCollapsed
                   ? `${sections.showMsg}`

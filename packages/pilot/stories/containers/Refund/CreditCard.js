@@ -27,8 +27,8 @@ class TransactionRefundCardState extends React.Component {
       isOpen: true,
       statusMessage: '',
       stepsStatus: {
-        identification: 'current',
         confirmation: 'pending',
+        identification: 'current',
         result: 'pending',
       },
     }

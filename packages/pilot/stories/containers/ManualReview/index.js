@@ -6,8 +6,8 @@ import ManualReview from '../../../src/containers/ManualReview'
 
 const ManualReviewState = ({
   action,
-  statusMessage,
   hasError,
+  statusMessage,
   stepStatus,
 }) => (
   <ManualReview

@@ -22,14 +22,14 @@ const commonProps = {
       first_digits: '4111',
       last_digits: '1111',
     },
+    customer: {
+      email: 'johndoe@email.com',
+      name: 'John Doe',
+    },
     payment: {
       authorized_amount: 2000,
       installments: 1,
       paid_amount: 0,
-    },
-    customer: {
-      name: 'John Doe',
-      email: 'johndoe@email.com',
     },
   },
 }

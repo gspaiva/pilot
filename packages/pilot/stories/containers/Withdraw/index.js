@@ -68,24 +68,24 @@ class WithdrawExample extends Component {
       [
         equals('data'),
         always({
-          data: nextStepStatus,
           confirmation: 'pending',
+          data: nextStepStatus,
           result: 'pending',
         }),
       ],
       [
         equals('confirmation'),
         always({
-          data: 'success',
           confirmation: nextStepStatus,
+          data: 'success',
           result: 'pending',
         }),
       ],
       [
         equals('result'),
         always({
-          data: 'success',
           confirmation: 'success',
+          data: 'success',
           result: nextStepStatus,
         }),
       ],
@@ -107,7 +107,9 @@ class WithdrawExample extends Component {
         error: '',
       })
 
-      const status = password === '123' ? 'error' : 'success'
+      const status = password === '123'
+        ? 'error'
+        : 'success'
 
       this.goTo('result', status)
     }

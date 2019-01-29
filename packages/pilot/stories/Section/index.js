@@ -5,9 +5,9 @@ import classnames from 'classnames'
 import styles from './style.css'
 
 const Section = ({
-  title,
   children,
   className,
+  title,
 }) => (
   <section className={classnames(styles.section, className)}>
     {title &&
@@ -18,9 +18,9 @@ const Section = ({
 )
 
 Section.propTypes = {
-  title: PropTypes.string,
   children: PropTypes.node.isRequired,
   className: PropTypes.string,
+  title: PropTypes.string,
 }
 
 Section.defaultProps = {

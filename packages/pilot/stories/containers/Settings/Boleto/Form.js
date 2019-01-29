@@ -24,7 +24,7 @@ class BoletoForm extends Component {
     }, () => action('Cancel')(this.state))
   }
 
-  onChange ({ instructions, daysToAddInExpirationDate }) {
+  onChange ({ daysToAddInExpirationDate, instructions }) {
     this.setState(({
       actionsDisabled: false,
       daysToAddInExpirationDate,
@@ -32,7 +32,7 @@ class BoletoForm extends Component {
     }), () => action('Change')(this.state))
   }
 
-  onSubmit ({ instructions, daysToAddInExpirationDate }, errors) {
+  onSubmit ({ daysToAddInExpirationDate, instructions }, errors) {
     if (!errors) {
       this.setState({
         actionsDisabled: true,

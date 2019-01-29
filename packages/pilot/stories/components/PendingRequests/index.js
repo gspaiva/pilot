@@ -4,7 +4,6 @@ import { action } from '@storybook/addon-actions'
 import Section from '../../Section'
 import PendingRequests from '../../../src/components/PendingRequests'
 
-
 const requests = [
   {
     amount: 'R$ 2.342.342,50',

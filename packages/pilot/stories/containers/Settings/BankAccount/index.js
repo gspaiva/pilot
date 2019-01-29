@@ -95,7 +95,6 @@ class BankAccountExample extends Component {
 
   handleCancel () {
     this.setState({
-      disabled: true,
       data: {
         account: '',
         accountCd: '',
@@ -106,6 +105,7 @@ class BankAccountExample extends Component {
         legalName: 'API BANK ACCOUNT',
         type: '',
       },
+      disabled: true,
       errors: defaultErrorData,
     }, () => cancelAction(this.state))
   }
@@ -114,8 +114,8 @@ class BankAccountExample extends Component {
     const { data: stateDate } = this.state
 
     this.setState({
-      disabled: false,
       data: merge(stateDate, data),
+      disabled: false,
       errors,
     }, () => changeAction(this.state))
   }
@@ -125,8 +125,8 @@ class BankAccountExample extends Component {
 
     if (!errors) {
       this.setState({
-        disabled: true,
         data: merge(stateData, data),
+        disabled: true,
         errors: defaultErrorData,
       }, () => submitAction(this.state))
     }

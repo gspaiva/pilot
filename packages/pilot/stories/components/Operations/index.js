@@ -65,12 +65,12 @@ class OperationsState extends Component {
 
     this.state = {
       columns,
+      offset: 1,
+      order: 'ascending',
       orderColumnIndex,
       rows: this.sortRows(orderColumnIndex, 'ascending'),
       total: operations.total,
       totalPages: 1,
-      offset: 1,
-      order: 'ascending',
     }
   }
 

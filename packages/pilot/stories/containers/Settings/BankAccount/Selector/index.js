@@ -24,21 +24,21 @@ class BankAccountSelectorExample extends Component {
       <BankAccountSelector
         accounts={[
           {
-            agencia_dv: '0',
             agencia: '378-3',
+            agencia_dv: '0',
             bank_code: '341',
-            conta_dv: '9',
             conta: '69885',
+            conta_dv: '9',
             id: 1,
             legal_name: 'Conta Principal',
             type: 'Conta corrente',
           },
           {
-            agencia_dv: '0',
             agencia: '378-3',
+            agencia_dv: '0',
             bank_code: '341',
-            conta_dv: '9',
             conta: '69885',
+            conta_dv: '9',
             id: 2,
             legal_name: 'Conta Secundária',
             type: 'Conta corrente',

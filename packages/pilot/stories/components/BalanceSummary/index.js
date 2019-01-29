@@ -6,18 +6,18 @@ import BalanceSummary from '../../../src/components/BalanceSummary'
 const amount = {
   outcoming: {
     title: 'Total de entradas',
-    value: 1400000,
     unity: 'R$',
+    value: 1400000,
   },
   outgoing: {
     title: 'Total de Saídas',
+    unity: 'R$',
     value: -400000,
-    unity: 'R$',
   },
-  net: {
+  net: { // eslint-disable-line sort-keys
     title: 'Total Líquido',
-    value: 1000000,
     unity: 'R$',
+    value: 1000000,
   },
 }
 

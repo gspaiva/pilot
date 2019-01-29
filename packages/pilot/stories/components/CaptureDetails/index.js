@@ -5,8 +5,8 @@ import Section from '../../Section'
 import CaptureDetails from '../../../src/components/CaptureDetails'
 
 const contents = {
-  captureAmount: '10,00',
   amount: '10,00',
+  captureAmount: '10,00',
   cardBrand: 'Visa',
   cardNumber: '4111 **** **** 1111',
   customerEmail: 'johndoe@email.com',
@@ -15,8 +15,8 @@ const contents = {
 }
 
 const labels = {
-  captureAmount: 'Valor a ser capturado',
   amount: 'Valor autorizado',
+  captureAmount: 'Valor a ser capturado',
   cardBrand: 'Bandeira',
   cardNumber: 'Número do cartão',
   customerEmail: 'Email',

@@ -43,14 +43,14 @@ const eventsLabels = {
 }
 
 const headerLabels = {
+  approveLabel: 'Aprovar',
   boletoAmountLabel: 'VALOR EMITIDO',
   cardAmountLabel: 'VALOR AUTORIZADO',
   installments: 'Parcelado 12x',
   installmentsLabel: 'PAGAMENTO',
+  refuseLabel: 'Reprovar',
   statusLabel: 'STATUS',
   title: 'TRANSAÇÃO',
-  approveLabel: 'Aprovar',
-  refuseLabel: 'Reprovar',
 }
 
 const paymentBoletoLabels = {

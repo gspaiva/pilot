@@ -3,7 +3,6 @@ import { action } from '@storybook/addon-actions'
 
 import TransferError from '../../../src/components/TransferError'
 
-
 const TransferErrorExample = () => (
   <TransferError
     actionLabel="Tentar Novamente"

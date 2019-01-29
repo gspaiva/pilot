@@ -69,20 +69,19 @@ class BalanceState extends Component {
     })
   }
 
-
   render () {
     const {
       anticipation,
       company,
       dates,
       loading,
+      query,
       result: {
+        balance,
         recipient,
         requests,
-        balance,
         search,
       },
-      query,
       total,
     } = this.state
 
@@ -113,6 +112,5 @@ class BalanceState extends Component {
     )
   }
 }
-
 
 export default BalanceState

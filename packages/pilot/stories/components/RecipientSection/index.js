@@ -14,8 +14,8 @@ class RecipientSectionState extends PureComponent {
 
     const formatColumns = getColumnFormatter(t)
     this.state = {
-      columns: formatColumns(installmentColumns),
       collapsed: true,
+      columns: formatColumns(installmentColumns),
       ...mock,
     }
   }

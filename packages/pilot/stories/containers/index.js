@@ -146,8 +146,8 @@ storiesOf('Containers|Page containers', module)
   .add('Capture step identification', () => (
     <Capture
       stepStatus={{
-        identification: 'current',
         confirmation: 'pending',
+        identification: 'current',
       }}
     />
   ))
@@ -155,24 +155,24 @@ storiesOf('Containers|Page containers', module)
     <Capture
       isFromCheckout
       stepStatus={{
-        identificaiton: 'current',
         confirmation: 'pending',
+        identificaiton: 'current',
       }}
     />
   ))
   .add('Capture step confirmation', () => (
     <Capture
       stepStatus={{
-        identification: 'success',
         confirmation: 'current',
+        identification: 'success',
       }}
     />
   ))
   .add('Capture step confirmation error', () => (
     <Capture
       stepStatus={{
-        identification: 'success',
         confirmation: 'error',
+        identification: 'success',
       }}
       statusMessage="An error ocurred!"
     />
