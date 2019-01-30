@@ -5,10 +5,10 @@ import {
 
 const errorMessages = {
   acquirer: 'Adquirente',
+  acquirer_timeout: 'Tempo limite da adquirente',
   antifraud: 'Antifraude',
   internal_error: 'Erro interno',
   no_acquirer: 'Sem adquirente',
-  acquirer_timeout: 'Tempo limite da adquirente',
 }
 
 const getErrorMessage = prop(__, errorMessages)

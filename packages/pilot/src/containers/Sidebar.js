@@ -153,7 +153,10 @@ class SidebarContainer extends React.Component {
         {!collapsed &&
           <SidebarContent>
             <Button
-              onClick={() => window.open('https://dashboard.pagar.me/')}
+              onClick={() => {
+                // eslint-disable-next-line no-undef
+                window.open('https://dashboard.pagar.me/')
+              }}
               fill="outline"
               size="tiny"
             >

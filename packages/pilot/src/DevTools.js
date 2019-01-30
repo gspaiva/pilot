@@ -7,6 +7,8 @@ import SliderMonitor from 'redux-slider-monitor'
 import Dispatcher from 'redux-devtools-dispatch'
 import MultipleMonitors from 'redux-devtools-multiple-monitors'
 
+/* eslint-disable function-paren-newline */
+
 const DevTools = createDevTools(
   <DockMonitor
     toggleVisibilityKey="ctrl-b"
@@ -21,5 +23,7 @@ const DevTools = createDevTools(
     <SliderMonitor keyboardEnabled />
   </DockMonitor>
 )
+
+/* eslint-enable function-paren-newline */
 
 export default DevTools

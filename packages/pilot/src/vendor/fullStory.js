@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import hasProperty from './hasProperty'
 
 /**

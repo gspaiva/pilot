@@ -15,23 +15,18 @@ i18n
   .use(LanguageDetector)
   .use(reactI18nextModule)
   .init({
-    fallbackLng: 'pt',
-
-    ns: ['translations'],
-    defaultNS: 'translations',
-
+    backend: {
+      loadPath: `${basePath}/locales/{{lng}}/{{ns}}.json`,
+    },
     debug: true,
-
+    defaultNS: 'translations',
+    fallbackLng: 'pt',
     interpolation: {
       escapeValue: false,
     },
-
+    ns: ['translations'],
     react: {
       wait: true,
-    },
-
-    backend: {
-      loadPath: `${basePath}/locales/{{lng}}/{{ns}}.json`,
     },
   })
 

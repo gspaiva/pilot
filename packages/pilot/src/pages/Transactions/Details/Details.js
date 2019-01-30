@@ -338,6 +338,8 @@ class TransactionDetails extends Component {
         boleto,
       },
     } = this.state.result
+
+    // eslint-disable-next-line no-undef
     window.open(boleto.url)
   }
 
