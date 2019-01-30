@@ -52,7 +52,7 @@ const configuration = {
   anticipationDays: '',
   transferEnabled: true,
   transferInterval: 'Mensal',
-  transferDay: '15',
+  transferDay: '5',
   transferWeekday: 'Terça-feira',
 }
 

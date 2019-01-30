@@ -62,7 +62,7 @@ const mockInformation = {
     anticipationDays: '',
     transferEnabled: true,
     transferInterval: 'Mensal',
-    transferDay: '15',
+    transferDay: '5',
     transferWeekday: 'Terça-feira',
   },
   bankAccount: {
@@ -106,7 +106,18 @@ const mockConfiguration = {
       id: '2',
     },
   ],
-  onSave: action('Saved'),
+  bankAccount: {
+    agency_digit: '',
+    agency: '1111',
+    bank: '001',
+    name: 'Conta Bancária',
+    number_digit: '1',
+    number: '11111',
+    type: 'conta_corrente',
+  },
+  handleSaveAnticipation: action('Saved'),
+  handleSaveTransfer: action('Saved'),
+  handleSaveBankAccount: action('Saved'),
   onCancel: action('Cancel'),
 }
 

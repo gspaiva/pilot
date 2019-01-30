@@ -51,7 +51,7 @@ const mockData = {
     anticipationDays: '25',
     anticipationModel: 'automatic_volume',
     anticipationVolumePercentage: '50',
-    transferDay: '15',
+    transferDay: '5',
     transferEnabled: true,
     transferInterval: 'monthly',
     transferWeekday: 'tuesday',
