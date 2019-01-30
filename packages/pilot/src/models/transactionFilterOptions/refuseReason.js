@@ -1,6 +1,4 @@
 export default {
-  key: 'refuse_reason',
-  name: 'Razão de recusa',
   items: [
     {
       label: 'Operadora de cartão',
@@ -19,4 +17,6 @@ export default {
       value: 'internal_error',
     },
   ],
+  key: 'refuse_reason',
+  name: 'Razão de recusa',
 }

@@ -1,6 +1,4 @@
 export default {
-  key: 'status',
-  name: 'Status de transação',
   items: [
     {
       label: 'Paga',
@@ -39,4 +37,6 @@ export default {
       value: 'pending_review',
     },
   ],
+  key: 'status',
+  name: 'Status de transação',
 }

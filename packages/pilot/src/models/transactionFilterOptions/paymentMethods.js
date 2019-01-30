@@ -1,6 +1,4 @@
 export default {
-  key: 'payment_method',
-  name: 'Formas de pagamento',
   items: [
     {
       label: 'Boleto',
@@ -19,4 +17,6 @@ export default {
       value: 'foreign_credit_card',
     },
   ],
+  key: 'payment_method',
+  name: 'Formas de pagamento',
 }

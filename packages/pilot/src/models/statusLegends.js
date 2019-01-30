@@ -1,53 +1,63 @@
 const status = {
-  paid: {
-    color: '#17c9b2',
-    text: 'Paga',
-    acronym: 'P',
-  },
   analyzing: {
+    acronym: 'EA',
     color: '#0b6e69',
     text: 'Em análise',
-    acronym: 'EA',
   },
   authorized: {
+    acronym: 'A',
     color: '#b6ca2d',
     text: 'Autorizada',
-    acronym: 'A',
   },
-  pending_review: {
-    color: '#fbbb27',
-    text: 'Revisão pendente',
-    acronym: 'RP',
-  },
-  pending_refund: {
-    color: '#33206c',
-    text: 'Estorno pendente',
-    acronym: 'EP',
-  },
-  processing: {
-    color: '#561e6a',
-    text: 'Processando',
-    acronym: 'PR',
-  },
-  waiting_payment: {
-    color: '#0b6e69',
-    text: 'Aguardando pagamento',
-    acronym: 'AP',
-  },
-  refused: {
+  cancelled: {
+    acronym: 'CA',
     color: '#da272c',
-    text: 'Recusada',
-    acronym: 'R',
-  },
-  refunded: {
-    color: '#613fc7',
-    text: 'Estornada',
-    acronym: 'E',
+    text: 'Cancelada',
   },
   chargedback: {
+    acronym: 'CB',
     color: '#f16f27',
     text: 'Chargeback',
-    acronym: 'CB',
+  },
+  chargedback_refund: {
+    acronym: 'CBR',
+    color: '#ac4e19',
+    text: 'Chargeback reapresentado',
+  },
+  paid: {
+    acronym: 'P',
+    color: '#17c9b2',
+    text: 'Paga',
+  },
+  pending_refund: {
+    acronym: 'EP',
+    color: '#33206c',
+    text: 'Estorno pendente',
+  },
+  pending_review: {
+    acronym: 'RP',
+    color: '#fbbb27',
+    text: 'Revisão pendente',
+  },
+  processing: {
+    acronym: 'PR',
+    color: '#561e6a',
+    text: 'Processando',
+  },
+  refunded: {
+    acronym: 'E',
+    color: '#613fc7',
+    text: 'Estornada',
+  },
+  refused: {
+    acronym: 'R',
+    color: '#da272c',
+    text: 'Recusada',
+  },
+  suspended: {
+    acronym: 'SU',
+    color: '#bf5316',
+    text: 'Suspensa',
   },
   unavailable: {
     acronym: 'IN',
@@ -55,24 +65,14 @@ const status = {
     text: 'Indisponível',
   },
   waiting_funds: {
+    acronym: 'AP',
     color: '#0b6e69',
     text: 'Aguardando pagamento',
+  },
+  waiting_payment: {
     acronym: 'AP',
-  },
-  chargedback_refund: {
-    color: '#ac4e19',
-    text: 'Chargeback reapresentado',
-    acronym: 'CBR',
-  },
-  suspended: {
-    color: '#bf5316',
-    text: 'Suspensa',
-    acronym: 'SU',
-  },
-  cancelled: {
-    color: '#da272c',
-    text: 'Cancelada',
-    acronym: 'CA',
+    color: '#0b6e69',
+    text: 'Aguardando pagamento',
   },
 }
 

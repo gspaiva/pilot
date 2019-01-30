@@ -1,6 +1,4 @@
 export default {
-  key: 'installments',
-  name: 'Número de parcelas',
   items: [
     {
       label: '1x',
@@ -51,4 +49,6 @@ export default {
       value: '12',
     },
   ],
+  key: 'installments',
+  name: 'Número de parcelas',
 }

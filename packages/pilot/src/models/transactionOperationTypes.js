@@ -1,21 +1,25 @@
 const types = {
-  capture: {
+  analyze: {
     status: {
+      approved: {
+        color: '#4ca9d7',
+        title: 'Aprovada na análise do antifraude',
+      },
       deferred: {
         color: '#41535b',
-        title: 'Captura pendente',
+        title: 'Processando análise do antifraude',
       },
       failed: {
         color: '#e00403',
-        title: 'Captura falhou',
+        title: 'Análise do antifraude falhou',
       },
       processing: {
         color: '#951d3c',
-        title: 'Captura em processamento',
+        title: 'Processando análise do antifraude',
       },
-      success: {
-        color: '#53be76',
-        title: 'Capturada',
+      refused: {
+        color: '#e00403',
+        title: 'Recusada na análise do antifraude',
       },
     },
   },
@@ -39,43 +43,23 @@ const types = {
       },
     },
   },
-  refund: {
+  capture: {
     status: {
       deferred: {
         color: '#41535b',
-        title: 'Estorno pendente',
+        title: 'Captura pendente',
       },
       failed: {
         color: '#e00403',
-        title: 'Estorno falhou',
+        title: 'Captura falhou',
       },
       processing: {
         color: '#951d3c',
-        title: 'Estorno em processamento',
+        title: 'Captura em processamento',
       },
       success: {
-        color: '#5b2886',
-        title: 'Estornada',
-      },
-    },
-  },
-  chargeback_refund: {
-    status: {
-      deferred: {
-        color: '#41535b',
-        title: 'Reapresentação do chargeback pendente',
-      },
-      failed: {
-        color: '#e00403',
-        title: 'Reapresentação do chargedback falhou',
-      },
-      processing: {
-        color: '#951d3c',
-        title: 'Reapresentação do chargeback em processamento',
-      },
-      success: {
-        color: '#bf5316',
-        title: 'Chargeback reapresentado',
+        color: '#53be76',
+        title: 'Capturada',
       },
     },
   },
@@ -99,67 +83,23 @@ const types = {
       },
     },
   },
-  issue: {
+  chargeback_refund: {
     status: {
       deferred: {
         color: '#41535b',
-        title: 'Emissão pendente',
+        title: 'Reapresentação do chargeback pendente',
       },
       failed: {
         color: '#e00403',
-        title: 'Emissão falhou',
+        title: 'Reapresentação do chargedback falhou',
       },
       processing: {
         color: '#951d3c',
-        title: 'Emissão em processamento',
+        title: 'Reapresentação do chargeback em processamento',
       },
       success: {
-        color: '#8c68d4',
-        title: 'Boleto emitido',
-      },
-    },
-  },
-  analyze: {
-    status: {
-      deferred: {
-        color: '#41535b',
-        title: 'Processando análise do antifraude',
-      },
-      failed: {
-        color: '#e00403',
-        title: 'Análise do antifraude falhou',
-      },
-      processing: {
-        color: '#951d3c',
-        title: 'Processando análise do antifraude',
-      },
-      approved: {
-        color: '#4ca9d7',
-        title: 'Aprovada na análise do antifraude',
-      },
-      refused: {
-        color: '#e00403',
-        title: 'Recusada na análise do antifraude',
-      },
-    },
-  },
-  manual_review: {
-    status: {
-      pending: {
-        color: '#41535b',
-        title: 'Revisão pendente',
-      },
-      approved: {
-        color: '#4ca9d7',
-        title: 'Aprovada por revisão manual',
-      },
-      refused: {
-        color: '#e00403',
-        title: 'Recusada por revisão manual',
-      },
-      timeout: {
-        color: '#e00403',
-        title: 'Revisão manual expirada',
+        color: '#bf5316',
+        title: 'Chargeback reapresentado',
       },
     },
   },
@@ -180,6 +120,66 @@ const types = {
       success: {
         color: '#53be76',
         title: 'Boleto pago',
+      },
+    },
+  },
+  issue: {
+    status: {
+      deferred: {
+        color: '#41535b',
+        title: 'Emissão pendente',
+      },
+      failed: {
+        color: '#e00403',
+        title: 'Emissão falhou',
+      },
+      processing: {
+        color: '#951d3c',
+        title: 'Emissão em processamento',
+      },
+      success: {
+        color: '#8c68d4',
+        title: 'Boleto emitido',
+      },
+    },
+  },
+  manual_review: {
+    status: {
+      approved: {
+        color: '#4ca9d7',
+        title: 'Aprovada por revisão manual',
+      },
+      pending: {
+        color: '#41535b',
+        title: 'Revisão pendente',
+      },
+      refused: {
+        color: '#e00403',
+        title: 'Recusada por revisão manual',
+      },
+      timeout: {
+        color: '#e00403',
+        title: 'Revisão manual expirada',
+      },
+    },
+  },
+  refund: {
+    status: {
+      deferred: {
+        color: '#41535b',
+        title: 'Estorno pendente',
+      },
+      failed: {
+        color: '#e00403',
+        title: 'Estorno falhou',
+      },
+      processing: {
+        color: '#951d3c',
+        title: 'Estorno em processamento',
+      },
+      success: {
+        color: '#5b2886',
+        title: 'Estornada',
       },
     },
   },

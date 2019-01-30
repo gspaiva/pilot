@@ -1,6 +1,4 @@
 export default {
-  key: 'card_brand',
-  name: 'Bandeiras',
   items: [
     {
       label: 'Visa',
@@ -39,4 +37,6 @@ export default {
       value: 'diners',
     },
   ],
+  key: 'card_brand',
+  name: 'Bandeiras',
 }
