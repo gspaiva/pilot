@@ -124,16 +124,18 @@ const showStatusAlert = either(
 )
 
 const formatDocument = applySpec({
-  type: prop('type'),
   number: pipe(
     prop('number'),
     formatCpfCnpj
   ),
+  type: prop('type'),
 })
 
 const formatCustomerBirthDay = customer => ({
   ...customer,
-  birthday: !isNil(customer.birthday) ? formatDate(customer.birthday) : null,
+  birthday: !isNil(customer.birthday)
+    ? formatDate(customer.birthday)
+    : null,
 })
 
 const getDefaultDocumentNumber = pipe(
@@ -173,7 +175,6 @@ const formatCustomerData = pipe(
   formatCustomerAddress
 )
 
-
 const getHeaderAmountLabel = (transaction, headerLabels) => {
   if (isBoletoTransaction(transaction)) {
     return headerLabels.boletoAmountLabel
@@ -209,11 +210,11 @@ const validatePreviousTransactionRedirect = (props, propName) => {
 const validateNextTransactionRedirect = (props, propName) => {
   if (propName === 'onNextTransactionRedirect') {
     const {
+      nextTransactionId,
       onNextTransactionRedirect,
       transaction: {
         nextId,
       },
-      nextTransactionId,
     } = props
 
     if ((nextId || nextTransactionId) && isNil(onNextTransactionRedirect)) {
@@ -285,26 +286,30 @@ class TransactionDetails extends Component {
   }
 
   componentDidMount () {
+    /* eslint-disable no-undef */
     window.addEventListener('afterprint', this.handleAfterPrint)
     window.addEventListener('beforeprint', this.handleBeforePrint)
+    /* eslint-enable no-undef */
   }
 
   componentWillUnmount () {
+    /* eslint-disable no-undef */
     window.removeEventListener('afterprint', this.handleAfterPrint)
     window.removeEventListener('beforeprint', this.handleBeforePrint)
+    /* eslint-enable no-undef */
   }
 
   getActions () {
     const {
       headerLabels,
       nextTransactionId,
-      transaction,
-      onManualReviewRefuse,
-      onManualReviewApprove,
-      permissions,
       onCapture,
+      onManualReviewApprove,
+      onManualReviewRefuse,
       onRefund,
       onReprocess,
+      permissions,
+      transaction,
       transaction: {
         capabilities,
       },
@@ -382,7 +387,6 @@ class TransactionDetails extends Component {
     return detailsHeadActions(capabilities)
   }
 
-
   handleAfterPrint () {
     this.setState({
       expandAllRecipients: false,
@@ -425,15 +429,15 @@ class TransactionDetails extends Component {
 
   renderBoleto () {
     const {
+      onCopyBoletoUrl,
+      onShowBoleto,
+      paymentBoletoLabels,
       transaction: {
         boleto: {
           barcode,
           due_date,
         },
       },
-      paymentBoletoLabels,
-      onCopyBoletoUrl,
-      onShowBoleto,
     } = this.props
 
     return (
@@ -453,15 +457,15 @@ class TransactionDetails extends Component {
 
   renderPaymentCard () {
     const {
+      paymentCardLabels,
       transaction: {
         card: {
-          first_digits,
-          last_digits,
           brand_name,
+          first_digits,
           holder_name,
+          last_digits,
         },
       },
-      paymentCardLabels,
     } = this.props
 
     return (
@@ -514,8 +518,8 @@ class TransactionDetails extends Component {
 
   renderEvents () {
     const {
-      transaction: { operations },
       atLabel,
+      transaction: { operations },
     } = this.props
 
     return operations.map((operation, index) => {
@@ -632,39 +636,51 @@ class TransactionDetails extends Component {
       card,
       customer,
       id,
+      metadata,
       payment,
       recipients,
       soft_descriptor,
       status,
       subscription,
-      metadata,
     } = transaction
 
     const transactionDetailsContent = {
-      acquirer_name: acquirer ? acquirer.name : null,
-      acquirer_response_code: acquirer ? acquirer.response_code : null,
-      authorization_code: acquirer ? acquirer.response_code : null,
-      capture_method: card ? card.capture_method : null,
-      nsu: acquirer ? acquirer.sequence_number : null,
+      acquirer_name: acquirer
+        ? acquirer.name
+        : null,
+      acquirer_response_code: acquirer
+        ? acquirer.response_code
+        : null,
+      authorization_code: acquirer
+        ? acquirer.response_code
+        : null,
+      capture_method: card
+        ? card.capture_method
+        : null,
+      nsu: acquirer
+        ? acquirer.sequence_number
+        : null,
       soft_descriptor,
-      subscription_id: subscription ? subscription.id : null,
+      subscription_id: subscription
+        ? subscription.id
+        : null,
       tid: id,
     }
 
     const formattedCustomer = formatCustomerData(customer || {})
 
     const customerDetailsContent = {
-      name: formattedCustomer && formattedCustomer.name,
-      document_number: formattedCustomer && formattedCustomer.document_number,
       birthday: formattedCustomer && formattedCustomer.birthday,
-      phone: formattedCustomer && formattedCustomer.phone,
+      city: formattedCustomer && formattedCustomer.city,
+      complementary: formattedCustomer && formattedCustomer.complementary,
+      document_number: formattedCustomer && formattedCustomer.document_number,
       email: formattedCustomer && formattedCustomer.email,
+      name: formattedCustomer && formattedCustomer.name,
+      neighborhood: formattedCustomer && formattedCustomer.neighborhood,
+      phone: formattedCustomer && formattedCustomer.phone,
+      state: formattedCustomer && formattedCustomer.state,
       street: formattedCustomer && formattedCustomer.street,
       street_number: formattedCustomer && formattedCustomer.street_number,
-      complementary: formattedCustomer && formattedCustomer.complementary,
-      neighborhood: formattedCustomer && formattedCustomer.neighborhood,
-      city: formattedCustomer && formattedCustomer.city,
-      state: formattedCustomer && formattedCustomer.state,
       zipcode: formattedCustomer && formattedCustomer.zipcode,
     }
 
@@ -844,11 +860,17 @@ class TransactionDetails extends Component {
                     tv={12}
                   >
                     <RecipientList
-                      collapseInstallmentTitle={recipientsLabels.collapseInstallmentTitle}
+                      collapseInstallmentTitle={
+                        recipientsLabels.collapseInstallmentTitle
+                      }
                       expandAllRecipients={this.state.expandAllRecipients}
-                      expandInstallmentTitle={recipientsLabels.expandInstallmentTitle}
+                      expandInstallmentTitle={
+                        recipientsLabels.expandInstallmentTitle
+                      }
                       installmentsTableColumns={installmentColumns}
-                      installmentTotalLabel={recipientsLabels.installmentTotalLabel}
+                      installmentTotalLabel={
+                        recipientsLabels.installmentTotalLabel
+                      }
                       liabilitiesLabel={recipientsLabels.liabilitiesLabel}
                       netAmountLabel={recipientsLabels.netAmountLabel}
                       noRecipientLabel={recipientsLabels.noRecipientLabel}
@@ -858,7 +880,9 @@ class TransactionDetails extends Component {
                       statusLabel={recipientsLabels.statusLabel}
                       title={recipientsLabels.title}
                       total={decimalCurrencyFormatter(payment.paid_amount)}
-                      totalRecipientsLabel={recipientsLabels.totalRecipientsLabel}
+                      totalRecipientsLabel={
+                        recipientsLabels.totalRecipientsLabel
+                      }
                       totalTitle={recipientsLabels.totalTitle}
                     />
                   </Col>
@@ -965,9 +989,9 @@ TransactionDetails.propTypes = {
   }).isRequired,
   installmentColumns: PropTypes.arrayOf(PropTypes.shape({
     costs: PropTypes.shape({
-      mdr: PropTypes.number,
       anticipation: PropTypes.number,
       chargeback: PropTypes.number,
+      mdr: PropTypes.number,
       refund: PropTypes.number,
     }),
     net_amount: PropTypes.number,
@@ -976,24 +1000,25 @@ TransactionDetails.propTypes = {
     payment_date: PropTypes.instanceOf(moment),
     status: PropTypes.string,
   })).isRequired,
+  metadataTitle: PropTypes.string.isRequired,
   nextTransactionId: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   onCapture: validateCaptureFunction,
   onCopyBoletoUrl: PropTypes.func,
   onDismissAlert: PropTypes.func, // eslint-disable-line react/no-unused-prop-types
+  onExport: PropTypes.func,
   onManualReviewApprove: PropTypes.func,
   onManualReviewRefuse: PropTypes.func,
   onNextTransactionRedirect: validateNextTransactionRedirect,
   onPreviousTransactionRedirect: validatePreviousTransactionRedirect,
-  onExport: PropTypes.func,
   onRefund: validateRefundFunction,
   onReprocess: validateReprocessFunction,
   onShowBoleto: PropTypes.func,
   paymentBoletoLabels: PropTypes.shape({
     copy: PropTypes.string,
     due_date: PropTypes.string,
+    feedback: PropTypes.string,
     show: PropTypes.string,
     title: PropTypes.string,
-    feedback: PropTypes.string,
   }).isRequired,
   paymentCardLabels: PropTypes.shape({
     title: PropTypes.string,
@@ -1002,13 +1027,6 @@ TransactionDetails.propTypes = {
     manualReview: PropTypes.bool.isRequired,
     refund: PropTypes.bool.isRequired,
     reprocess: PropTypes.bool.isRequired,
-  }).isRequired,
-  riskLevelsLabels: PropTypes.shape({
-    very_low: PropTypes.string,
-    low: PropTypes.string,
-    moderated: PropTypes.string,
-    high: PropTypes.string,
-    very_high: PropTypes.string,
   }).isRequired,
   recipientsLabels: PropTypes.shape({
     collapseInstallmentTitle: PropTypes.string,
@@ -1024,15 +1042,22 @@ TransactionDetails.propTypes = {
     totalTitle: PropTypes.string,
   }).isRequired,
   reprocessLabels: PropTypes.shape({
-    previousAlert: PropTypes.string,
     nextAlert: PropTypes.string,
-    showPrevious: PropTypes.string,
+    previousAlert: PropTypes.string,
     showNext: PropTypes.string,
+    showPrevious: PropTypes.string,
+  }).isRequired,
+  riskLevelsLabels: PropTypes.shape({
+    high: PropTypes.string,
+    low: PropTypes.string,
+    moderated: PropTypes.string,
+    very_high: PropTypes.string,
+    very_low: PropTypes.string,
   }).isRequired,
   totalDisplayLabels: PropTypes.shape({
     captured_at: PropTypes.string,
-    mdr: PropTypes.string,
     cost: PropTypes.string,
+    mdr: PropTypes.string,
     net_amount: PropTypes.string,
     out_amount: PropTypes.string,
     paid_amount: PropTypes.string,
@@ -1040,31 +1065,6 @@ TransactionDetails.propTypes = {
     refund: PropTypes.string,
   }).isRequired,
   transaction: PropTypes.shape({
-    boleto: PropTypes.shape({
-      barcode: PropTypes.string,
-      due_date: PropTypes.instanceOf(moment),
-      url: PropTypes.string,
-    }),
-    capabilities: PropTypes.shape({
-      capturable: PropTypes.bool,
-      reprocessable: PropTypes.bool,
-      refundable: PropTypes.bool,
-    }),
-    created_at: PropTypes.instanceOf(moment),
-    external_id: PropTypes.string,
-    id: PropTypes.number,
-    updated_at: PropTypes.instanceOf(moment),
-    soft_descriptor: PropTypes.string,
-    status: PropTypes.string,
-    status_reason: PropTypes.string,
-    payment: PropTypes.shape({
-      method: PropTypes.string,
-      paid_amount: PropTypes.number,
-      net_amount: PropTypes.number,
-      cost_amount: PropTypes.number,
-      refund_amount: PropTypes.number,
-      installments: PropTypes.number,
-    }),
     acquirer: PropTypes.shape({
       name: PropTypes.string,
       response_code: PropTypes.string,
@@ -1077,15 +1077,16 @@ TransactionDetails.propTypes = {
         PropTypes.string,
       ]),
     }),
-    antifraud: PropTypes.object, // eslint-disable-line
-    customer: PropTypes.shape({
-      name: PropTypes.string,
-      document_number: PropTypes.string,
-      document_type: PropTypes.string,
-      email: PropTypes.string,
-      birth_date: PropTypes.string,
-      country: PropTypes.string,
-      phones: PropTypes.arrayOf(PropTypes.string),
+    antifraud: PropTypes.object,
+    boleto: PropTypes.shape({
+      barcode: PropTypes.string,
+      due_date: PropTypes.instanceOf(moment),
+      url: PropTypes.string,
+    }),
+    capabilities: PropTypes.shape({
+      capturable: PropTypes.bool,
+      refundable: PropTypes.bool,
+      reprocessable: PropTypes.bool,
     }),
     card: PropTypes.shape({
       brand_name: PropTypes.string,
@@ -1095,31 +1096,55 @@ TransactionDetails.propTypes = {
       last_digits: PropTypes.string,
       pin_mode: PropTypes.string,
     }),
+    created_at: PropTypes.instanceOf(moment),
+    customer: PropTypes.shape({
+      birth_date: PropTypes.string,
+      country: PropTypes.string,
+      document_number: PropTypes.string,
+      document_type: PropTypes.string,
+      email: PropTypes.string,
+      name: PropTypes.string,
+      phones: PropTypes.arrayOf(PropTypes.string),
+    }),
+    external_id: PropTypes.string,
+    id: PropTypes.number,
     metadata: PropTypes.object, // eslint-disable-line
     operations: PropTypes.arrayOf(PropTypes.shape({
       created_at: PropTypes.instanceOf(moment),
-      type: PropTypes.string,
-      status: PropTypes.string,
       cycle: PropTypes.number,
+      status: PropTypes.string,
+      type: PropTypes.string,
     })),
-    recipients: PropTypes.arrayOf(PropTypes.shape({
-      name: PropTypes.string,
-      amount: PropTypes.number,
+    payment: PropTypes.shape({
+      cost_amount: PropTypes.number,
+      installments: PropTypes.number,
+      method: PropTypes.string,
       net_amount: PropTypes.number,
-      liabilities: PropTypes.arrayOf(PropTypes.string),
+      paid_amount: PropTypes.number,
+      refund_amount: PropTypes.number,
+    }),
+    recipients: PropTypes.arrayOf(PropTypes.shape({
+      amount: PropTypes.number,
       installments: PropTypes.arrayOf(PropTypes.shape({
-        number: PropTypes.number,
-        payment_date: PropTypes.instanceOf(moment),
-        original_payment_date: PropTypes.instanceOf(moment),
-        created_at: PropTypes.instanceOf(moment),
         amount: PropTypes.number,
-        net_amount: PropTypes.number,
         costs: PropTypes.shape({
-          mdr: PropTypes.number,
           anticipation: PropTypes.number,
+          mdr: PropTypes.number,
         }),
+        created_at: PropTypes.instanceOf(moment),
+        net_amount: PropTypes.number,
+        number: PropTypes.number,
+        original_payment_date: PropTypes.instanceOf(moment),
+        payment_date: PropTypes.instanceOf(moment),
       })),
+      liabilities: PropTypes.arrayOf(PropTypes.string),
+      name: PropTypes.string,
+      net_amount: PropTypes.number,
     })),
+    soft_descriptor: PropTypes.string,
+    status: PropTypes.string,
+    status_reason: PropTypes.string,
+    updated_at: PropTypes.instanceOf(moment),
   }).isRequired,
   transactionDetailsLabels: PropTypes.shape({
     acquirer_name: PropTypes.string,
@@ -1132,7 +1157,6 @@ TransactionDetails.propTypes = {
     tid: PropTypes.string,
     title: PropTypes.string,
   }).isRequired,
-  metadataTitle: PropTypes.string.isRequired,
 }
 
 TransactionDetails.defaultProps = {
@@ -1140,9 +1164,9 @@ TransactionDetails.defaultProps = {
   onCapture: null,
   onCopyBoletoUrl: null,
   onDismissAlert: null,
+  onExport: null,
   onManualReviewApprove: null,
   onManualReviewRefuse: null,
-  onExport: null,
   onNextTransactionRedirect: null,
   onPreviousTransactionRedirect: null,
   onRefund: null,

@@ -145,8 +145,8 @@ const HeaderContainer = ({
         </PopoverContent>
         <PopoverMenu
           items={[
-            { title: t('header.account.settings'), action: onSettings },
-            { title: t('header.account.logout'), action: onLogout },
+            { action: onSettings, title: t('header.account.settings') },
+            { action: onLogout, title: t('header.account.logout') },
           ]}
         />
       </HeaderMenu>

@@ -89,22 +89,20 @@ const BankAccountSelector = ({
 )
 
 BankAccountSelector.propTypes = {
-  accounts: PropTypes.arrayOf(
-    PropTypes.shape({
-      agencia: PropTypes.string.isRequired,
-      agencia_dv: PropTypes.string,
-      bank_code: PropTypes.string.isRequired,
-      conta: PropTypes.string.isRequired,
-      conta_dv: PropTypes.string,
-      document_number: PropTypes.string.isRequired,
-      document_type: PropTypes.string.isRequired,
-      id: PropTypes.number.isRequired,
-      legal_name: PropTypes.string.isRequired,
-      type: PropTypes.string.isRequired,
-    }).isRequired
-  ).isRequired,
-  onSelect: PropTypes.func.isRequired,
+  accounts: PropTypes.arrayOf(PropTypes.shape({
+    agencia: PropTypes.string.isRequired,
+    agencia_dv: PropTypes.string,
+    bank_code: PropTypes.string.isRequired,
+    conta: PropTypes.string.isRequired,
+    conta_dv: PropTypes.string,
+    document_number: PropTypes.string.isRequired,
+    document_type: PropTypes.string.isRequired,
+    id: PropTypes.number.isRequired,
+    legal_name: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+  }).isRequired).isRequired,
   disabled: PropTypes.bool,
+  onSelect: PropTypes.func.isRequired,
   selectedAccountId: PropTypes.number.isRequired,
   t: PropTypes.func.isRequired,
 }

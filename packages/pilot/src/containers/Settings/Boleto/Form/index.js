@@ -41,22 +41,17 @@ class BoletoForm extends Component {
       actionsDisabled,
       daysToAddInExpirationDate,
       disabled,
+      instructions,
+      instructionsOptions,
       onCancel,
       onChange,
       onSubmit,
-      instructions,
-      instructionsOptions,
       t,
     } = this.props
 
-    const isNumber = numberValidation(
-      t('pages.settings.company.boleto.number')
-    )
-    const isRequired = requiredValidation(
-      t('pages.settings.company.boleto.required')
-    )
-    const daysToAddInExpirationDateLabel =
-      t('pages.settings.company.boleto.daysToAddInExpirationDate.label')
+    const isNumber = numberValidation(t('pages.settings.company.boleto.number'))
+    const isRequired = requiredValidation(t('pages.settings.company.boleto.required'))
+    const daysToAddInExpirationDateLabel = t('pages.settings.company.boleto.daysToAddInExpirationDate.label')
 
     return (
       <CardContent>
@@ -72,15 +67,18 @@ class BoletoForm extends Component {
           onChange={onChange}
           onClick={this.toggleForm}
           onSubmit={onSubmit}
-          subtitle={t('pages.settings.company.boleto.subtitle',
-          { count: Number(daysToAddInExpirationDate) })}
+          subtitle={t(
+            'pages.settings.company.boleto.subtitle',
+            { count: Number(daysToAddInExpirationDate) }
+          )}
           t={t}
           title={t('pages.settings.company.card.product.boleto.title')}
           validation={{
             daysToAddInExpirationDate: [
               isRequired,
               isNumber,
-              lessThan(0,
+              lessThan(
+                0,
                 t('pages.settings.company.boleto.greater_than_or_equal')
               ),
             ],
@@ -135,16 +133,14 @@ BoletoForm.propTypes = {
   actionsDisabled: PropTypes.bool.isRequired,
   daysToAddInExpirationDate: PropTypes.string.isRequired,
   disabled: PropTypes.bool,
+  instructions: PropTypes.string.isRequired,
+  instructionsOptions: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired,
+  })).isRequired,
   onCancel: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
-  instructions: PropTypes.string.isRequired,
-  instructionsOptions: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      value: PropTypes.string.isRequired,
-    })
-  ).isRequired,
   t: PropTypes.func.isRequired,
 }
 

@@ -51,9 +51,9 @@ class AnticipationFormContainer extends Component {
   }
 
   handleCalculateSubmit ({
-    transfer,
     dates,
     requested,
+    transfer,
     ...values
   }, errors) {
     const { error } = this.props
@@ -110,8 +110,8 @@ class AnticipationFormContainer extends Component {
               <Form
                 anticipationInfo={renderInfo(t('pages.anticipation.date.advise'))}
                 dates={{
-                  start: date,
                   end: date,
+                  start: date,
                 }}
                 error={error}
                 isAutomaticTransfer={isAutomaticTransfer}
@@ -227,7 +227,10 @@ class AnticipationFormContainer extends Component {
                         align="end"
                         amount={amount}
                         amountSize="huge"
-                        color={amount > 0 ? colors.amount : colors.cost}
+                        color={amount > 0
+                          ? colors.amount
+                          : colors.cost
+                        }
                         title={
                           <div className={style.titleInfo}>
                             {renderInfo(

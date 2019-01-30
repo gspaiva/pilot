@@ -140,9 +140,9 @@ CompanyGeneralForm.propTypes = {
     city: PropTypes.string,
     complementary: PropTypes.string,
     neighborhood: PropTypes.string,
-    streetNumber: PropTypes.string,
-    street: PropTypes.string,
     state: PropTypes.string,
+    street: PropTypes.string,
+    streetNumber: PropTypes.string,
     zipcode: PropTypes.string,
   }).isRequired,
   onSubmit: PropTypes.func,
@@ -150,8 +150,8 @@ CompanyGeneralForm.propTypes = {
 }
 
 CompanyGeneralForm.defaultProps = {
-  t: t => t,
   onSubmit: data => data,
+  t: t => t,
 }
 
 export default CompanyGeneralForm

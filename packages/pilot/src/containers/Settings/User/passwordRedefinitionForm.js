@@ -24,7 +24,10 @@ import IconInfo from 'emblematic-icons/svg/Info32.svg'
 
 import PasswordInput from '../../../components/PasswordInput'
 
-const required = t => value => (value ? null : t('pages.settings.user.card.access.field_required'))
+const required = t => value => (value
+  ? null
+  : t('pages.settings.user.card.access.field_required')
+)
 const equalsString = (t, str1) => ifElse(
   equals(str1),
   F,
@@ -42,8 +45,8 @@ class PasswordRedefinitionForm extends Component {
     super(props)
 
     this.state = {
-      initialFormData,
       currentFormData: initialFormData,
+      initialFormData,
       saveActionDisabled: true,
       showPopover: false,
       validations: validate(initialFormData.new_password),

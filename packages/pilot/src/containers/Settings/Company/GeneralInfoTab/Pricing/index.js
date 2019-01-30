@@ -68,7 +68,8 @@ class Pricing extends React.Component {
                   {t(`pages.settings.company.card.general.rate.${serviceTitle}`)}
                 </span>
                 <strong>
-                  {intersperse(' + ',
+                  {intersperse(
+                    ' + ',
                     prices.map(({ unit, value }) => (
                       <span key={`${unit}:${value}`}>
                         {unit === 'real' && formatCurrency(value)}

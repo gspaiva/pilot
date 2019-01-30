@@ -247,11 +247,11 @@ class WithdrawResult extends Component {
 WithdrawResult.propTypes = {
   amount: PropTypes.number.isRequired,
   bankAccount: PropTypes.shape({
-    agencia_dv: PropTypes.string,
     agencia: PropTypes.string,
+    agencia_dv: PropTypes.string,
     bank_code: PropTypes.string,
-    conta_dv: PropTypes.string,
     conta: PropTypes.string,
+    conta_dv: PropTypes.string,
     document_number: PropTypes.string,
     document_type: PropTypes.string,
     legal_name: PropTypes.string,

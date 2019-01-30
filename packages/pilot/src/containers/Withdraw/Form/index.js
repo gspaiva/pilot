@@ -216,7 +216,8 @@ class WithdrawFormContainer extends Component {
               isNumber,
               always(buildAmountValidation(amount)),
               greaterThanValidation(
-                maximum, t('pages.withdraw.requested_value_greater_max')
+                maximum,
+                t('pages.withdraw.requested_value_greater_max')
               ),
             ],
           }}

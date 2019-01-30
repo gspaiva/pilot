@@ -50,7 +50,7 @@ class Anticipation extends Component {
   }
 
   getStepsStatus () {
-    const { stepsStatus, currentStep } = this.props
+    const { currentStep, stepsStatus } = this.props
     const steps = createStepsStatus(stepsStatus)
 
     return map(setCurrentStep(currentStep), steps)
@@ -257,8 +257,8 @@ class Anticipation extends Component {
 
 Anticipation.propTypes = {
   amount: PropTypes.number.isRequired,
-  automaticTransfer: PropTypes.bool.isRequired,
   approximateRequested: PropTypes.number,
+  automaticTransfer: PropTypes.bool.isRequired,
   currentStep: PropTypes.string.isRequired,
   date: PropTypes.instanceOf(moment).isRequired,
   error: PropTypes.string,
@@ -273,8 +273,8 @@ Anticipation.propTypes = {
   onDateChange: PropTypes.func.isRequired,
   onFormChange: PropTypes.func.isRequired,
   onTimeframeChange: PropTypes.func.isRequired,
-  onViewStatement: PropTypes.func.isRequired,
   onTryAgain: PropTypes.func.isRequired,
+  onViewStatement: PropTypes.func.isRequired,
   recipient: PropTypes.shape({
     bank_account: PropTypes.shape({
       agencia: PropTypes.string,
@@ -304,9 +304,9 @@ Anticipation.propTypes = {
 
 Anticipation.defaultProps = {
   approximateRequested: null,
+  error: '',
   maximum: null,
   minimum: null,
-  error: '',
   recipient: {
     bank_account: {
       agencia: '',

@@ -1,7 +1,5 @@
 import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
-
-
 import IconChecked from 'emblematic-icons/svg/Check32.svg'
 import IconError from 'emblematic-icons/svg/ClearClose32.svg'
 
@@ -24,24 +22,23 @@ const getIcon = cond([
   [equals('error'), always(<IconError height={16} width={16} />)],
 ])
 
-
 const BoletoResult = ({
+  amount,
   bankAccount: {
-    agencia_dv, // eslint-disable-line camelcase
     agencia,
+    agencia_dv, // eslint-disable-line camelcase
     bank_code, // eslint-disable-line camelcase
-    conta_dv, // eslint-disable-line camelcase
     conta,
+    conta_dv, // eslint-disable-line camelcase
     document_number, // eslint-disable-line camelcase
     legal_name, // eslint-disable-line camelcase
     type,
   },
-  amount,
   onTryAgain,
   onViewTransaction,
+  refundAmount,
   status,
   statusMessage,
-  refundAmount,
   t,
 }) => {
   const labels = {
@@ -57,8 +54,8 @@ const BoletoResult = ({
 
   const contents = {
     account: conta,
-    accountVd: conta_dv,
     accountType: t(`models.account_type.${type}`),
+    accountVd: conta_dv,
     agency: agencia,
     agencyVd: agencia_dv,
     amount,
@@ -113,11 +110,11 @@ const BoletoResult = ({
 BoletoResult.propTypes = {
   amount: PropTypes.number.isRequired,
   bankAccount: PropTypes.shape({
-    agencia_dv: PropTypes.string.isRequired,
     agencia: PropTypes.string.isRequired,
+    agencia_dv: PropTypes.string.isRequired,
     bank_code: PropTypes.string.isRequired,
-    conta_dv: PropTypes.string.isRequired,
     conta: PropTypes.string.isRequired,
+    conta_dv: PropTypes.string.isRequired,
     document_number: PropTypes.string.isRequired,
     legal_name: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,

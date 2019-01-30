@@ -28,11 +28,11 @@ class CompanySettings extends Component {
       address,
       apiKeys,
       apiVersion,
+      bankAccountChangeActionDisabled,
+      bankAccountSelected,
+      bankAccountSelectedView,
       bankAccounts,
       bankActionsDisabled,
-      bankAccountSelected,
-      bankAccountChangeActionDisabled,
-      bankAccountSelectedView,
       bankData,
       bankErrors,
       boletoActionsDisabled,
@@ -166,15 +166,16 @@ CompanySettings.propTypes = {
     title: PropTypes.string.isRequired,
   }),
   apiVersion: PropTypes.string,
-  bankAccounts: PropTypes.arrayOf(
-    PropTypes.shape(bankAccountShape).isRequired
-  ).isRequired,
-  bankActionsDisabled: PropTypes.bool.isRequired,
-  bankAccountSelected: PropTypes.shape(bankAccountShape).isRequired,
+  /* eslint-disable max-len, react/sort-prop-types */
   bankAccountChangeActionDisabled: PropTypes.bool.isRequired,
+  bankAccounts: PropTypes.arrayOf(PropTypes.shape(bankAccountShape).isRequired).isRequired,
+  bankAccountSelected: PropTypes.shape(bankAccountShape).isRequired,
   bankAccountSelectedView: PropTypes.oneOf([
-    'addition', 'selection',
+    'addition',
+    'selection',
   ]).isRequired,
+  bankActionsDisabled: PropTypes.bool.isRequired,
+  /* eslint-enable max-len, react/sort-prop-types */
   bankData: PropTypes.shape({
     account: PropTypes.string,
     accountCd: PropTypes.string,
@@ -216,18 +217,17 @@ CompanySettings.propTypes = {
     'test',
   ]).isRequired,
   general: PropTypes.shape({
-    name: PropTypes.string,
-    fullName: PropTypes.string,
     cnpj: PropTypes.string,
+    fullName: PropTypes.string,
+    name: PropTypes.string,
     siteUrl: PropTypes.string,
   }).isRequired,
   handleCreateUser: PropTypes.func.isRequired,
   handleDeleteUser: PropTypes.func.isRequired,
-  resetCreateUserState: PropTypes.func.isRequired,
   managingPartner: PropTypes.shape({
-    name: PropTypes.string,
     cpf: PropTypes.string,
     email: PropTypes.string,
+    name: PropTypes.string,
   }).isRequired,
   onBankAccountCancel: PropTypes.func.isRequired,
   onBankAccountChange: PropTypes.func.isRequired,
@@ -246,6 +246,7 @@ CompanySettings.propTypes = {
       title: PropTypes.string.isRequired,
     })).isRequired,
   })).isRequired,
+  resetCreateUserState: PropTypes.func.isRequired,
   t: PropTypes.func,
   team: PropTypes.arrayOf(PropTypes.shape({
     date_created: PropTypes.string,

@@ -120,8 +120,8 @@ CompanyGeneralForm.propTypes = {
 }
 
 CompanyGeneralForm.defaultProps = {
-  t: t => t,
   onSubmit: data => data,
+  t: t => t,
 }
 
 export default CompanyGeneralForm

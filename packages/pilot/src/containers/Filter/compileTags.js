@@ -8,9 +8,7 @@ import {
 
 const compileTags = (options, values = {}) =>
   map(
-    ({ key, items, name }) => ({
-      key,
-      name,
+    ({ items, key, name }) => ({
       items: map(
         prop('label'),
         innerJoin(
@@ -19,6 +17,8 @@ const compileTags = (options, values = {}) =>
           map(objOf('value'), values[key] || [])
         )
       ),
+      key,
+      name,
     }),
     options
   )

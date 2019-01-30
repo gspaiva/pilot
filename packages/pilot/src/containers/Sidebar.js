@@ -97,7 +97,9 @@ class SidebarContainer extends React.Component {
         {!collapsed &&
           <SidebarSummary
             collapsed={summaryCollapsed}
-            onClick={() => this.setState({ summaryCollapsed: !summaryCollapsed })}
+            onClick={() => this.setState({
+              summaryCollapsed: !summaryCollapsed,
+            })}
             subtitle={
               summaryCollapsed
                 ? t('pages.sidebar.show_balance')
@@ -133,10 +135,10 @@ class SidebarContainer extends React.Component {
         <SidebarLinks>
           {links.map(({
             active,
+            exact,
             icon: Icon,
             path,
             title,
-            exact,
           }) => (
             <SidebarLink
               key={path}
@@ -146,8 +148,7 @@ class SidebarContainer extends React.Component {
               collapsed={collapsed}
               onClick={() => onLinkClick({ active, exact, path })}
             />
-          )
-        )}
+          ))}
         </SidebarLinks>
         {!collapsed &&
           <SidebarContent>
@@ -173,14 +174,14 @@ SidebarContainer.propTypes = {
   companyName: PropTypes.string,
   links: PropTypes.arrayOf(PropTypes.shape({
     active: PropTypes.bool,
-    title: PropTypes.string,
-    path: PropTypes.string,
-    icon: PropTypes.func,
     component: PropTypes.func,
+    icon: PropTypes.func,
+    path: PropTypes.string,
+    title: PropTypes.string,
   })).isRequired,
   logo: PropTypes.func.isRequired,
-  onLinkClick: PropTypes.func.isRequired,
   onAnticipate: PropTypes.func,
+  onLinkClick: PropTypes.func.isRequired,
   onWithdraw: PropTypes.func,
   t: PropTypes.func.isRequired,
 }

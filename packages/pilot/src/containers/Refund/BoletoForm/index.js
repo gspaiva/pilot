@@ -56,11 +56,11 @@ class BoletoForm extends Component {
     const {
       amount,
       bankAccount: {
-        agencia_dv, // eslint-disable-line camelcase
         agencia,
+        agencia_dv, // eslint-disable-line camelcase
         bank_code, // eslint-disable-line camelcase
-        conta_dv, // eslint-disable-line camelcase
         conta,
+        conta_dv, // eslint-disable-line camelcase
         document_number, // eslint-disable-line camelcase
         legal_name, // eslint-disable-line camelcase
         type,
@@ -79,20 +79,26 @@ class BoletoForm extends Component {
     return (
       <Form
         data={{
+          amount: refundAmount || amount.toString(),
           bank_account: {
             agencia,
             agencia_dv,
             bank_code,
-            conta_dv,
             conta,
+            conta_dv,
             document_number,
             legal_name,
             type,
           },
-          amount: refundAmount || amount.toString(),
         }}
         validateOn="blur"
         validation={{
+          amount: [
+            isRequired,
+            isNumber,
+            greaterThanValidation(amount, t('pages.refund.invalid_amount')),
+            lessThanOrEqualValidation(0, t('pages.refund.greater_than_zero')),
+          ],
           bank_account: {
             agencia: [isRequired, isNumber],
             agencia_dv: agencyCDValidation(t('pages.refund.invalid_agency_check_digit')),
@@ -119,12 +125,6 @@ class BoletoForm extends Component {
             ],
             type: isRequired,
           },
-          amount: [
-            isRequired,
-            isNumber,
-            greaterThanValidation(amount, t('pages.refund.invalid_amount')),
-            lessThanOrEqualValidation(0, t('pages.refund.greater_than_zero')),
-          ],
         }}
         onSubmit={this.handleSubmit}
       >
@@ -244,11 +244,11 @@ class BoletoForm extends Component {
 BoletoForm.propTypes = {
   amount: PropTypes.number.isRequired,
   bankAccount: PropTypes.shape({
-    agencia_dv: PropTypes.string,
     agencia: PropTypes.string,
+    agencia_dv: PropTypes.string,
     bank_code: PropTypes.string,
-    conta_dv: PropTypes.string,
     conta: PropTypes.string,
+    conta_dv: PropTypes.string,
     document_number: PropTypes.string,
     legal_name: PropTypes.string,
     type: PropTypes.string,
@@ -260,11 +260,11 @@ BoletoForm.propTypes = {
 
 BoletoForm.defaultProps = {
   bankAccount: {
-    agencia_dv: '',
     agencia: '',
+    agencia_dv: '',
     bank_code: '',
-    conta_dv: '',
     conta: '',
+    conta_dv: '',
     document_number: '',
     legal_name: '',
     type: '',

@@ -19,11 +19,11 @@ const getSecondaryBase = base => (
 )
 
 const Account = ({
-  t,
   base,
   logo: Logo,
   primaryContent,
   secondaryContent,
+  t,
 }) => (
   <Landing className={styles.container}>
     <LandingPrimarySection base={base}>

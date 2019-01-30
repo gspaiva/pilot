@@ -14,12 +14,12 @@ import style from './style.css'
 
 const getExportOptions = onExport => ([
   {
-    title: 'CSV',
     action: () => onExport('csv'),
+    title: 'CSV',
   },
   {
-    title: 'Excel',
     action: () => onExport('xlsx'),
+    title: 'Excel',
   },
 ])
 
@@ -33,9 +33,9 @@ class Operations extends PureComponent {
   renderSubTitle () {
     const {
       currentPage,
-      onExportData,
       disabled,
       ofLabel,
+      onExportData,
       onPageChange,
       subtitle,
       totalPages,
@@ -133,6 +133,7 @@ Operations.propTypes = {
   disabled: PropTypes.bool,
   emptyMessage: PropTypes.string.isRequired,
   ofLabel: PropTypes.string.isRequired,
+  onExportData: PropTypes.func.isRequired,
   onPageChange: PropTypes.func.isRequired,
   rows: PropTypes.arrayOf(PropTypes.shape({
     description: PropTypes.string,

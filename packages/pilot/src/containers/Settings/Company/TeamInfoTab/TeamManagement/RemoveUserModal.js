@@ -9,9 +9,9 @@ import {
 } from 'former-kit'
 
 const RemoveUserModal = ({
-  isOpen,
   handleCloseModal,
   handleDeleteUser,
+  isOpen,
   user,
 }) => {
   const handleDelete = (id) => {
@@ -52,9 +52,9 @@ const RemoveUserModal = ({
 }
 
 RemoveUserModal.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
   handleCloseModal: PropTypes.func.isRequired,
   handleDeleteUser: PropTypes.func.isRequired,
+  isOpen: PropTypes.bool.isRequired,
   user: PropTypes.shape({
     date_created: PropTypes.string,
     email: PropTypes.string,

@@ -54,41 +54,42 @@ class RecipientList extends Component {
       expandAllRecipients,
       expandInstallmentTitle,
       installmentTotalLabel,
+      installmentsTableColumns,
       liabilitiesLabel,
       netAmountLabel,
       outAmountLabel,
       recipients,
       statusLabel,
-      installmentsTableColumns,
     } = this.props
 
     return recipients.map((recipient, index) => {
       const {
+        amount,
         installments,
         liabilities,
         name,
         net_amount, // eslint-disable-line camelcase
         status,
-        amount,
       } = recipient
-      const collapsed = notContains(index, this.state.expandedItems) && !expandAllRecipients
-      const onClick = this.handleItemExpand.bind(this, index)
+      const collapsed = notContains(index, this.state.expandedItems)
+        && !expandAllRecipients
+
       const key = `recipient_${index}`
       return (
         <RecipientSection
           isSingleRecipient={recipients.length === 1}
           className={style.recipient}
-          key={key}
           collapsed={collapsed}
           collapsedTitle={collapseInstallmentTitle}
           columns={installmentsTableColumns}
           installments={installments}
+          key={key}
           liabilities={liabilities}
           liabilitiesLabel={liabilitiesLabel}
           name={name}
           netAmount={net_amount} // eslint-disable-line camelcase
           netAmountLabel={netAmountLabel}
-          onDetailsClick={onClick}
+          onDetailsClick={() => this.handleItemExpand(index)}
           outAmountLabel={outAmountLabel}
           status={status}
           statusLabel={statusLabel}
@@ -152,7 +153,9 @@ class RecipientList extends Component {
       recipients,
     } = this.props
 
-    const totalRecipients = recipients ? recipients.length : 0
+    const totalRecipients = recipients
+      ? recipients.length
+      : 0
     return (
       <Card>
         {totalRecipients === 1
@@ -165,38 +168,38 @@ class RecipientList extends Component {
 }
 
 RecipientList.propTypes = {
+  collapseInstallmentTitle: PropTypes.string,
+  expandAllRecipients: PropTypes.bool,
+  expandInstallmentTitle: PropTypes.string,
   installmentsTableColumns: PropTypes.arrayOf(PropTypes.shape({
-    title: PropTypes.string,
     accessor: PropTypes.arrayOf(PropTypes.string),
     orderable: PropTypes.bool,
+    title: PropTypes.string,
   })).isRequired,
+  installmentTotalLabel: PropTypes.string, // eslint-disable-line react/sort-prop-types
+  liabilitiesLabel: PropTypes.string,
+  netAmountLabel: PropTypes.string,
+  outAmountLabel: PropTypes.string,
   recipients: PropTypes.arrayOf(PropTypes.shape({
+    amount: PropTypes.number.isRequired,
     installments: PropTypes.arrayOf(PropTypes.shape({
-      number: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-      status: PropTypes.string,
-      payment_date: PropTypes.instanceOf(moment),
-      original_payment_date: PropTypes.instanceOf(moment),
-      net_amount: PropTypes.number,
       costs: PropTypes.shape({
-        mdr: PropTypes.number,
         anticipation: PropTypes.number,
         chargeback: PropTypes.number,
+        mdr: PropTypes.number,
         refund: PropTypes.number,
       }),
+      net_amount: PropTypes.number,
+      number: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+      original_payment_date: PropTypes.instanceOf(moment),
+      payment_date: PropTypes.instanceOf(moment),
+      status: PropTypes.string,
     })).isRequired,
     liabilities: PropTypes.arrayOf(PropTypes.string).isRequired,
     name: PropTypes.string.isRequired,
     net_amount: PropTypes.number.isRequired, // eslint-disable-line camelcase
     status: PropTypes.string,
-    amount: PropTypes.number.isRequired,
   })).isRequired,
-  collapseInstallmentTitle: PropTypes.string,
-  expandAllRecipients: PropTypes.bool,
-  expandInstallmentTitle: PropTypes.string,
-  installmentTotalLabel: PropTypes.string,
-  liabilitiesLabel: PropTypes.string,
-  netAmountLabel: PropTypes.string,
-  outAmountLabel: PropTypes.string,
   statusLabel: PropTypes.string,
   title: PropTypes.string,
   total: PropTypes.string.isRequired,

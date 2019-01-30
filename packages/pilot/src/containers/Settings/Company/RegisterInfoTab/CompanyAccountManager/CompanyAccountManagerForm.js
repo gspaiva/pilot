@@ -31,8 +31,8 @@ class CompanyGeneralForm extends Component {
     const initalFormData = formatInitialData(props.managingPartner)
 
     this.state = {
-      initalFormData,
       currentFormData: initalFormData,
+      initalFormData,
     }
 
     this.handleCancellation = this.handleCancellation.bind(this)
@@ -113,8 +113,8 @@ CompanyGeneralForm.propTypes = {
 }
 
 CompanyGeneralForm.defaultProps = {
-  t: t => t,
   onSubmit: data => data,
+  t: t => t,
 }
 
 export default CompanyGeneralForm

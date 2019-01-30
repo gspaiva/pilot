@@ -50,7 +50,7 @@ class Withdraw extends Component {
   }
 
   getStepsStatus () {
-    const { stepsStatus, currentStep } = this.props
+    const { currentStep, stepsStatus } = this.props
     const steps = createStepsStatus(stepsStatus)
 
     return map(setCurrentStep(currentStep), steps)
@@ -258,8 +258,8 @@ Withdraw.propTypes = {
   requested: PropTypes.number.isRequired,
   statusMessage: PropTypes.string,
   stepsStatus: PropTypes.shape({
-    data: PropTypes.string.isRequired,
     confirmation: PropTypes.string.isRequired,
+    data: PropTypes.string.isRequired,
     result: PropTypes.string.isRequired,
   }).isRequired,
   t: PropTypes.func.isRequired,

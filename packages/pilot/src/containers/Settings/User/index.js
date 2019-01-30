@@ -30,8 +30,8 @@ class UserSettings extends Component {
   }
   render () {
     const {
-      t,
       handlePasswordFormSubmit,
+      t,
     } = this.props
 
     return (

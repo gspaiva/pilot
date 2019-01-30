@@ -16,7 +16,7 @@ import ReprocessDetails from '../../../components/ReprocessDetails'
 import formatCardNumber from '../../../formatters/cardNumber'
 import formatCurrency from '../../../formatters/currency'
 
-const validateOnRestart = ({ status, onRestart }, propName) => {
+const validateOnRestart = ({ onRestart, status }, propName) => {
   if (
     propName === 'onRestart'
     && status === 'error'
@@ -50,7 +50,11 @@ const Result = ({
                     ? <IconSuccess width={16} height={16} />
                     : <IconError width={16} height={16} />
                 }
-              type={status !== 'error' ? 'success' : 'error'}
+              type={
+                status !== 'error'
+                  ? 'success'
+                  : 'error'
+              }
             >
               <span>{statusMessage}</span>
             </Alert>
@@ -107,7 +111,6 @@ const Result = ({
     </ModalActions>
   </Fragment>
 )
-
 
 Result.propTypes = {
   amount: PropTypes.number.isRequired,

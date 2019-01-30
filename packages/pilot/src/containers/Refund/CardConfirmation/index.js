@@ -102,5 +102,4 @@ CardConfirmation.defaultProps = {
   disabled: false,
 }
 
-
 export default CardConfirmation

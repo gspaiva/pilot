@@ -12,8 +12,8 @@ import {
 } from 'former-kit'
 
 const PersonalInfoForm = ({
-  onSubmit,
   onCancel,
+  onSubmit,
   t,
 }) => (
   <Form
@@ -104,8 +104,8 @@ const PersonalInfoForm = ({
 )
 
 PersonalInfoForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
   t: PropTypes.func,
 }
 

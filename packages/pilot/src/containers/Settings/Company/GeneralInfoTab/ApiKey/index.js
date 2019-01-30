@@ -10,10 +10,8 @@ import {
   Row,
 } from 'former-kit'
 import IconLock from 'emblematic-icons/svg/Lock32.svg'
-
 import ApiKey from '../../../../../components/ApiKey'
 import style from './style.css'
-
 
 class ApiKeyContainer extends React.Component {
   constructor (props) {
@@ -36,11 +34,11 @@ class ApiKeyContainer extends React.Component {
   renderContent () {
     const {
       apiKeys: {
-        title,
         keys: {
           apiKey,
           encryptionKey,
         },
+        title,
       },
       environment,
       t,

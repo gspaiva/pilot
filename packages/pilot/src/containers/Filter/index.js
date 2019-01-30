@@ -99,10 +99,10 @@ class Filters extends Component {
 
   renderToolbar () {
     const {
-      query: originalFilters,
-      options,
-      onClear,
       children,
+      onClear,
+      options,
+      query: originalFilters,
       t,
     } = this.props
 
@@ -133,7 +133,11 @@ class Filters extends Component {
         }
         <Spacing size="flex" />
         <Button
-          relevance={filtersChanged ? 'normal' : 'low'}
+          relevance={
+            filtersChanged
+              ? 'normal'
+              : 'low'
+          }
           onClick={onClear}
           fill="outline"
           disabled={this.props.disabled}
@@ -142,7 +146,11 @@ class Filters extends Component {
         </Button>
 
         <Button
-          relevance={filtersChanged ? 'normal' : 'low'}
+          relevance={
+            filtersChanged
+              ? 'normal'
+              : 'low'
+          }
           disabled={!filtersChanged || this.props.disabled}
           type="submit"
           fill="gradient"
@@ -178,13 +186,17 @@ class Filters extends Component {
           <CardContent>
             <fieldset name="filters">
               <Row flex>
-                {options.map(({ name, items, key }) => (
+                {options.map(({ items, key, name }) => (
                   <Col key={name}>
                     <div className={style.filtersTitle}>
                       {name}
                     </div>
                     <CheckboxGroup
-                      columns={items.length > 6 ? 2 : 1}
+                      columns={
+                        items.length > 6
+                        ? 2
+                        : 1
+                      }
                       disabled={this.props.disabled}
                       name={key}
                       options={items}
@@ -210,10 +222,10 @@ class Filters extends Component {
 
     const {
       options,
-      t,
       query: {
         filters: urlFilters,
       },
+      t,
     } = this.props
 
     const filters = mergeDeepLeft(urlFilters, localFilters)
@@ -229,7 +241,7 @@ class Filters extends Component {
         <span className={style.selectedOptionsTitle}>
           {t('components.filter.filtering_by')}&nbsp;
         </span>
-        {tags.map(({ key, name, items }) => (
+        {tags.map(({ items, key, name }) => (
           !isNilOrEmpty(items) &&
             <Tag key={key}>
               <strong>{name}</strong>: {join(', ', items)}
@@ -259,6 +271,8 @@ class Filters extends Component {
 Filters.propTypes = {
   children: PropTypes.node.isRequired,
   disabled: PropTypes.bool,
+  onChange: PropTypes.func.isRequired,
+  onClear: PropTypes.func.isRequired,
   options: PropTypes.arrayOf(PropTypes.shape({
     items: PropTypes.arrayOf(PropTypes.shape({
       label: PropTypes.string,
@@ -267,16 +281,14 @@ Filters.propTypes = {
     key: PropTypes.string,
     name: PropTypes.string,
   })),
-  onChange: PropTypes.func.isRequired,
-  onClear: PropTypes.func.isRequired,
   query: PropTypes.object, // eslint-disable-line
   t: PropTypes.func.isRequired,
 }
 
 Filters.defaultProps = {
+  disabled: false,
   options: [],
   query: {},
-  disabled: false,
 }
 
 export default Filters

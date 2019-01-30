@@ -21,34 +21,33 @@ const convertPaymentValue = property => pipe(
   formatCurrency
 )
 
-const getDefaultColumns = ({ t, onDetailsClick }) => ([
+const getDefaultColumns = ({ onDetailsClick, t }) => ([
   {
-    title: t('models.transaction.status'),
-    renderer: renderStatusLegend,
     accessor: ['status'],
     orderable: true,
+    renderer: renderStatusLegend,
+    title: t('models.transaction.status'),
   },
   {
-    title: t('models.transaction.id'),
     accessor: ['id'],
     orderable: true,
+    title: t('models.transaction.id'),
   },
   {
-    title: t('models.transaction.created_date'),
     accessor: ['created_at'],
     orderable: true,
     renderer: pipe(prop('created_at'), formatDate),
+    title: t('models.transaction.created_date'),
   },
   {
-    title: t('models.transaction.document'),
     accessor: ['customer', 'document_number'],
     renderer: pipe(
       path(['customer', 'document_number']),
       formatCpfCnpj
     ),
+    title: t('models.transaction.document'),
   },
   {
-    title: t('models.transaction.payment_method'),
     accessor: ['payment', 'method'],
     orderable: true,
     renderer: pipe(
@@ -57,49 +56,53 @@ const getDefaultColumns = ({ t, onDetailsClick }) => ([
       formatPaymentMethod,
       t
     ),
+    title: t('models.transaction.payment_method'),
   },
   {
-    title: t('models.transaction.paid_amount'),
     accessor: ['payment', 'paid_amount'],
     orderable: true,
     renderer: convertPaymentValue('paid_amount'),
+    title: t('models.transaction.paid_amount'),
   },
   {
-    title: t('models.transaction.email'),
     accessor: ['customer', 'email'],
     orderable: true,
+    title: t('models.transaction.email'),
   },
   {
-    title: t('models.transaction.refuse_reason'),
     accessor: ['refuse_reason'],
     orderable: true,
     renderer: pipe(
       prop('refuse_reason'),
       formatRefuseReason
     ),
+    title: t('models.transaction.refuse_reason'),
   },
   {
-    title: t('models.transaction.installments'),
     accessor: ['payment', 'installments'],
     orderable: true,
+    title: t('models.transaction.installments'),
   },
   {
-    title: t('models.transaction.customer_name'),
     accessor: ['customer', 'name'],
     orderable: true,
+    title: t('models.transaction.customer_name'),
   },
   {
-    title: t('models.transaction.card_brand'),
     accessor: ['card', 'brand_name'],
     orderable: true,
     renderer: renderCardBrand,
+    title: t('models.transaction.card_brand'),
   },
   {
-    title: t('models.transaction.boleto_url'),
     accessor: ['boleto', 'url'],
     orderable: true,
+    title: t('models.transaction.boleto_url'),
   },
   {
+    aggregationRenderer: null,
+    aggregationTitle: null,
+    aggregator: null,
     align: 'center',
     isAction: true,
     orderable: false,
@@ -112,9 +115,6 @@ const getDefaultColumns = ({ t, onDetailsClick }) => ([
       </Button>
     ),
     title: t('models.transaction.details'),
-    aggregator: null,
-    aggregationRenderer: null,
-    aggregationTitle: null,
   },
 ])
 

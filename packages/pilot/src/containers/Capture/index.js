@@ -18,12 +18,12 @@ const Capture = ({
   isFromCheckout,
   isOpen,
   loading,
-  onConfirm,
   onCancel,
+  onConfirm,
   onRetry,
   onViewTransaction,
-  stepStatus,
   statusMessage,
+  stepStatus,
   t,
   transaction,
 }) => {
@@ -115,14 +115,14 @@ Capture.propTypes = {
   isFromCheckout: PropTypes.bool.isRequired,
   isOpen: PropTypes.bool.isRequired,
   loading: PropTypes.bool,
-  onConfirm: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
+  onConfirm: PropTypes.func.isRequired,
   onRetry: PropTypes.func.isRequired,
   onViewTransaction: PropTypes.func.isRequired,
   statusMessage: PropTypes.string,
   stepStatus: PropTypes.shape({
-    identification: PropTypes.oneOf(stepStatuses),
     confirmation: PropTypes.oneOf(stepStatuses),
+    identification: PropTypes.oneOf(stepStatuses),
   }),
   t: PropTypes.func.isRequired,
   transaction: PropTypes.shape({
@@ -132,8 +132,8 @@ Capture.propTypes = {
       last_digits: PropTypes.string,
     }),
     customer: PropTypes.shape({
-      name: PropTypes.string,
       email: PropTypes.string,
+      name: PropTypes.string,
     }),
     payment: PropTypes.shape({
       authorized_amount: PropTypes.number.isRequired,
@@ -148,8 +148,8 @@ Capture.defaultProps = {
   loading: false,
   statusMessage: null,
   stepStatus: {
-    identification: 'current',
     confirmation: 'pending',
+    identification: 'current',
   },
 }
 

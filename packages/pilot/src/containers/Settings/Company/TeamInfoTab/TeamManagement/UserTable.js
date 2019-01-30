@@ -45,8 +45,8 @@ class UserTable extends React.Component {
     this.state = {
       columns: this.getColumns(),
       isOpenRemoveUserModal: false,
-      orderColumn: 0,
       order: 'ascending',
+      orderColumn: 0,
       rows: props.team,
       user: '',
     }
@@ -62,8 +62,8 @@ class UserTable extends React.Component {
 
     if (team !== oldTeam) {
       const {
-        orderColumn: index,
         order,
+        orderColumn: index,
       } = this.state
       this.handleOrderChange(index, order, team)
     }
@@ -71,18 +71,17 @@ class UserTable extends React.Component {
 
   getColumns () {
     return [
-      { title: 'Nome', accessor: ['name'], orderable: false },
-      { title: 'E-mail', accessor: ['email'], orderable: false },
+      { accessor: ['name'], orderable: false, title: 'Nome' },
+      { accessor: ['email'], orderable: false, title: 'E-mail' },
       {
-        title: 'Permissão',
         accessor: ['role'],
         orderable: true,
         renderer: user =>
           this.props.t(`models.user.permission.${user.role}`),
+        title: 'Permissão',
       },
-      { title: 'Data de Criação', accessor: ['date_created'], orderable: true },
+      { accessor: ['date_created'], orderable: true, title: 'Data de Criação' },
       {
-        title: 'Ações',
         isAction: true,
         orderable: false,
         renderer: user => (
@@ -93,6 +92,7 @@ class UserTable extends React.Component {
             icon={<IconAdd width={12} height={12} />}
           />
         ),
+        title: 'Ações',
       },
     ]
   }
@@ -104,8 +104,8 @@ class UserTable extends React.Component {
     const sortByOrderColumn = getRowsSort(rows, columns)
     const sortedRows = sortByOrderColumn(index, order)
     this.setState({
-      orderColumn: index,
       order,
+      orderColumn: index,
       rows: sortedRows,
     })
   }

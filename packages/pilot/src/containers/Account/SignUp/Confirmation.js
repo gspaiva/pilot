@@ -9,7 +9,11 @@ const Confirmation = ({
   onBackToLogin,
   t,
 }) => (
-  <div className={classNames(styles.primaryContent, styles.confirmationContent)}>
+  <div className={classNames(
+      styles.primaryContent,
+      styles.confirmationContent
+    )}
+  >
     <div className={styles.login}>
       <p className={styles.paragraph}>
         <b>{t('sign_up.confirmation_emphasis')}</b>

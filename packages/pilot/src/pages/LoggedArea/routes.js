@@ -9,6 +9,8 @@ import Transactions from '../Transactions'
 import UserSettings from '../UserSettings'
 import Withdraw from '../Withdraw'
 
+/* eslint-disable sort-keys */
+
 export default {
   accountSettings: {
     component: UserSettings,
@@ -33,19 +35,19 @@ export default {
     path: '/balance/:id?',
     title: 'pages.balance.title',
   },
-  companySettings: {
-    component: CompanySettings,
-    exact: true,
-    icon: Configuration32,
-    path: '/settings',
-    title: 'pages.settings.company.menu',
-  },
   transactions: {
     component: Transactions,
     exact: true,
     icon: Transaction32,
     path: '/transactions',
     title: 'pages.transactions.title',
+  },
+  companySettings: {
+    component: CompanySettings,
+    exact: true,
+    icon: Configuration32,
+    path: '/settings',
+    title: 'pages.settings.company.menu',
   },
   transactionsDetails: {
     exact: true,
@@ -61,3 +63,5 @@ export default {
     title: 'pages.withdraw.title',
   },
 }
+
+/* eslint-enable sort-keys */

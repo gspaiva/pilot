@@ -87,7 +87,6 @@ const Result = ({
   </Fragment>
 )
 
-
 Result.propTypes = {
   action: PropTypes.oneOf(['approve', 'refuse']).isRequired,
   errorMessage: PropTypes.string,

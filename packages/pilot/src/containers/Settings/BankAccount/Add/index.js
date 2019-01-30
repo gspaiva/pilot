@@ -78,14 +78,10 @@ const BankAccountForm = ({
         account: [isRequired, isNumber],
         accountCd: [
           isRequired,
-          accountCDValidation(
-            t('pages.settings.company.card.register.bank.invalid_cd')
-          ),
+          accountCDValidation(t('pages.settings.company.card.register.bank.invalid_cd')),
         ],
         agency: [isRequired, isNumber],
-        agencyCd: agencyCDValidation(
-          t('pages.settings.company.card.register.bank.invalid_cd')
-        ),
+        agencyCd: agencyCDValidation(t('pages.settings.company.card.register.bank.invalid_cd')),
         bankCode: isRequired,
         type: isRequired,
       }}
@@ -194,7 +190,6 @@ const BankAccountForm = ({
   )
 }
 
-
 BankAccountForm.propTypes = {
   actionsDisabled: PropTypes.bool,
   data: PropTypes.shape({
@@ -216,8 +211,8 @@ BankAccountForm.propTypes = {
     bankCode: PropTypes.string,
     type: PropTypes.string,
   }),
-  onChange: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
 }

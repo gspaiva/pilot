@@ -52,9 +52,14 @@ class BankAccount extends Component {
     const textAccount = t('pages.settings.company.card.register.bank.account')
     const textAgency = t('pages.settings.company.card.register.bank.agency')
     const textMainAccount = t('pages.settings.company.card.register.bank.main_account')
-
-    const renderAgency = agencyAccountFormatter(account.agencia, account.agencia_dv)
-    const renderAccount = agencyAccountFormatter(account.conta, account.conta_dv)
+    const renderAgency = agencyAccountFormatter(
+      account.agencia,
+      account.agencia_dv
+    )
+    const renderAccount = agencyAccountFormatter(
+      account.conta,
+      account.conta_dv
+    )
 
     return (
       <Fragment>
@@ -75,6 +80,7 @@ class BankAccount extends Component {
 
     const {
       accounts,
+      changeActionDisabled,
       data,
       disabled,
       errors,
@@ -83,7 +89,6 @@ class BankAccount extends Component {
       onChange,
       onSubmit,
       selectedAccount,
-      changeActionDisabled,
       t,
     } = this.props
 
@@ -165,6 +170,7 @@ const accountShape = {
 
 BankAccount.propTypes = {
   accounts: PropTypes.arrayOf(PropTypes.shape(accountShape)).isRequired,
+  changeActionDisabled: PropTypes.bool.isRequired,
   data: PropTypes.shape({
     account: PropTypes.string,
     accountCd: PropTypes.string,
@@ -189,7 +195,6 @@ BankAccount.propTypes = {
   onChange: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   selectedAccount: PropTypes.shape(accountShape).isRequired,
-  changeActionDisabled: PropTypes.bool.isRequired,
   selectedView: PropTypes.oneOf([
     'addition', 'selection',
   ]),

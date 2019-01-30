@@ -25,8 +25,8 @@ const Result = ({
   cardBrand,
   cardFirstDigits,
   cardLastDigits,
-  customerName,
   customerEmail,
+  customerName,
   image,
   installments,
   message,
@@ -53,15 +53,15 @@ const Result = ({
                 labels={{
                   cardBrand: t('models.card.brand'),
                   cardNumber: t('models.card.number'),
-                  customerName: t('models.customer.name'),
                   customerEmail: t('models.customer.email'),
+                  customerName: t('models.customer.name'),
                   installments: t('installments'),
                 }}
                 contents={{
                   cardBrand,
                   cardNumber: `${formatCardNumber(cardFirstDigits)} ${cardLastDigits}`,
-                  customerName,
                   customerEmail,
+                  customerName,
                   installments,
                 }}
               />
@@ -121,8 +121,8 @@ Result.propTypes = {
   cardBrand: PropTypes.string,
   cardFirstDigits: PropTypes.string,
   cardLastDigits: PropTypes.string,
-  customerName: PropTypes.string,
   customerEmail: PropTypes.string,
+  customerName: PropTypes.string,
   image: PropTypes.node.isRequired,
   installments: PropTypes.number,
   message: PropTypes.node.isRequired,
@@ -142,8 +142,8 @@ Result.defaultProps = {
   cardBrand: null,
   cardFirstDigits: null,
   cardLastDigits: null,
-  customerName: null,
   customerEmail: null,
+  customerName: null,
   installments: 0,
   statusMessage: null,
 }

@@ -11,13 +11,13 @@ import CompanyBankAccount from '../../BankAccount'
 
 const RegisterInfoTab = ({
   address,
-  bankAccounts,
   bankAccountActionsDisabled,
+  bankAccountChangeActionDisabled,
   bankAccountData,
   bankAccountErrors,
   bankAccountSelected,
-  bankAccountChangeActionDisabled,
   bankAccountSelectedView,
+  bankAccounts,
   general,
   managingPartner,
   onBankAccountCancel,
@@ -101,15 +101,13 @@ RegisterInfoTab.propTypes = {
     city: PropTypes.string,
     complementary: PropTypes.string,
     neighborhood: PropTypes.string,
+    state: PropTypes.string,
     street: PropTypes.string,
     streetNumber: PropTypes.string,
-    state: PropTypes.string,
     zipcode: PropTypes.string,
   }).isRequired,
-  bankAccounts: PropTypes.arrayOf(
-    PropTypes.shape(bankAccountShape).isRequired
-  ).isRequired,
   bankAccountActionsDisabled: PropTypes.bool.isRequired,
+  bankAccountChangeActionDisabled: PropTypes.bool.isRequired,
   bankAccountData: PropTypes.shape({
     account: PropTypes.string,
     accountCd: PropTypes.string,
@@ -128,11 +126,14 @@ RegisterInfoTab.propTypes = {
     bankCode: PropTypes.string,
     type: PropTypes.string,
   }),
+  /* eslint-disable max-len, react/sort-prop-types */
+  bankAccounts: PropTypes.arrayOf(PropTypes.shape(bankAccountShape).isRequired).isRequired,
   bankAccountSelected: PropTypes.shape(bankAccountShape).isRequired,
   bankAccountSelectedView: PropTypes.oneOf([
-    'addition', 'selection',
+    'addition',
+    'selection',
   ]).isRequired,
-  bankAccountChangeActionDisabled: PropTypes.bool.isRequired,
+  /* eslint-enable max-len, react/sort-prop-types */
   general: PropTypes.shape({
     cnpj: PropTypes.string,
     fullName: PropTypes.string,

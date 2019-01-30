@@ -52,11 +52,11 @@ const getCustomerEmail = path(['transaction', 'customer', 'email'])
 const getDataAmount = pathOr('', ['data', 'amount'])
 const getBoletoIdentificationData = applySpec({
   bankAccount: {
-    agencia_dv: pathOr('', ['data', 'bank_account', 'agencia_dv']),
     agencia: pathOr('', ['data', 'bank_account', 'agencia']),
+    agencia_dv: pathOr('', ['data', 'bank_account', 'agencia_dv']),
     bank_code: pathOr('', ['data', 'bank_account', 'bank_code']),
-    conta_dv: pathOr('', ['data', 'bank_account', 'conta_dv']),
     conta: pathOr('', ['data', 'bank_account', 'conta']),
+    conta_dv: pathOr('', ['data', 'bank_account', 'conta_dv']),
     document_number: pathOr('', ['data', 'bank_account', 'document_number']),
     legal_name: pathOr('', ['data', 'bank_account', 'legal_name']),
     type: pathOr('', ['data', 'bank_account', 'type']),
@@ -69,8 +69,9 @@ class TransactionRefund extends Component {
     super(props)
 
     this.getStepsStatus = this.getStepsStatus.bind(this)
-    this.handleConfirmIndentification = this.handleConfirmIndentification.bind(this)
     this.handleConfirmConfirmation = this.handleConfirmConfirmation.bind(this)
+    this.handleConfirmIndentification =
+      this.handleConfirmIndentification.bind(this)
     this.renderBoleto = this.renderBoleto.bind(this)
     this.renderBoletoConfirmation = this.renderBoletoConfirmation.bind(this)
     this.renderBoletoIdentification = this.renderBoletoIdentification.bind(this)
@@ -83,7 +84,7 @@ class TransactionRefund extends Component {
   }
 
   getStepsStatus () {
-    const { stepsStatus, currentStep } = this.props
+    const { currentStep, stepsStatus } = this.props
     const steps = createStepsStatus(stepsStatus)
 
     return map(setCurrentStep(currentStep), steps)
@@ -102,12 +103,12 @@ class TransactionRefund extends Component {
   /* eslint-disable camelcase */
   renderBoletoIdentification () {
     const {
+      t,
       transaction: {
         payment: {
           paid_amount,
         },
       },
-      t,
     } = this.props
 
     const data = getBoletoIdentificationData(this.state)
@@ -127,11 +128,11 @@ class TransactionRefund extends Component {
       data: {
         amount,
         bank_account: {
-          agencia_dv,
           agencia,
+          agencia_dv,
           bank_code,
-          conta_dv,
           conta,
+          conta_dv,
           document_number,
           legal_name,
           type,
@@ -143,23 +144,23 @@ class TransactionRefund extends Component {
       loading,
       onBack,
       statusMessage,
+      t,
       transaction: {
         payment: {
           paid_amount,
         },
       },
-      t,
     } = this.props
 
     return (
       <BoletoConfirmation
         amount={paid_amount}
         bankAccount={{
-          agencia_dv,
           agencia,
+          agencia_dv,
           bank_code,
-          conta_dv,
           conta,
+          conta_dv,
           document_number,
           legal_name,
           type,
@@ -179,11 +180,11 @@ class TransactionRefund extends Component {
       data: {
         amount,
         bank_account: {
-          agencia_dv,
           agencia,
+          agencia_dv,
           bank_code,
-          conta_dv,
           conta,
+          conta_dv,
           document_number,
           legal_name,
           type,
@@ -208,14 +209,14 @@ class TransactionRefund extends Component {
       <BoletoResult
         amount={paid_amount}
         bankAccount={{
-            agencia_dv,
-            agencia,
-            bank_code,
-            conta_dv,
-            conta,
-            document_number,
-            legal_name,
-            type,
+          agencia,
+          agencia_dv,
+          bank_code,
+          conta,
+          conta_dv,
+          document_number,
+          legal_name,
+          type,
         }}
         onTryAgain={onBack}
         onViewTransaction={onConfirm}
@@ -229,19 +230,19 @@ class TransactionRefund extends Component {
 
   renderCardIdentification () {
     const {
+      t,
       transaction: {
-        payment: {
-          paid_amount,
-          installments,
-        },
         card: {
           brand_name,
           first_digits,
-          last_digits,
           holder_name,
+          last_digits,
+        },
+        payment: {
+          installments,
+          paid_amount,
         },
       },
-      t,
     } = this.props
 
     const refundAmount = getDataAmount(this.state)
@@ -267,19 +268,19 @@ class TransactionRefund extends Component {
       loading,
       onBack,
       statusMessage,
+      t,
       transaction: {
-        payment: {
-          paid_amount,
-          installments,
-        },
         card: {
           brand_name,
           first_digits,
-          last_digits,
           holder_name,
+          last_digits,
+        },
+        payment: {
+          installments,
+          paid_amount,
         },
       },
-      t,
     } = this.props
     const {
       data: {
@@ -310,21 +311,21 @@ class TransactionRefund extends Component {
     const {
       onBack,
       onConfirm,
-      transaction: {
-        payment: {
-          paid_amount,
-          installments,
-        },
-        card: {
-          brand_name,
-          first_digits,
-          last_digits,
-          holder_name,
-        },
-      },
       statusMessage,
       stepsStatus,
       t,
+      transaction: {
+        card: {
+          brand_name,
+          first_digits,
+          holder_name,
+          last_digits,
+        },
+        payment: {
+          installments,
+          paid_amount,
+        },
+      },
     } = this.props
     const {
       data: {
@@ -457,6 +458,7 @@ TransactionRefund.propTypes = {
     identification: PropTypes.string.isRequired,
     result: PropTypes.string.isRequired,
   }).isRequired,
+  t: PropTypes.func.isRequired,
   transaction: PropTypes.shape({
     card: PropTypes.shape({
       brand_name: PropTypes.string,
@@ -468,12 +470,11 @@ TransactionRefund.propTypes = {
       email: PropTypes.string,
     }),
     payment: PropTypes.shape({
+      installments: PropTypes.number,
       method: PropTypes.string,
       paid_amount: PropTypes.number,
-      installments: PropTypes.number,
     }),
   }).isRequired,
-  t: PropTypes.func.isRequired,
 }
 
 TransactionRefund.defaultProps = {

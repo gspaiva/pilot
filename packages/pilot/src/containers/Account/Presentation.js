@@ -14,8 +14,8 @@ import IconBack from 'emblematic-icons/svg/ChevronBack32.svg'
 import styles from './style.css'
 
 const PresentationContainer = ({
-  environmentUrl,
   environment,
+  environmentUrl,
   onRegister,
   t,
 }) => (
@@ -104,8 +104,8 @@ const PresentationContainer = ({
 )
 
 PresentationContainer.propTypes = {
-  environmentUrl: PropTypes.string.isRequired,
   environment: PropTypes.oneOf(['live', 'test']).isRequired,
+  environmentUrl: PropTypes.string.isRequired,
   onRegister: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
 }

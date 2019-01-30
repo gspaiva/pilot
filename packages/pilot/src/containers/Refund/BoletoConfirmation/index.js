@@ -24,11 +24,11 @@ class BoletoConfirmation extends Component {
     const {
       amount,
       bankAccount: {
-        agencia_dv: agencyVd,
         agencia,
+        agencia_dv: agencyVd,
         bank_code: bankCode,
-        conta_dv: accountVd,
         conta,
+        conta_dv: accountVd,
         document_number: documentNumber,
         legal_name: legalName,
         type,
@@ -38,7 +38,6 @@ class BoletoConfirmation extends Component {
       refundAmount,
       t,
     } = this.props
-
 
     const labels = {
       account: t('models.bank_account.account'),
@@ -95,11 +94,11 @@ class BoletoConfirmation extends Component {
 BoletoConfirmation.propTypes = {
   amount: PropTypes.number.isRequired,
   bankAccount: PropTypes.shape({
-    agencia_dv: PropTypes.string,
     agencia: PropTypes.string.isRequired,
+    agencia_dv: PropTypes.string,
     bank_code: PropTypes.string.isRequired,
-    conta_dv: PropTypes.string.isRequired,
     conta: PropTypes.string.isRequired,
+    conta_dv: PropTypes.string.isRequired,
     document_number: PropTypes.string.isRequired,
     legal_name: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,

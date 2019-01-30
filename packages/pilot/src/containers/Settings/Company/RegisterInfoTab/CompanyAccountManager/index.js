@@ -44,7 +44,10 @@ class CompanyInformation extends React.Component {
         />
         {!this.state.collapsed && (
           <CardContent>
-            <CompanyAccountManagerForm t={t} managingPartner={managingPartner} />
+            <CompanyAccountManagerForm
+              t={t}
+              managingPartner={managingPartner}
+            />
           </CardContent>
         )}
       </CardSection>
@@ -53,12 +56,12 @@ class CompanyInformation extends React.Component {
 }
 
 CompanyInformation.propTypes = {
-  t: PropTypes.func.isRequired,
   managingPartner: PropTypes.shape({
     cpf: PropTypes.string,
     email: PropTypes.string,
     name: PropTypes.string,
   }).isRequired,
+  t: PropTypes.func.isRequired,
 }
 
 export default CompanyInformation

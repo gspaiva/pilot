@@ -37,15 +37,15 @@ const lessThanOrEqualZero = t =>
 
 const CaptureForm = ({
   authorizedAmount,
+  captureAmount,
   cardBrand,
   cardFirstDigits,
   cardLastDigits,
-  captureAmount,
-  customerName,
   customerEmail,
+  customerName,
   disabled,
-  isFromCheckout,
   installments,
+  isFromCheckout,
   onConfirm,
   t,
 }) => {
@@ -54,16 +54,18 @@ const CaptureForm = ({
     captureAmount: t('pages.capture.value_to_capture'),
     cardBrand: t('models.card.brand'),
     cardNumber: t('models.card.number'),
-    customerName: t('models.customer.name'),
     customerEmail: t('models.customer.email'),
+    customerName: t('models.customer.name'),
     installments: t('installments'),
   }
 
   const contents = {
     cardBrand,
-    cardNumber: cardFirstDigits && cardLastDigits ? `${formatCardNumber(cardFirstDigits)} ${cardLastDigits}` : '',
-    customerName,
+    cardNumber: cardFirstDigits && cardLastDigits
+      ? `${formatCardNumber(cardFirstDigits)} ${cardLastDigits}`
+      : '',
     customerEmail,
+    customerName,
     installments,
   }
 
@@ -202,15 +204,15 @@ const captureAmountPropType = (props, propName) => {
 
 CaptureForm.propTypes = {
   authorizedAmount: PropTypes.number.isRequired,
+  captureAmount: captureAmountPropType,
   cardBrand: PropTypes.string,
   cardFirstDigits: PropTypes.string,
   cardLastDigits: PropTypes.string,
-  captureAmount: captureAmountPropType,
-  customerName: PropTypes.string,
   customerEmail: PropTypes.string,
+  customerName: PropTypes.string,
   disabled: PropTypes.bool,
-  isFromCheckout: PropTypes.bool.isRequired,
   installments: PropTypes.number,
+  isFromCheckout: PropTypes.bool.isRequired,
   onConfirm: PropTypes.func.isRequired,
   t: PropTypes.func.isRequired,
 }
@@ -220,8 +222,8 @@ CaptureForm.defaultProps = {
   cardBrand: null,
   cardFirstDigits: '',
   cardLastDigits: '',
-  customerName: null,
   customerEmail: null,
+  customerName: null,
   disabled: false,
   installments: null,
 }

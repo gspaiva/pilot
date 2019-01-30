@@ -52,11 +52,11 @@ class MenagementTeam extends React.Component {
 
   renderContent () {
     const {
-      t,
-      team,
-      handleDeleteUser,
       createUserStatus,
       deleteUserStatus,
+      handleDeleteUser,
+      t,
+      team,
     } = this.props
 
     const { loadingCreateUser } = this.state

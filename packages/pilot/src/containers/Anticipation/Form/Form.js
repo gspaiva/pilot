@@ -60,8 +60,8 @@ const AnticipationForm = ({
   minimum,
   onChange,
   onChangeDate,
-  onTimeframeChange,
   onSubmit,
+  onTimeframeChange,
   periodInfo,
   requested,
   t,
@@ -73,7 +73,9 @@ const AnticipationForm = ({
       dates,
       requested: requested.toString(),
       timeframe,
-      transfer: isAutomaticTransfer ? 'yes' : 'no',
+      transfer: isAutomaticTransfer
+        ? 'yes'
+        : 'no',
     }}
     errors={buildError(error)}
     validation={{
@@ -246,8 +248,8 @@ AnticipationForm.propTypes = {
   minimum: PropTypes.number.isRequired,
   onChange: PropTypes.func.isRequired,
   onChangeDate: PropTypes.func.isRequired,
-  onTimeframeChange: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
+  onTimeframeChange: PropTypes.func.isRequired,
   periodInfo: PropTypes.element.isRequired,
   requested: PropTypes.number.isRequired,
   t: PropTypes.func.isRequired,

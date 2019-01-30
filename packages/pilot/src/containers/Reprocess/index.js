@@ -24,7 +24,7 @@ const formatStepStatus = cond([
   [T, always('pending')],
 ])
 
-const validateOnRestart = ({ stepStatus, onRestart }, propName) => {
+const validateOnRestart = ({ onRestart, stepStatus }, propName) => {
   if (
     propName === 'onRestart'
     && stepStatus.result === 'error'
@@ -46,6 +46,7 @@ class Reprocess extends PureComponent {
       onViewTransaction,
       statusMessage,
       stepStatus,
+      t,
       transaction: {
         amount,
         card: {
@@ -57,7 +58,6 @@ class Reprocess extends PureComponent {
           installments,
         },
       },
-      t,
     } = this.props
 
     return (
@@ -119,7 +119,11 @@ class Reprocess extends PureComponent {
               amount={amount}
               cardFirstDigits={first_digits} // eslint-disable-line camelcase
               cardLastDigits={last_digits} // eslint-disable-line camelcase
-              error={stepStatus.confirmation === 'error' ? statusMessage : ''}
+              error={
+                stepStatus.confirmation === 'error'
+                ? statusMessage
+                : ''
+              }
               holderName={holder_name} // eslint-disable-line camelcase
               loading={loading}
               installments={installments}
