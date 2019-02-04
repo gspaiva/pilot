@@ -16,11 +16,6 @@ import mock from '../../../../src/containers/Balance/mock.json'
 import DetailRecipient from '../../../../src/containers/RecipientDetails'
 
 const mockBalance = {
-  anticipation: {
-    available: 10000,
-    error: false,
-    loading: false,
-  },
   dates: {
     end: moment().add(1, 'month'),
     start: moment(),
@@ -65,6 +60,7 @@ class DetailRecipientPage extends Component {
   constructor (props) {
     super(props)
     this.state = {
+      anticipationLimit: 0,
       error: false,
       loading: true,
       recipientData: {},
@@ -75,11 +71,13 @@ class DetailRecipientPage extends Component {
     this.handleSaveBankAccountWithBank = this.handleSaveBankAccountWithBank.bind(this)
     this.handleSaveBankAccountWithId = this.handleSaveBankAccountWithId.bind(this)
     this.handleSaveTransfer = this.handleSaveTransfer.bind(this)
-    this.requestClient = this.requestClient.bind(this)
+    this.fetchData = this.fetchData.bind(this)
+    this.fetchRecipientData = this.fetchRecipientData.bind(this)
+    this.fetchAnticipationLimit = this.fetchAnticipationLimit.bind(this)
   }
 
   componentDidMount () {
-    this.requestClient()
+    this.fetchData()
   }
 
   handleSaveAnticipation (data) {
@@ -182,7 +180,33 @@ class DetailRecipientPage extends Component {
       })
   }
 
-  requestClient () {
+  fetchData () {
+    const recipientDataPromise = this.fetchRecipientData()
+    const anticipationLimitPromise = this.fetchAnticipationLimit()
+
+    return Promise.all([
+      recipientDataPromise,
+      anticipationLimitPromise,
+    ])
+      .then(([
+        recipientData,
+        anticipationLimit,
+      ]) => {
+        this.setState({
+          recipientData,
+          anticipationLimit,
+          loading: false,
+        })
+      })
+      .catch((error) => {
+        this.setState({
+          error,
+          loading: false,
+        })
+      })
+  }
+
+  fetchRecipientData () {
     const { client } = this.props
     const { id } = this.props.match.params
 
@@ -190,24 +214,27 @@ class DetailRecipientPage extends Component {
       .then((recipient) => {
         const { identification } = recipient.informationData
         const accountsPromise = client.recipient.bankAccount(identification)
-
         return Promise.all([recipient, accountsPromise])
       })
       .then(([recipient, bankAccounts]) => {
         const { accounts } = bankAccounts
         const accountsPath = ['configurationData', 'accounts']
         const addAccounts = assocPath(accountsPath, accounts)
-        const recipientWithAccounts = addAccounts(recipient)
-
-        this.setState({
-          recipientData: recipientWithAccounts,
-          loading: false,
-        })
+        const recipientData = addAccounts(recipient)
+        return recipientData
       })
+  }
+
+  fetchAnticipationLimit () {
+    const { client } = this.props
+    const { id } = this.props.match.params
+    return client.recipient.anticipationLimits(id)
+      .then(limits => limits.maximum.amount)
   }
 
   render () {
     const {
+      anticipationLimit,
       error,
       loading,
       recipientData,
@@ -223,10 +250,19 @@ class DetailRecipientPage extends Component {
 
     const { t } = this.props
 
+    const anticipation = {
+      available: anticipationLimit,
+      error,
+      loading,
+    }
+
     return (
       <DetailRecipient
         informationProps={informationData}
-        balanceProps={mockBalance}
+        balanceProps={{
+          anticipation,
+          ...mockBalance,
+        }}
         configurationProps={{
           ...configurationData,
           handleSaveAnticipation: this.handleSaveAnticipation,
