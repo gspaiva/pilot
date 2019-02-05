@@ -14,7 +14,6 @@ import {
 import DetailRecipient from '../../../../src/containers/RecipientDetails'
 
 const mockBalance = {
-  onAnticipationClick: () => {},
   onCancel: () => {},
   onCancelRequestClick: () => {},
   onPageChange: () => {},
@@ -62,6 +61,7 @@ class DetailRecipientPage extends Component {
     this.handleSaveBankAccountWithBank = this.handleSaveBankAccountWithBank.bind(this)
     this.handleSaveBankAccountWithId = this.handleSaveBankAccountWithId.bind(this)
     this.handleSaveTransfer = this.handleSaveTransfer.bind(this)
+    this.sendToAnticipationPage = this.sendToAnticipationPage.bind(this)
   }
 
   componentDidMount () {
@@ -255,6 +255,12 @@ class DetailRecipientPage extends Component {
     return client.balance.total(id, query)
   }
 
+  sendToAnticipationPage () {
+    const { history } = this.props
+    const { id } = this.props.match.params
+    history.push(`/anticipation/${id}`)
+  }
+
   render () {
     const {
       anticipationLimit,
@@ -293,8 +299,9 @@ class DetailRecipientPage extends Component {
           currentPage,
           dates,
           disabled: loading,
-          total,
+          onAnticipationClick: this.sendToAnticipationPage,
           onFilterClick: this.handleDateFilter,
+          total,
         }}
         configurationProps={{
           ...configurationData,
@@ -315,6 +322,9 @@ DetailRecipientPage.propTypes = {
       add: PropTypes.func.isRequired,
       bankAccount: PropTypes.func.isRequired,
     }).isRequired,
+  }).isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
   }).isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
