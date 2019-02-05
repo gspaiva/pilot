@@ -17,7 +17,6 @@ const mockBalance = {
   onCancel: () => {},
   onCancelRequestClick: () => {},
   onSave: () => {},
-  onWithdrawClick: () => {},
 }
 
 const mapStateToProps = (state = {}) => {
@@ -62,6 +61,7 @@ class DetailRecipientPage extends Component {
     this.handleSaveBankAccountWithId = this.handleSaveBankAccountWithId.bind(this)
     this.handleSaveTransfer = this.handleSaveTransfer.bind(this)
     this.sendToAnticipationPage = this.sendToAnticipationPage.bind(this)
+    this.sendToWithdrawPage = this.sendToWithdrawPage.bind(this)
   }
 
   componentDidMount () {
@@ -274,6 +274,12 @@ class DetailRecipientPage extends Component {
     history.push(`/anticipation/${id}`)
   }
 
+  sendToWithdrawPage () {
+    const { history } = this.props
+    const { id } = this.props.match.params
+    history.push(`/withdraw/${id}`)
+  }
+
   render () {
     const {
       anticipationLimit,
@@ -315,6 +321,7 @@ class DetailRecipientPage extends Component {
           onAnticipationClick: this.sendToAnticipationPage,
           onFilterClick: this.handleDateFilter,
           onPageChange: this.handlePageChange,
+          onWithdrawClick: this.sendToWithdrawPage,
           total,
         }}
         configurationProps={{
