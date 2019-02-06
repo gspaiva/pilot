@@ -81,4 +81,9 @@ export default {
     path: '/recipients/add',
     title: 'pages.add_recipient.title',
   },
+  recipientsDetail: {
+    hidden: true,
+    path: '/recipients/detail',
+    title: 'pages.recipient_detail.title',
+  },
 }
