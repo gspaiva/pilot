@@ -71,13 +71,11 @@ PendingRequests.defaultProps = {
 PendingRequests.propTypes = {
   emptyMessage: PropTypes.string.isRequired,
   onCancel: PropTypes.func,
-  requests: PropTypes.arrayOf(
-    PropTypes.shape({
-      amount: PropTypes.string.isRequired,
-      created_at: PropTypes.string.isRequired, // eslint-disable-line camelcase
-      title: PropTypes.string.isRequired,
-    })
-  ).isRequired,
+  requests: PropTypes.arrayOf(PropTypes.shape({
+    amount: PropTypes.string.isRequired,
+    created_at: PropTypes.string.isRequired, // eslint-disable-line camelcase
+    title: PropTypes.string.isRequired,
+  })).isRequired,
   title: PropTypes.string.isRequired,
 }
 

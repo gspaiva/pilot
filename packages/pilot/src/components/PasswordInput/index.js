@@ -11,7 +11,7 @@ import {
 
 import style from './style.css'
 
-const getStrengthClassnames = ({ score, isValid }) => classnames({
+const getStrengthClassnames = ({ isValid, score }) => classnames({
   [style.strong]: score === 4 && isValid,
   [style.moderated]: score === 3 && isValid,
   [style.weak]: score === 2 && isValid,
@@ -55,9 +55,9 @@ const PasswordInput = ({
   onFocus,
   placement,
   showPopover,
+  t,
   validations,
   value,
-  t,
 }) => (
   <div className={style.container}>
     <Popover
@@ -86,6 +86,7 @@ PasswordInput.propTypes = {
   onFocus: PropTypes.func,
   placement: PropTypes.string,
   showPopover: PropTypes.bool,
+  t: PropTypes.func.isRequired,
   validations: PropTypes.shape({
     errors: PropTypes.array,
     isValid: PropTypes.bool,
@@ -94,12 +95,11 @@ PasswordInput.propTypes = {
     ]),
   }),
   value: PropTypes.string,
-  t: PropTypes.func.isRequired,
 }
 
 PasswordInput.defaultProps = {
-  onFocus: null,
   onChange: null,
+  onFocus: null,
   placement: 'bottomCenter',
   showPopover: false,
   validations: {

@@ -13,10 +13,10 @@ import cardNumberFormatter from '../../formatters/cardNumber'
 import style from './style.css'
 
 const PaymentCard = ({
-  first,
-  last,
-  holderName,
   brand,
+  first,
+  holderName,
+  last,
   title,
 }) => (
   <Card className={style.card}>
@@ -39,11 +39,11 @@ const PaymentCard = ({
 )
 
 PaymentCard.propTypes = {
-  title: PropTypes.string.isRequired,
-  first: PropTypes.string.isRequired,
-  last: PropTypes.string.isRequired,
-  holderName: PropTypes.string.isRequired,
   brand: PropTypes.string.isRequired,
+  first: PropTypes.string.isRequired,
+  holderName: PropTypes.string.isRequired,
+  last: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
 }
 
 export default PaymentCard

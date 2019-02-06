@@ -21,8 +21,8 @@ const ConfigurationCardForm = ({
   onClick,
   onSubmit,
   subtitle,
-  title,
   t,
+  title,
   validation,
 }) => (
   <Card>

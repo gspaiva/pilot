@@ -11,8 +11,13 @@ import IconChevronDown from 'emblematic-icons/svg/ChevronDown24.svg'
 
 import style from './style.css'
 
+const getValidActiveColor = (active, color) => (
+  active
+    ? color
+    : '#fff'
+)
 const renderIndicatorArrow = (collapsed, active, color) => (
-  <span style={{ color: active ? color : '#fff' }}>
+  <span style={{ color: getValidActiveColor(active, color) }}>
     {
       collapsed
         ? <IconChevronDown width={12} height={12} />
@@ -59,13 +64,13 @@ class Event extends React.Component {
         })}
         onClick={this.handleCollapse}
         role="button"
-        style={{ backgroundColor: active ? color : '#fff' }}
+        style={{ backgroundColor: getValidActiveColor(active, color) }}
         tabIndex="0"
       >
         <header className={style.header}>
           <span
             className={style.number}
-            style={{ color: active ? color : '#fff' }}
+            style={{ color: getValidActiveColor(active, color) }}
           >
             {number}
           </span>

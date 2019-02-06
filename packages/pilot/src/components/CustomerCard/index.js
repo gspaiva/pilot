@@ -19,7 +19,7 @@ const fields = (labels, contents) => mapObjIndexed((label, key) => (
   />
 ), labels)
 
-const CustomerCard = ({ title, labels, contents }) => {
+const CustomerCard = ({ contents, labels, title }) => {
   const customer = fields(labels, contents)
 
   return (
@@ -164,8 +164,8 @@ const shape = {
   neighborhood: PropTypes.string,
   phone: PropTypes.string,
   state: PropTypes.string,
-  street_number: PropTypes.string,
   street: PropTypes.string,
+  street_number: PropTypes.string,
   zipcode: PropTypes.string,
 }
 

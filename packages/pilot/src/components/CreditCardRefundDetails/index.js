@@ -23,7 +23,7 @@ const fields = (labels, contents) => mapObjIndexed((label, key) => (
   />
 ), labels)
 
-const CreditCardRefundDetails = ({ title, labels, contents }) => {
+const CreditCardRefundDetails = ({ contents, labels, title }) => {
   const {
     amount,
     brand,

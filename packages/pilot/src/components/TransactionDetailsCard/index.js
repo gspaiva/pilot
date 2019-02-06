@@ -27,7 +27,8 @@ const objectFields = (labels, contents) => (
   ), contents)
 )
 
-const fieldsToArray = (labels, contents) => values(objectFields(labels, contents))
+const fieldsToArray = (labels, contents) =>
+  values(objectFields(labels, contents))
 
 const fieldsColumns = (labels, contents) => {
   const fields = fieldsToArray(labels, contents)
@@ -36,7 +37,7 @@ const fieldsColumns = (labels, contents) => {
 
 const composeIndex = (parentIndex, index) => `${parentIndex}_col_${index}`
 
-const TransactionDetailsCard = ({ title, labels, contents }) => (
+const TransactionDetailsCard = ({ contents, labels, title }) => (
   <Card>
     <CardTitle title={title} />
     <CardContent>
@@ -55,8 +56,7 @@ const TransactionDetailsCard = ({ title, labels, contents }) => (
                 >
                   { field }
                 </Col>
-              ))
-            )
+              )))
           }
         </Row>
       </Grid>
@@ -65,23 +65,23 @@ const TransactionDetailsCard = ({ title, labels, contents }) => (
 )
 
 const shape = {
+  acquirer_name: PropTypes.string,
+  acquirer_response_code: PropTypes.string,
+  authorization_code: PropTypes.string,
+  capture_method: PropTypes.string,
+  nsu: PropTypes.string,
+  soft_descriptor: PropTypes.string,
+  subscription_id: PropTypes.string,
   tid: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
   ]),
-  acquirer_name: PropTypes.string,
-  authorization_code: PropTypes.string,
-  acquirer_response_code: PropTypes.string,
-  nsu: PropTypes.string,
-  soft_descriptor: PropTypes.string,
-  subscription_id: PropTypes.string,
-  capture_method: PropTypes.string,
 }
 
 TransactionDetailsCard.propTypes = {
-  title: PropTypes.string.isRequired,
-  labels: PropTypes.shape(shape).isRequired,
   contents: PropTypes.shape(shape).isRequired,
+  labels: PropTypes.shape(shape).isRequired,
+  title: PropTypes.string.isRequired,
 }
 
 export default TransactionDetailsCard

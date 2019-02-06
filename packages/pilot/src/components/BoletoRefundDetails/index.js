@@ -24,11 +24,11 @@ const fields = (labels, contents) => mapObjIndexed((label, key) => (
   />
 ), labels)
 
-const BoletoRefundDetails = ({ title, labels, contents }) => {
+const BoletoRefundDetails = ({ contents, labels, title }) => {
   const {
     account,
-    accountVd,
     accountType,
+    accountVd,
     agency,
     agencyVd,
     amount,
@@ -105,8 +105,8 @@ const BoletoRefundDetails = ({ title, labels, contents }) => {
 BoletoRefundDetails.propTypes = {
   contents: PropTypes.shape({
     account: PropTypes.string.isRequired,
-    accountVd: PropTypes.string,
     accountType: PropTypes.string.isRequired,
+    accountVd: PropTypes.string,
     agency: PropTypes.string.isRequired,
     agencyVd: PropTypes.string.isRequired,
     amount: PropTypes.number.isRequired,

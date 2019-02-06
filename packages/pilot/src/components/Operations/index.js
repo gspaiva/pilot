@@ -71,8 +71,8 @@ class Operations extends PureComponent {
     const {
       columns,
       currentPage,
-      emptyMessage,
       disabled,
+      emptyMessage,
       ofLabel,
       onPageChange,
       rows,
@@ -97,7 +97,11 @@ class Operations extends PureComponent {
             rows={rows}
           />
         </CardContent>
-        <CardContent className={classNames(style.paginationBottom, style.pagination)}>
+        <CardContent className={classNames(
+            style.paginationBottom,
+            style.pagination
+          )}
+        >
           <Pagination
             currentPage={currentPage}
             disabled={disabled}
@@ -114,8 +118,8 @@ class Operations extends PureComponent {
 }
 
 const outShape = PropTypes.shape({
-  type: PropTypes.string.isRequired,
   amount: PropTypes.number.isRequired,
+  type: PropTypes.string.isRequired,
 })
 
 Operations.propTypes = {
@@ -126,9 +130,8 @@ Operations.propTypes = {
     title: PropTypes.string.isRequired,
   })).isRequired,
   currentPage: PropTypes.number.isRequired,
-  emptyMessage: PropTypes.string.isRequired,
-  onExportData: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
+  emptyMessage: PropTypes.string.isRequired,
   ofLabel: PropTypes.string.isRequired,
   onPageChange: PropTypes.func.isRequired,
   rows: PropTypes.arrayOf(PropTypes.shape({

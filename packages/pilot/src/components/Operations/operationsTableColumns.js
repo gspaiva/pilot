@@ -86,7 +86,11 @@ const renderOperationAmount = (labels, isNegative) => ({ amount, type }) => {
       className={style.outAmount}
     >
       {outType && <span>({ outType })</span>}
-      {renderValueAndOperator(isNegative ? (-absoluteAmount) : absoluteAmount)}
+      {
+        renderValueAndOperator(isNegative
+          ? -absoluteAmount
+          : absoluteAmount)
+      }
       <span>
         {outAmount}
       </span>
@@ -106,9 +110,11 @@ const renderOperationAmounts = (amounts, labels, isNegative) => {
   return map(renderOperationAmount(labels, isNegative), amounts)
 }
 
-const renderOutcoming = (amounts, labels) => renderOperationAmounts(amounts, labels)
+const renderOutcoming = (amounts, labels) =>
+  renderOperationAmounts(amounts, labels)
 
-const renderOutgoing = (amounts, labels) => renderOperationAmounts(amounts, labels, true)
+const renderOutgoing = (amounts, labels) =>
+  renderOperationAmounts(amounts, labels, true)
 
 const renderPaymentDate = (paymentDate, toolTipText) => {
   if (isNotAnticipation(paymentDate)) {
@@ -179,6 +185,5 @@ const getColumns = labels => ([
     title: 'models.operations.net',
   },
 ])
-
 
 export default getColumns

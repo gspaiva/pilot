@@ -13,8 +13,8 @@ const isText = node => typeof node === 'string'
 const Message = ({
   children,
   image,
-  title,
   message,
+  title,
 }) => (
   <div
     aria-live="polite"

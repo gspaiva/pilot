@@ -21,7 +21,8 @@ class RecipientSection extends PureComponent {
     }
     this.renderInstallmentsTable = this.renderInstallmentsTable.bind(this)
     this.renderInstallments = this.renderInstallments.bind(this)
-    this.renderSingleRecipientInstallments = this.renderSingleRecipientInstallments.bind(this)
+    this.renderSingleRecipientInstallments =
+      this.renderSingleRecipientInstallments.bind(this)
   }
 
   componentDidCatch () {
@@ -88,7 +89,11 @@ class RecipientSection extends PureComponent {
             {this.renderInstallmentsTable()}
             <CardSectionTitle
               collapsed={collapsed}
-              title={collapsed ? collapsedTitle : title}
+              title={
+                collapsed
+                  ? collapsedTitle
+                  : title
+              }
               onClick={onDetailsClick}
             />
           </CardSection>
@@ -140,22 +145,22 @@ RecipientSection.propTypes = {
   collapsed: PropTypes.bool,
   collapsedTitle: PropTypes.string,
   columns: PropTypes.arrayOf(PropTypes.shape({
-    title: PropTypes.string,
     accessor: PropTypes.arrayOf(PropTypes.string),
     orderable: PropTypes.bool,
+    title: PropTypes.string,
   })).isRequired,
   installments: PropTypes.arrayOf(PropTypes.shape({
-    number: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    status: PropTypes.string,
-    payment_date: PropTypes.instanceOf(moment),
-    original_payment_date: PropTypes.instanceOf(moment),
-    net_amount: PropTypes.number,
     costs: PropTypes.shape({
-      mdr: PropTypes.number,
       anticipation: PropTypes.number,
       chargeback: PropTypes.number,
+      mdr: PropTypes.number,
       refund: PropTypes.number,
     }),
+    net_amount: PropTypes.number,
+    number: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    original_payment_date: PropTypes.instanceOf(moment),
+    payment_date: PropTypes.instanceOf(moment),
+    status: PropTypes.string,
   })).isRequired,
   liabilities: PropTypes.arrayOf(PropTypes.string).isRequired,
   liabilitiesLabel: PropTypes.string,
@@ -178,10 +183,10 @@ RecipientSection.defaultProps = {
   liabilitiesLabel: '',
   netAmountLabel: '',
   outAmountLabel: '',
+  status: '',
   statusLabel: '',
   title: '',
   totalLabel: '',
-  status: '',
 }
 
 export default RecipientSection

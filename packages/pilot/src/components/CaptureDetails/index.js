@@ -15,9 +15,8 @@ const renderProperty = (title, value) => (
   />
 )
 
-const fields = (labels, contents) => mapObjIndexed((label, key) =>
-  renderProperty(label, contents[key]),
-labels)
+const fields = (labels, contents) =>
+  mapObjIndexed((label, key) => renderProperty(label, contents[key]), labels)
 
 const CaptureDetails = ({
   contents, labels,
@@ -60,19 +59,19 @@ const CaptureDetails = ({
 }
 
 CaptureDetails.propTypes = {
-  labels: PropTypes.shape({
-    cardBrand: PropTypes.string,
-    cardNumber: PropTypes.string,
-    customerEmail: PropTypes.string,
-    customerName: PropTypes.string,
-    installments: PropTypes.string,
-  }).isRequired,
   contents: PropTypes.shape({
     cardBrand: PropTypes.node,
     cardNumber: PropTypes.node,
     customerEmail: PropTypes.node,
     customerName: PropTypes.node,
     installments: PropTypes.node,
+  }).isRequired,
+  labels: PropTypes.shape({
+    cardBrand: PropTypes.string,
+    cardNumber: PropTypes.string,
+    customerEmail: PropTypes.string,
+    customerName: PropTypes.string,
+    installments: PropTypes.string,
   }).isRequired,
 }
 

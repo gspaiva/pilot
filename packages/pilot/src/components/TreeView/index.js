@@ -20,9 +20,9 @@ const TreeView = ({ data, title }) => (
       <Tree
         data={data}
         theme={{
+          arrowSign: () => ({ className: style.arrow }),
           tree: () => ({ className: style.tree }),
           valueText: () => ({ className: style.value }),
-          arrowSign: () => ({ className: style.arrow }),
         }}
         getItemString={() => null} // remove '[] Array' from key props on tree
         hideRoot
