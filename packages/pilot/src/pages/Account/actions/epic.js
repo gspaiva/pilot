@@ -17,9 +17,11 @@ import {
   failLogin,
   LOGIN_RECEIVE,
   LOGIN_REQUEST,
+  LOGOUT_REQUEST,
   receiveAccount,
   receiveCompany,
   receiveLogin,
+  receiveLogout,
   receiveRecipientBalance,
 } from '.'
 
@@ -143,4 +145,27 @@ const recipientBalanceEpic = (action$, store) =>
     })
     .map(receiveRecipientBalance)
 
-export default combineEpics(loginEpic, accountEpic, companyEpic, recipientBalanceEpic)
+const logoutEpic = (action$, store) =>
+  action$
+    .ofType(LOGOUT_REQUEST)
+    .mergeMap(() => {
+      const state = store.getState()
+      const {
+        account: {
+          client,
+          sessionId,
+        },
+      } = state
+
+      return client.session
+        .destroy(sessionId)
+    })
+    .map(receiveLogout)
+
+export default combineEpics(
+  loginEpic,
+  accountEpic,
+  companyEpic,
+  recipientBalanceEpic,
+  logoutEpic
+)

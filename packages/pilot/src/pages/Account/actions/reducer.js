@@ -10,7 +10,7 @@ import {
   LOGIN_FAIL,
   LOGIN_RECEIVE,
   LOGIN_REQUEST,
-  LOGOUT_REQUEST,
+  LOGOUT_RECEIVE,
   RECIPIENT_BALANCE_RECEIVE,
 } from '.'
 
@@ -72,7 +72,7 @@ export default function loginReducer (state = initialState, action) {
       )
     }
 
-    case LOGOUT_REQUEST: {
+    case LOGOUT_RECEIVE: {
       return initialState
     }
 
