@@ -3,10 +3,13 @@ import {
   identity,
   pathOr,
 } from 'ramda'
-import 'rxjs/add/operator/do'
-import 'rxjs/add/operator/mergeMap'
-import 'rxjs/add/operator/map'
-import { combineEpics } from 'redux-observable'
+import {
+  map,
+  mergeMap,
+  onErrorResumeNext,
+  tap,
+} from 'rxjs/operators'
+import { combineEpics, ofType } from 'redux-observable'
 import cockpit from 'cockpit'
 import env from '../../../environment'
 import identifyUser from '../../../vendor/identifyUser'
@@ -32,135 +35,147 @@ const getRecipientId = pathOr(null, ['account', 'company', 'default_recipient_id
 
 const loginEpic = action$ =>
   action$
-    .ofType(LOGIN_REQUEST)
-    .mergeMap(action => (
-      pagarme.client.connect(action.payload)
+    .pipe(
+      ofType(LOGIN_REQUEST),
+      mergeMap(action => pagarme.client.connect(action.payload)
         .then(cockpit)
         .then(receiveLogin)
         .catch((error) => {
           try {
+            // eslint-disable-next-line no-undef
             localStorage.removeItem('redux_localstorage_simple_account.sessionId')
           } catch (err) {
             console.warn(err.message) //eslint-disable-line
           }
           return failLogin(error)
-        })
-    ))
+        }))
+    )
 
 const accountEpic = action$ =>
   action$
-    .ofType(LOGIN_RECEIVE)
-    .mergeMap((action) => {
-      const { error, payload: client } = action
+    .pipe(
+      ofType(LOGIN_RECEIVE),
+      mergeMap((action) => {
+        const { error, payload: client } = action
 
-      if (error) {
-        return Promise.resolve(action.payload)
-      }
+        if (error) {
+          return Promise.resolve(action.payload)
+        }
 
-      return client.user.current().catch(identity)
-    })
-    .map(receiveAccount)
-    .do(({ error, payload }) => {
-      if (error) {
-        return
-      }
+        return client.user.current().catch(identity)
+      }),
+      map(receiveAccount),
+      tap(({ error, payload }) => {
+        if (error) {
+          return
+        }
 
-      const {
-        date_created: dateCreated,
-        email,
-        id,
-        name,
-        permission,
-      } = payload
+        const {
+          date_created: dateCreated,
+          email,
+          id,
+          name,
+          permission,
+        } = payload
 
-      identifyUser(
-        id,
-        email,
-        name,
-        dateCreated,
-        permission,
-        env
-      )
-    })
+        identifyUser(
+          id,
+          email,
+          name,
+          dateCreated,
+          permission,
+          env
+        )
+      })
+    )
 
-const companyEpic = (action$, store) =>
+const companyEpic = (action$, state$) =>
   action$
-    .ofType(ACCOUNT_RECEIVE)
-    .mergeMap(({ error, payload }) => {
-      const { account: { client } } = store.getState()
-      if (error) {
-        return Promise.resolve(payload)
-      }
-      return client.company.current().catch(identity)
-    })
-    .map(receiveCompany)
-    .do(({ error, payload }) => {
-      if (error) {
-        return
-      }
+    .pipe(
+      ofType(ACCOUNT_RECEIVE),
+      mergeMap(({ error, payload }) => {
+        const { value: state } = state$
+        const { account: { client } } = state
 
-      const {
-        date_created: dateCreated,
-        id,
-        name,
-        status,
-      } = payload
+        if (error) {
+          return Promise.resolve(payload)
+        }
 
-      const {
-        account: {
-          user: {
-            id: userId,
+        return client.company.current().catch(identity)
+      }),
+      map(receiveCompany),
+      onErrorResumeNext(tap(({ error, payload }) => {
+        if (error) {
+          return
+        }
+        const { value: state } = state$
+        const {
+          dateCreated,
+          id,
+          name,
+          status,
+        } = payload
+
+        const {
+          account: {
+            user: {
+              id: userId,
+            },
           },
-        },
-      } = store.getState()
+        } = state
 
-      setCompany(
-        id,
-        name,
-        dateCreated,
-        status,
-        userId
-      )
+        setCompany(
+          id,
+          name,
+          dateCreated,
+          status,
+          userId
+        )
 
-      if (status === 'active') {
-        activeCompanyLogin()
-      } else {
-        inactiveCompanyLogin()
-      }
-    })
+        if (status === 'active') {
+          activeCompanyLogin()
+        } else {
+          inactiveCompanyLogin()
+        }
+      }))
+    )
 
-const recipientBalanceEpic = (action$, store) =>
+const recipientBalanceEpic = (action$, state$) =>
   action$
-    .ofType(COMPANY_RECEIVE, WITHDRAW_RECEIVE)
-    .mergeMap(({ error, payload }) => {
-      const state = store.getState()
-      const recipientId = getRecipientId(state)
-      const { account: { client } } = state
+    .pipe(
+      ofType(COMPANY_RECEIVE, WITHDRAW_RECEIVE),
+      mergeMap(({ error, payload }) => {
+        const state = state$.value
+        const recipientId = getRecipientId(state)
+        const { account: { client } } = state
 
-      if (error) {
-        return Promise.resolve(payload)
-      }
+        if (error) {
+          return Promise.resolve(payload)
+        }
 
-      return client.recipient.balance(recipientId).catch(identity)
-    })
-    .map(receiveRecipientBalance)
+        return client.recipient.balance(recipientId).catch(identity)
+      }),
+      map(receiveRecipientBalance)
+    )
 
-const logoutEpic = (action$, store) =>
+const logoutEpic = (action$, state$) =>
   action$
-    .ofType(LOGOUT_REQUEST)
-    .mergeMap(() => {
-      const state = store.getState()
-      const {
-        account: {
-          client,
-          sessionId,
-        },
-      } = state
+    .pipe(
+      ofType(LOGOUT_REQUEST),
+      mergeMap(() => {
+        const state = state$.value
+        const {
+          account: {
+            client,
+            sessionId,
+          },
+        } = state
 
-      return client.session
-        .destroy(sessionId)
-    })
-    .map(receiveLogout)
+        return client.session
+          .destroy(sessionId)
+      }),
+      map(receiveLogout)
+    )
 
 export default combineEpics(
   loginEpic,
