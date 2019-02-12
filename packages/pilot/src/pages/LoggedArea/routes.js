@@ -11,16 +11,11 @@ import Withdraw from '../Withdraw'
 import Anticipation from '../Anticipation'
 
 export default {
-  anticipationRoot: {
+  anticipation: {
     component: Anticipation,
     exact: true,
     hidden: true,
     icon: Balance32,
-    path: '/anticipation',
-    title: 'pages.anticipation.title',
-  },
-  anticipation: {
-    hidden: true,
     path: '/anticipation/:id?',
     title: 'pages.anticipation.title',
   },
