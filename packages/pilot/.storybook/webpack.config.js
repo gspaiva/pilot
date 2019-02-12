@@ -62,7 +62,7 @@ module.exports = {
             loader: require.resolve('css-loader'),
             options: {
               importLoaders: 1,
-              modules: 1,
+              modules: true,
               localIdentName: '[path]-[name]-[local]',
             },
           },
@@ -128,12 +128,18 @@ module.exports = {
             },
           },
           {
-            loader: require.resolve('svgr/webpack'),
+            loader: require.resolve('@svgr/webpack'),
             options: {
-              replaceAttrValues: [
-                ['#000', 'currentColor'],
-                ['#000000;', 'currentColor'],
-              ],
+              replaceAttrValues: {
+                '#000': 'currentColor',
+                '#000000;': 'currentColor',
+              },
+              svgoConfig: {
+                plugins: {
+                  removeViewBox: false,
+                },
+              },
+              titleProp: true,
             },
           },
         ],
