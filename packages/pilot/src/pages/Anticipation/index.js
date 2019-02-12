@@ -273,7 +273,7 @@ class Anticipation extends Component {
     this.getAnticipationLimits = this.getAnticipationLimits.bind(this)
     this.getTransferCost = this.getTransferCost.bind(this)
     this.goTo = this.goTo.bind(this)
-    this.goToBalance = this.goToBalance.bind(this)
+    this.goBack = this.goBack.bind(this)
     this.handleCalculateSubmit = this.handleCalculateSubmit.bind(this)
     this.handleConfirmationConfirm = this.handleConfirmationConfirm.bind(this)
     this.handleDateChange = this.handleDateChange.bind(this)
@@ -539,17 +539,9 @@ class Anticipation extends Component {
     })
   }
 
-  goToBalance () {
-    const {
-      recipient: {
-        id,
-      },
-    } = this.state
-
-    const {
-      history,
-    } = this.props
-    history.push(`/balance/${id}`)
+  goBack () {
+    const { history } = this.props
+    history.goBack()
   }
 
   destroyBulk () {
@@ -765,7 +757,7 @@ class Anticipation extends Component {
             maximum={maxValue}
             minimum={minValue}
             onCalculateSubmit={this.handleCalculateSubmit}
-            onCancel={this.goToBalance}
+            onCancel={this.goBack}
             onConfirmationConfirm={this.handleConfirmationConfirm}
             onConfirmationReturn={() => this.goTo('data', 'current')}
             onDataConfirm={() => this.goTo('confirmation', 'current')}
@@ -773,7 +765,7 @@ class Anticipation extends Component {
             onFormChange={this.handleFormChange}
             onTimeframeChange={this.handleTimeframeChange}
             onTryAgain={() => this.goTo('data', 'current')}
-            onViewStatement={this.goToBalance}
+            onViewStatement={this.goBack}
             recalculationNeeded={recalculationNeeded}
             recipient={recipient}
             requested={requestedAmount}
