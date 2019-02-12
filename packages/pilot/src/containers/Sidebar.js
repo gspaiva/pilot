@@ -136,6 +136,7 @@ class SidebarContainer extends React.Component {
             icon: Icon,
             path,
             title,
+            exact,
           }) => (
             <SidebarLink
               key={path}
@@ -143,7 +144,7 @@ class SidebarContainer extends React.Component {
               active={active}
               icon={<Icon width={16} height={16} />}
               collapsed={collapsed}
-              onClick={() => onLinkClick(path)}
+              onClick={() => onLinkClick({ active, exact, path })}
             />
           )
         )}
