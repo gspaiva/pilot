@@ -3,7 +3,7 @@ image: ubuntu:16.04
 jobs:
   build:
     docker:
-      - image: node:9
+      - image: circleci/node:10.15.1-jessie-browsers
 
     working_directory: ~/repo
 
@@ -41,7 +41,7 @@ jobs:
           key: dependencies-{{ checksum "yarn.lock" }}
   build_stg:
     docker:
-      - image: node:9
+      - image: circleci/node:10.15.1-jessie-browsers
 
     working_directory: ~/repo
 
@@ -110,7 +110,7 @@ jobs:
             - builds
   build_prd:
     docker:
-      - image: node:9
+      - image: circleci/node:10.15.1-jessie-browsers
 
     working_directory: ~/repo
 
