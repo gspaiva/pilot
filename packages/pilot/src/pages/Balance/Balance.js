@@ -511,6 +511,7 @@ class Balance extends Component {
 
     const isEmptyResult = isNilOrEmpty(this.state.result.search)
     const hasDefaultRecipient = !isNilOrEmpty(getRecipientId(company))
+    const hasCompany = !isNil(company)
 
     if (error) {
       return (
@@ -529,7 +530,7 @@ class Balance extends Component {
       )
     }
 
-    if (!hasDefaultRecipient && !isNil(company)) {
+    if (!hasDefaultRecipient && hasCompany) {
       return (
         <Alert
           icon={<IconInfo height={16} width={16} />}
@@ -540,7 +541,7 @@ class Balance extends Component {
       )
     }
 
-    if (!isEmptyResult) {
+    if (!isEmptyResult && hasCompany) {
       return (
         <BalanceContainer
           anticipation={anticipation}
