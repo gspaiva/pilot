@@ -269,7 +269,6 @@ class IdentificationStep extends Component {
           mask={masks.cpf}
           name="cpf"
           onChange={this.onChangeWithMask}
-          size={35}
         />
       )
     }
@@ -281,7 +280,6 @@ class IdentificationStep extends Component {
         mask={masks.cnpj}
         name="cnpj"
         onChange={this.onChangeWithMask}
-        size={35}
       />
     )
   }
@@ -343,14 +341,12 @@ class IdentificationStep extends Component {
                   : t('pages.add_recipient.company_name')
               }
               name={`${documentType}Name`}
-              size={35}
             />
           </Col>
           <Col>
             <FormInput
               label={t('pages.add_recipient.email')}
               name={`${documentType}Email`}
-              size={35}
             />
           </Col>
         </Row>
@@ -359,7 +355,6 @@ class IdentificationStep extends Component {
             <FormInput
               label={t('pages.add_recipient.optional_url')}
               name={`${documentType}Url`}
-              size={35}
             />
           </Col>
           <Col>
@@ -369,7 +364,6 @@ class IdentificationStep extends Component {
               mask={masks.phone}
               name={`${documentType}Phone`}
               onChange={this.onChangeWithMask}
-              size={35}
             />
           </Col>
         </Row>
@@ -393,7 +387,6 @@ class IdentificationStep extends Component {
               <FormInput
                 label={t('pages.add_recipient.name')}
                 name="name"
-                size={35}
               />
             </Col>
             <Col>
@@ -403,7 +396,6 @@ class IdentificationStep extends Component {
                 name="cpf"
                 onChange={event =>
                   this.onChangeWithMask(event, `partner${partnerIndex}`)}
-                size={35}
               />
             </Col>
             <Col>
@@ -412,7 +404,6 @@ class IdentificationStep extends Component {
                 name="email"
                 onChange={event =>
                   this.onChangeWithMask(event, `partner${partnerIndex}`)}
-                size={35}
               />
             </Col>
           </Row>
