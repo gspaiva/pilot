@@ -285,6 +285,7 @@ class Balance extends Component {
           id: newRecipientId,
         },
       },
+      company,
     } = this.props
 
     if (oldSearch !== newSearch) {
@@ -293,6 +294,15 @@ class Balance extends Component {
     }
     if (oldRecipientId !== newRecipientId) {
       this.requestAnticipationLimits(newRecipientId)
+    }
+    if (
+      !oldSearch
+      && !newSearch
+      && company
+      && company.default_recipient_id
+    ) {
+      const pathId = getValidId(getRecipientId(company), null)
+      this.updateQuery(this.state.query, pathId)
     }
   }
 
@@ -582,8 +592,8 @@ Balance.propTypes = {
   }).isRequired,
   company: PropTypes.shape({
     default_recipient_id: PropTypes.shape({
-      live: PropTypes.string.isRequired,
-      test: PropTypes.string.isRequired,
+      live: PropTypes.string,
+      test: PropTypes.string,
     }).isRequired,
   }),
   error: PropTypes.shape({
@@ -604,7 +614,7 @@ Balance.propTypes = {
   }).isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
-      id: PropTypes.string.isRequired,
+      id: PropTypes.string,
     }).isRequired,
   }).isRequired,
   onReceiveBalance: PropTypes.func.isRequired,

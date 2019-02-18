@@ -62,7 +62,7 @@ const LoggedArea = ({
           component={component}
         />
       ))}
-      <Redirect to={routes.transactions.path} />
+      <Redirect to={recipientId ? `/balance/${recipientId}` : '/balance/'} />
     </Switch>
   </Layout>
 )
