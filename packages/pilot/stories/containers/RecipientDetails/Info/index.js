@@ -46,24 +46,11 @@ const identification = {
   },
 }
 
-const configuration = {
-  anticipationModel: 'Automática por volume',
-  anticipationVolumePercentage: '50',
-  anticipationDays: '',
-  transferEnabled: true,
-  transferInterval: 'Mensal',
-  transferDay: '5',
-  transferWeekday: 'Terça-feira',
-}
-
-const bankAccount = {
-  agency_digit: '',
-  agency: '1111',
-  bank: '001',
-  name: 'Conta Bancária',
-  number_digit: '1',
-  number: '11111',
-  type: 'conta_corrente',
+const metadata = {
+  custom: 'custom data',
+  fields: {
+    abc: '123',
+  },
 }
 
 const RecipientDetailInfoExample = () => (
@@ -71,8 +58,7 @@ const RecipientDetailInfoExample = () => (
     <Card>
       <RecipientDetailInfo
         identification={identification}
-        configuration={configuration}
-        bankAccount={bankAccount}
+        metadata={metadata}
         t={t => t}
       />
     </Card>
