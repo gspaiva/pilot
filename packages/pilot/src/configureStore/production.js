@@ -1,6 +1,7 @@
 import {
   applyMiddleware,
   createStore,
+  compose,
 } from 'redux'
 import {
   save,
@@ -14,13 +15,15 @@ import states from './states'
 
 const epicMiddleware = createEpicMiddleware()
 
+const enhancers = compose(applyMiddleware(
+  createEpicMiddleware(rootEpic),
+  save({ states })
+))
+
 const store = createStore(
   rootReducer,
   load({ states }),
-  applyMiddleware(
-    createEpicMiddleware(rootEpic),
-    save({ states })
-  )
+  enhancers
 )
 
 epicMiddleware.run(rootEpic)
