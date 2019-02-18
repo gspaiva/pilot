@@ -264,26 +264,35 @@ class Balance extends Component {
     }
   }
 
-  componentWillReceiveProps (nextProps) {
+  componentDidUpdate (prevProps) {
     const {
-      location: { search },
+      location: {
+        search: oldSearch,
+      },
       match: {
         params: {
-          id: currentId,
+          id: oldRecipientId,
+        },
+      },
+    } = prevProps
+
+    const {
+      location: {
+        search: newSearch,
+      },
+      match: {
+        params: {
+          id: newRecipientId,
         },
       },
     } = this.props
-    const {
-      match: { params },
-      location,
-    } = nextProps
 
-    if (search !== location.search) {
-      this.requestData(params.id, parseQueryUrl(location.search))
-      this.requestTotal(params.id, parseQueryUrl(location.search))
+    if (oldSearch !== newSearch) {
+      this.requestData(newRecipientId, parseQueryUrl(newSearch))
+      this.requestTotal(newRecipientId, parseQueryUrl(newSearch))
     }
-    if (currentId !== params.id) {
-      this.requestAnticipationLimits(params.id)
+    if (oldRecipientId !== newRecipientId) {
+      this.requestAnticipationLimits(newRecipientId)
     }
   }
 
