@@ -384,10 +384,13 @@ class DetailRecipientPage extends Component {
       companyData,
     } = recipientData
 
+    const { transferEnabled } = configurationData.transfer
+
     const anticipation = {
       available: anticipationLimit,
       error,
       loading,
+      automaticTransfer: transferEnabled,
     }
 
     return (
