@@ -8,16 +8,19 @@ const mockAccounts = [
   {
     name: 'First account',
     number: '0001',
+    number_digit: '1',
     type: 'conta_corrente',
-    agency: '7',
+    agency: '777',
     bank: '340',
     id: '1',
   },
   {
     name: 'Second account',
     number: '0002',
+    number_digit: '2',
     type: 'conta_corrente',
-    agency: '8',
+    agency: '888',
+    agency_digit: '1',
     bank: '340',
     id: '2',
   },
@@ -37,7 +40,6 @@ const mockTransfer = {
 }
 
 const mockBankAccount = {
-  agency_digit: '',
   agency: '1111',
   bank: '001',
   id: '1',

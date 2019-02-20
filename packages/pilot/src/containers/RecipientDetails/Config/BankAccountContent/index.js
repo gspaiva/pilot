@@ -29,10 +29,27 @@ import {
 
 const hasItems = complement(either(isEmpty, isNil))
 
-const toDropdownOptions = account => ({
-  name: `${account.name} - ${account.bank} - ${account.agency} - ${account.number}`,
-  value: account.id,
-})
+const toDropdownOptions = (account) => {
+  const {
+    name,
+    bank,
+    agency,
+    agency_digit: agencyDigit,
+    number,
+    number_digit: numberDigit,
+  } = account
+
+  const accountNumber = `${number}-${numberDigit}`
+
+  const agencyNumber = (agencyDigit)
+    ? `${agency}-${agencyDigit}`
+    : agency
+
+  return {
+    name: `${name} - ${bank} - ${agencyNumber} - ${accountNumber}`,
+    value: account.id,
+  }
+}
 
 class BankAccountContent extends Component {
   constructor (props) {
