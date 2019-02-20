@@ -20,6 +20,8 @@ import createRequiredValidation from '../../../validation/required'
 import createBetweenValidation from '../../../validation/between'
 import createLessThanValidation from '../../../validation/lessThan'
 
+import HelpModal from '../../RecipientDetails/Config/HelpModal'
+
 import style from './style.css'
 
 class ConfigurationsStep extends Component {
@@ -32,6 +34,7 @@ class ConfigurationsStep extends Component {
         anticipationModel: 'manual',
         anticipationVolumePercentage: '100',
         transferDay: '5',
+        openHelpModal: false,
         transferEnabled: false,
         transferInterval: 'daily',
         transferWeekday: 'monday',
@@ -42,6 +45,8 @@ class ConfigurationsStep extends Component {
     this.onFormChange = this.onFormChange.bind(this)
     this.onFormSubmit = this.onFormSubmit.bind(this)
     this.transferHandler = this.transferHandler.bind(this)
+    this.handleOpenHelpModal = this.handleOpenHelpModal.bind(this)
+    this.handleCloseHelpModal = this.handleCloseHelpModal.bind(this)
   }
 
   onFormSubmit (formData, formErrors) {
@@ -65,6 +70,14 @@ class ConfigurationsStep extends Component {
     })
   }
 
+  handleOpenHelpModal () {
+    this.setState({ openHelpModal: true })
+  }
+
+  handleCloseHelpModal () {
+    this.setState({ openHelpModal: false })
+  }
+
   render () {
     const {
       canConfigureAnticipation,
@@ -75,6 +88,8 @@ class ConfigurationsStep extends Component {
       onCancel,
       t,
     } = this.props
+
+    const { openHelpModal } = this.state
 
     const { formData: data } = this.state
     const { transferHandler } = this
@@ -109,75 +124,83 @@ class ConfigurationsStep extends Component {
     )
 
     return (
-      <Form
-        data={data}
-        errors={errors}
-        onChange={this.onFormChange}
-        onSubmit={this.onFormSubmit}
-        validateOn="blur"
-        validation={{
-          anticipationDays: [required, isNumber, atLeastMinimumDays],
-          anticipationModel: [required],
-          anticipationVolumePercentage: [required, isNumber, between1and100],
-          transferDay: [required, isNumber],
-          transferEnabled: [required],
-          transferInterval: [required],
-          transferWeekday: [required],
-        }}
-      >
-        <CardContent>
-          <Grid>
-            <Row>
-              <Col tv={12} desk={12} tablet={12} palm={12}>
-                <h2 className={style.title}>
-                  {t('pages.add_recipient.anticipation_configuration')}
-                </h2>
-                <div className={style.alignItems}>
-                  <h3 className={style.subtitle}>
-                    {t('pages.add_recipient.choose_anticipation_model')}
-                  </h3>
-                  <Spacing size="medium" />
-                  {helpBtn}
-                </div>
-              </Col>
-              {
-                Anticipation({
-                  canConfigureAnticipation,
-                  data,
-                  maximumAnticipationDays,
-                  t,
-                })
-              }
-            </Row>
-            <h2 className={style.title}>
-              {t('pages.add_recipient.transfer_configuration')}
-            </h2>
-            { Transfer({ data, t, transferHandler }) }
-          </Grid>
-        </CardContent>
-        <CardActions>
-          <Button
-            fill="outline"
-            onClick={onCancel}
-            relevance="low"
-          >
-            {t('pages.add_recipient.cancel')}
-          </Button>
-          <Spacing />
-          <Button
-            fill="outline"
-            onClick={onBack}
-          >
-            {t('pages.add_recipient.back')}
-          </Button>
-          <Button
-            fill="gradient"
-            type="submit"
-          >
-            {t('pages.add_recipient.continue')}
-          </Button>
-        </CardActions>
-      </Form>
+      <div>
+        <Form
+          data={data}
+          errors={errors}
+          onChange={this.onFormChange}
+          onSubmit={this.onFormSubmit}
+          validateOn="blur"
+          validation={{
+            anticipationDays: [required, isNumber, atLeastMinimumDays],
+            anticipationModel: [required],
+            anticipationVolumePercentage: [required, isNumber, between1and100],
+            transferDay: [required, isNumber],
+            transferEnabled: [required],
+            transferInterval: [required],
+            transferWeekday: [required],
+          }}
+        >
+          <CardContent>
+            <Grid>
+              <Row>
+                <Col tv={12} desk={12} tablet={12} palm={12}>
+                  <h2 className={style.title}>
+                    {t('pages.add_recipient.anticipation_configuration')}
+                  </h2>
+                  <div className={style.alignItems}>
+                    <h3 className={style.subtitle}>
+                      {t('pages.add_recipient.choose_anticipation_model')}
+                    </h3>
+                    <Spacing size="medium" />
+                    {helpBtn}
+                  </div>
+                </Col>
+                {
+                  Anticipation({
+                    canConfigureAnticipation,
+                    data,
+                    maximumAnticipationDays,
+                    t,
+                  })
+                }
+              </Row>
+              <h2 className={style.title}>
+                {t('pages.add_recipient.transfer_configuration')}
+              </h2>
+              { Transfer({ data, t, transferHandler }) }
+            </Grid>
+          </CardContent>
+          <CardActions>
+            <Button
+              fill="outline"
+              onClick={onCancel}
+              relevance="low"
+            >
+              {t('pages.add_recipient.cancel')}
+            </Button>
+            <Spacing />
+            <Button
+              fill="outline"
+              onClick={onBack}
+            >
+              {t('pages.add_recipient.back')}
+            </Button>
+            <Button
+              fill="gradient"
+              type="submit"
+            >
+              {t('pages.add_recipient.continue')}
+            </Button>
+          </CardActions>
+        </Form>
+        <HelpModal
+          isOpen={openHelpModal}
+          onExit={this.handleCloseHelpModal}
+          title={t('pages.recipient_detail.help_title')}
+          t={t}
+        />
+      </div>
     )
   }
 }

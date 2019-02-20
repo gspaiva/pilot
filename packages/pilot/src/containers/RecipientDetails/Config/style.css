@@ -12,3 +12,30 @@
  .marginLeft {
   margin-left: var(--spacing-small);
 }
+
+.marginBottomforModal {
+  margin-bottom: var(--spacing-large);
+}
+
+.textColor {
+  color: var(--color-light-steel-50);
+}
+
+.justifyContent {
+  display: block;
+  justify-content: flex-end;
+}
+
+.imgSize {
+  width: 250px;
+}
+
+.modalWidth {
+  width: 800px;
+}
+
+.modalHeight {
+  overflow-y: auto;
+  height: 600px;
+}
+
