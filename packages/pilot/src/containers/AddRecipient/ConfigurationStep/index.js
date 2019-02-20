@@ -97,6 +97,17 @@ class ConfigurationsStep extends Component {
     const atLeastMinimumDays =
       createLessThanValidation(minimumAnticipationDelay, atLeastMessage)
 
+    const helpBtn = (
+      <Button
+        type="button"
+        size="tiny"
+        fill="outline"
+        onClick={this.handleOpenHelpModal}
+      >
+        {t('pages.recipient_detail.help')}
+      </Button>
+    )
+
     return (
       <Form
         data={data}
@@ -121,9 +132,13 @@ class ConfigurationsStep extends Component {
                 <h2 className={style.title}>
                   {t('pages.add_recipient.anticipation_configuration')}
                 </h2>
-                <h3 className={style.subtitle}>
-                  {t('pages.add_recipient.choose_anticipation_model')}
-                </h3>
+                <div className={style.alignItems}>
+                  <h3 className={style.subtitle}>
+                    {t('pages.add_recipient.choose_anticipation_model')}
+                  </h3>
+                  <Spacing size="medium" />
+                  {helpBtn}
+                </div>
               </Col>
               {
                 Anticipation({
