@@ -194,6 +194,7 @@ class RecipientBalance extends Component {
         available,
         error,
         loading,
+        automaticTransfer,
       },
       t,
     } = this.props
@@ -221,6 +222,24 @@ class RecipientBalance extends Component {
       )
     }
 
+    if (available === 0) {
+      return (
+        <span>
+          {t('pages.balance.no_anticipation')}
+        </span>
+      )
+    }
+
+    if (automaticTransfer) {
+      return (
+        <div>
+          <p>{t('pages.balance.automatic_anticipation')}</p>
+          <span>{t('pages.balance.available_anticipation')}</span>
+          <strong> {formatAmount(available)} </strong>
+        </div>
+      )
+    }
+
     return (
       <span>
         {t('pages.balance.available_anticipation')}
@@ -234,6 +253,7 @@ class RecipientBalance extends Component {
       anticipation: {
         error: anticipationError,
         loading: anticipationLoading,
+        available: availableAnticipation,
       },
       balance: {
         amount,
@@ -271,6 +291,13 @@ class RecipientBalance extends Component {
 
     const filterDatesEqualCurrent = datesEqual(this.state.dates, dates)
 
+    const shouldDisableAnticipation = (
+      disabled ||
+      anticipationLoading ||
+      anticipationError ||
+      availableAnticipation === 0
+    )
+
     return (
       <CardContent>
         <Grid>
@@ -307,7 +334,7 @@ class RecipientBalance extends Component {
                   action={isNil(onAnticipationClick) ? null : anticipationAction}
                   amount={formatAmount(outcoming)}
                   detail={this.renderAnticipation()}
-                  disabled={disabled || anticipationLoading || anticipationError}
+                  disabled={shouldDisableAnticipation}
                   title={t('pages.balance.anticipation_title')}
                 />
               </CardSection>
