@@ -427,7 +427,9 @@ class Balance extends Component {
     const endDate = query.dates.end.format('x')
 
     const recipientId = getRecipientId(company)
-    return client.balanceOperations
+    return client
+      .withVersion('2019-02-18')
+      .balanceOperations
       .find({
         endDate,
         format,
